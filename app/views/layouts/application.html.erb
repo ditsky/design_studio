@@ -10,6 +10,24 @@
   </head>
 
   <body>
+  <header class="navbar navbar-expand-lg navbar-dark navbar-custom">
+      <div class="container">
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Home", root_url, class: "nav-link" %></li>
+            <% if !logged_in? %>
+              <li><%= link_to "Login", login_path, class:"nav-link"%>
+              <li><%= link_to "Sign Up", new_user_path, class: "nav-link" %></li>
+            <% else %>
+              <li><%= link_to "Logout", logout_path, class: "nav-link" %></li>
+            <% end %>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

@@ -1,0 +1,10 @@
+<h1>Login</h1>
+<%= form_with(url: login_path, method: "post", scope: :session, local: true) do %>
+    <%= label_tag(:email, "email") %>
+    <%= text_field_tag(:email) %>
+    <%= label_tag(:password, "password") %>
+    <%= text_field_tag(:password) %>
+    <br> <br>
+    <%= submit_tag("Login") %>
+<% end %>
+<p>New user? <%= link_to "Sign up now!", new_user_path %></p>
