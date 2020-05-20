@@ -48,10 +48,8 @@ class PasswordResetsController < ApplicationController
 
     # Confirms a valid user.
     def valid_user
-      puts "CHECKS : \n\n\n"
-      puts @user.inspect
-      puts @user.activated?.inspect
-      puts @user.authenticated?(:reset, params[:id]).inspect
+      puts "\n\n\nCHECKS : "
+      puts params[:id].inspect
       puts "\n\n\n"
       unless (@user && @user.activated? &&
               @user.authenticated?(:reset, params[:id]))
