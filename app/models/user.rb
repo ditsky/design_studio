@@ -39,7 +39,6 @@ class User < ApplicationRecord
      # Sets the password reset attributes.
     def create_reset_digest
         self.reset_token = User.new_token
-        puts "token: " + self.reset_token.inspect
         update_attribute(:reset_digest,  User.digest(reset_token))
         update_attribute(:reset_sent_at, Time.zone.now)
     end
@@ -67,9 +66,7 @@ class User < ApplicationRecord
 
     # Returns true if the given token matches the digest.
     def authenticated?(attribute, token)
-        puts "AUthenticating: " + token.inspect
         digest = send("#{attribute}_digest")
-        puts "\n\n\nDIGEST: " + digest.inspect + "\n\n\n"
         return false if digest.nil?
         BCrypt::Password.new(digest).is_password?(token)
     end
