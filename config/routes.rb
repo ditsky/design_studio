@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'birthday', to: 'cards#birthday'
   get 'anniversary', to: 'cards#anniversary'
   get 'sympathy', to: 'cards#sympathy'
+  get 'shop', to: 'cards#shop'
   #root 'cards#home'
 
 
