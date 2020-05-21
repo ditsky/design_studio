@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   #Cards controller
   #get "/cards/:card" => "cards#show"
 
@@ -8,6 +9,10 @@ Rails.application.routes.draw do
   get 'anniversary', to: 'cards#anniversary'
   get 'sympathy', to: 'cards#sympathy'
   #root 'cards#home'
+
+
+  get 'password_resets/new'
+  get 'password_resets/edit'
 
   #Sessions controller
   get 'login', to: 'sessions#new'
@@ -20,4 +25,6 @@ Rails.application.routes.draw do
 
   #Resources:
   resources :users
+  resources :account_activations, only: [:edit]
+  resources :password_resets,     only: [:new, :create, :edit, :update]
 end
