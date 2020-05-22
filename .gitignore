@@ -5,7 +5,7 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 #Ignore database.yml to work with windows developer
-/config/database.yml
+config/database.yml
 
 # Ignore bundler config.
 /.bundle
