@@ -1,8 +1,17 @@
 Rails.application.routes.draw do
 
-  resources :cards
+
+  #Cards controller
+  get 'birthday', to: 'cards#birthday'
+  get 'anniversary', to: 'cards#anniversary'
+  get 'sympathy', to: 'cards#sympathy'
+  get 'shop', to: 'cards#shop'
+  #root 'cards#home'
+
+
   get 'password_resets/new'
   get 'password_resets/edit'
+
   #Sessions controller
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
@@ -16,4 +25,5 @@ Rails.application.routes.draw do
   resources :users
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
+  resources :cards
 end

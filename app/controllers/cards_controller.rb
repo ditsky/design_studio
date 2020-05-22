@@ -1,6 +1,22 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy]
 
+  def birthday
+  	@occasion = "birthday"
+  end
+
+  def anniversary
+  	@occasion = "anniverasry"
+  end
+
+  def sympathy
+  	@occasion = "sympathy"
+  end
+
+  def shop
+  	@occasion = "yeetuss"
+  end 
+
   # GET /cards
   # GET /cards.json
   def index
