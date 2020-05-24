@@ -4,7 +4,7 @@
 
 <p>make four buttons here, depending on which one they click pass that</p>
 
-<li><%= link_to "birthday", birthday_path, class:"nav-link"%>
-<li><%= link_to "Sympathy", sympathy_path, class:"nav-link"%>		
-<li><%= link_to "anniv", anniversary_path, class:"nav-link"%>
-<li><%= link_to "blank", shop_path, class:"nav-link"%>
+<li><%= link_to "birthday", cards_path(content: "birthday"), class:"nav-link"%>
+<li><%= link_to "Sympathy", cards_path(content: "sympathy"), class:"nav-link"%>		
+<li><%= link_to "thank you", cards_path(content: "thank you"), class:"nav-link"%>
+<li><%= link_to "blank", cards_path(content: "blank"), class:"nav-link"%>

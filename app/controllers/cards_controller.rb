@@ -1,26 +1,13 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy]
 
-  def birthday
-  	@occasion = "birthday"
-  end
-
-  def anniversary
-  	@occasion = "anniverasry"
-  end
-
-  def sympathy
-  	@occasion = "sympathy"
-  end
-
-  def shop
-  	@occasion = "yeetuss"
-  end 
-
   # GET /cards
   # GET /cards.json
   def index
     @cards = Card.all
+    filter_params(params).each do |key, value|
+      @cards = @cards.public_send("filter_by_#{key}", value) if value.present?
+    end
   end
 
   # GET /cards/1
@@ -85,6 +72,11 @@ class CardsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def card_params
-      params.require(:card).permit(:content, :card_type, :painted, :hand_cut)
+      params.require(:card).permit(:content, :card_type, :painted, :hand_cut, :filter)
+    end
+
+    #Allows the filter paramter namespace to be optional in the URL
+    def filter_params(params)
+      params.slice(:content, :card_type, :painted, :hand_cut)
     end
 end
