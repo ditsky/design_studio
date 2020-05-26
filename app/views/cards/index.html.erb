@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Image</th>
       <th>Content</th>
       <th>Card type</th>
       <th>Painted</th>
@@ -16,6 +17,7 @@
   <tbody>
     <% @cards.each do |card| %>
       <tr>
+        <td> <img src= <%= card.img %> height=100px width=100px/>  </td>
         <td><%= card.content %></td>
         <td><%= card.card_type %></td>
         <td><%= card.painted %></td>
