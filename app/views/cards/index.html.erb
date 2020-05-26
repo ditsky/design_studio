@@ -23,6 +23,7 @@
         <td><%= link_to 'Show', card %></td>
         <td><%= link_to 'Edit', edit_card_path(card) %></td>
         <td><%= link_to 'Destroy', card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Add to cart', selections_path(selection: {shopping_cart_id: current_cart, card_id: card.id}), method: :post %></td>
       </tr>
     <% end %>
   </tbody>

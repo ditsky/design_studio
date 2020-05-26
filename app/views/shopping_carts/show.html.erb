@@ -1,0 +1,9 @@
+<p>
+  <strong>Selected Items:</strong>
+  <% @cart.cards.each do |card| %>
+    <p> <%= card.content %> <%= link_to "Remove", selection_path(get_selection(@cart, card)), method: :delete%> </p>
+  <% end %>
+
+</p>
+
+<%= link_to 'Clear', "#" %> |

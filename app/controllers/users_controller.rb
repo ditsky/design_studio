@@ -28,6 +28,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        ShoppingCart.create(user_id: @user.id)
         @user.send_activation_email
         flash[:info] = "Please check your email to activate your account."
         format.html { redirect_to root_url }
