@@ -10,11 +10,17 @@ class Selection < ApplicationRecord
 
     #Checks if the shopping cart exists
     def valid_cart
-        return true unless ShoppingCart.find(shopping_cart_id).nil?
+        if ShoppingCart.exists?(shopping_cart_id)
+            return true
+        end
+        return false
     end
 
-    #Checks if the shopping cart exists
+    #Checks if the card exists
     def valid_card
-        return true unless Card.find(card_id).nil?
+        if Card.exists?(card_id)
+            return true 
+        end
+       return false
     end
 end

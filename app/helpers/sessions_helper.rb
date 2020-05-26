@@ -37,8 +37,6 @@ module SessionsHelper
 
     #Returns the current shopping cart for the user
     def current_cart
-        puts session[:cart].inspect
-        puts session[:cart][:id].inspect
         if logged_in?
             return current_user.shopping_cart.id
         elsif session[:cart].nil? || session[:cart]["id"].nil?
