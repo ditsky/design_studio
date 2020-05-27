@@ -18,6 +18,21 @@
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
-    <%= yield %>
+    
+    <div class="fill">
+      <div class="fill container-fluid">
+        <div class="fill row">
+          <div class="col-1 flowers"> </div>
+
+          <div class="col-10">
+            <%= yield %>
+          </div>
+
+          <div class="col-1 flowers"> </div>
+        </div>   
+      </div> 
+    </div>
+
+    <%= render 'layouts/footer'%>
   </body>
 </html>
