@@ -5,9 +5,11 @@ class CardsController < ApplicationController
   # GET /cards.json
   def index
     @cards = Card.all
+    
     filter_params(params).each do |key, value|
       @cards = @cards.public_send("filter_by_#{key}", value) if value.present?
     end
+    @contents = @cards.distinct.pluck(:content)
   end
 
   # GET /cards/1

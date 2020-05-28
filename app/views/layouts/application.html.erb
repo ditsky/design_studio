@@ -14,17 +14,18 @@
   </head>
 
   <body>
-    <%= render 'layouts/navbar' %>
-    <% flash.each do |key, value| %>
-      <div class="alert alert-<%= key %>"><%= value %></div>
-    <% end %>
+    <div class="wrap fill">
+      <%= render 'layouts/navbar' %>
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
     
-    <div class="fill">
-      <div class="fill container-fluid">
-        <div class="fill row">
+    
+      <div class="section fill container-fluid studio">
+        <div class="row fill">
           <div class="col-1 flowers"> </div>
 
-          <div class="col-10">
+          <div class="section col-10">
             <%= yield %>
           </div>
 

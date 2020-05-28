@@ -1,32 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Cards</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Image</th>
-      <th>Content</th>
-      <th>Card type</th>
-      <th>Painted</th>
-      <th>Hand cut</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @cards.each do |card| %>
-      <tr>
-        <td> <img src= <%= card.img %> height=100px width=100px/>  </td>
-        <td><%= card.content %></td>
-        <td><%= card.card_type %></td>
-        <td><%= card.painted %></td>
-        <td><%= card.hand_cut %></td>
-        <td><%= link_to 'Show', card %></td>
-        <td><%= link_to 'Add to cart', selections_path(selection: {shopping_cart_id: current_cart, card_id: card.id}), method: :post %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+<% @contents.each do |content| %>
+  <%= render 'card_row', content: content, cards: @cards.filter_by_content(content)%>
+  <br> <br>
+<% end %>
