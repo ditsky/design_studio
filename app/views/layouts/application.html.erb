@@ -16,16 +16,14 @@
   <body>
     <div class="wrap fill">
       <%= render 'layouts/navbar' %>
-      <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
-      <% end %>
-    
-    
-      <div class="section fill container-fluid studio">
-        <div class="row fill">
+      <div class="section fill container-fluid">
+        <div class="navbar-pad row fill">
           <div class="col-1 flowers"> </div>
 
           <div class="section col-10">
+            <% flash.each do |key, value| %>
+              <div class="alert alert-<%= key %>"><%= value %></div>
+            <% end %>
             <%= yield %>
           </div>
 

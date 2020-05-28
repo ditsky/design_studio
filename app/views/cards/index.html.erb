@@ -1,4 +1,32 @@
-<% @contents.each do |content| %>
-  <%= render 'card_row', content: content, cards: @cards.filter_by_content(content)%>
-  <br> <br>
-<% end %>
+<div class="navbar-pad container">
+
+  <div class="row fill">
+
+    <div class="col-3">
+      <h3> Filter Search </h3>
+      <hr>
+      <%= form_with(url: cards_path, method: "get", local: true) do %>
+        <% @columns.each do |column| %>
+          <strong> <%= column %> </strong>
+          <br> <br>
+          <% all_column_filters(column).each do |filter| %>
+            <div class= "form-group row">
+              <%= check_box_tag(filter) %> &nbsp; &nbsp;
+              <%= label_tag(filter, filter ) %> 
+            </div>
+          <% end %>
+          <hr>
+        <% end %>
+        <%= submit_tag("Save") %>
+      <% end %>
+    </div>
+
+    <div class="col-9">
+      <% @contents.each do |content| %>
+        <%= render 'card_row', content: content, cards: @cards.filter_by_content(content)%>
+        <br> <br>
+      <% end %>
+    </div>
+
+  </div>
+</div>

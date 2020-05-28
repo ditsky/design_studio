@@ -1,7 +1,9 @@
-<h3> <%= content %> cards </h3>
+<h3> <%= content.upcase %> </h3>
+
 <hr>
+
 <% cards.each do |card| %>
-    <img src= <%= card.img %> height=100px width=100px/>
-    <%= link_to 'Add to cart', selections_path(selection: {shopping_cart_id: current_cart, card_id: card.id}), method: :post %>
-    <br> <br>
+    <%= link_to card do %>
+        <img class="padding-sides" src= <%= card.img %> height=300px width=200px/>
+    <% end %>
 <% end %>

@@ -4,13 +4,25 @@ class CardsController < ApplicationController
   # GET /cards
   # GET /cards.json
   def index
-    @cards = Card.all
-    
-    filter_params(params).each do |key, value|
-      @cards = @cards.public_send("filter_by_#{key}", value) if value.present?
-    end
+    card_filter = FilterManager::CardFilter.new
+    valid_filter_columns = [:content, :painted, :hand_cut, :card_type]
+    @cards = card_filter.filter(filter_params(params), valid_filter_columns)
+    puts "content: " + @cards.pluck(:content).inspect
     @contents = @cards.distinct.pluck(:content)
+    @columns = ["CONTENT", "STYLE", "CARD TYPE"]
   end
+
+  # # GET /cards
+  # # GET /cards.json
+  # def index
+  #   @cards = Card.all
+    
+  #   filter_params(params).each do |key, value|
+  #     @cards = @cards.public_send("filter_by_#{key}", value) if value.present?
+  #   end
+  #   @contents = @cards.distinct.pluck(:content)
+  #   @columns = ["CONTENT", "STYLE", "CARD TYPE"]
+  # end
 
   # GET /cards/1
   # GET /cards/1.json
@@ -79,6 +91,6 @@ class CardsController < ApplicationController
 
     #Allows the filter paramter namespace to be optional in the URL
     def filter_params(params)
-      params.slice(:content, :card_type, :painted, :hand_cut)
+      params.slice(:sympathy, :blank, :birthday, :thank_you, :painted, :hand_cut, :fold_over, :post_card)
     end
 end

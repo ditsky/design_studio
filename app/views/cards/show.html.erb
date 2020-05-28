@@ -20,5 +20,6 @@
   <%= @card.hand_cut %>
 </p>
 
+<%= link_to 'Add to cart', selections_path(selection: {shopping_cart_id: current_cart, card_id: @card.id}), method: :post %>
 <%= link_to 'Edit', edit_card_path(@card) %> |
 <%= link_to 'Back', cards_path %>
