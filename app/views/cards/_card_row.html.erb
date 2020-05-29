@@ -5,5 +5,6 @@
 <% cards.each do |card| %>
     <%= link_to card do %>
         <img class="padding-sides" src= <%= card.img %> height=300px width=200px/>
+        <%= card.content %>
     <% end %>
 <% end %>

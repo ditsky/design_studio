@@ -21,11 +21,22 @@
       <% end %>
     </div>
 
-    <div class="col-9">
-      <% @contents.each do |content| %>
-        <%= render 'card_row', content: content, cards: @cards.filter_by_content(content)%>
-        <br> <br>
-      <% end %>
+    <div class="col-9 containter">
+      <h3 class="center"> Cards </h3>
+      <div class="row fill">
+        <% @card_groups.each do |group| %>
+          <div class="col-4">
+            <% group.each do |card| %>
+              <%= link_to card do %>
+                <img class="img-responsive padding-sides" src= <%= card.img %> height=300px width=250px/>
+                <br>
+                <p class="center"> <%= card.content %> <p>
+                <br>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
 
   </div>

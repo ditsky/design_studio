@@ -26,22 +26,16 @@ module FilterManager
         def filter_by_scope(params, filter_symbols, column)
             all_cards = Card.all
             filtered_result = Card.none
-            puts filter_symbols.inspect
             filter_symbols.each do |symbol|
-                puts "params symbol: " + params[symbol].inspect
                 if params[symbol] == "1"
                     
                     filtered_result = filtered_result.or(all_cards.public_send("filter_by_#{column}", symbol))
-                    puts "in loop: " + filtered_result.size.inspect
                 end
             end
 
-            puts "filtered_result: " + filtered_result.inspect
             if filtered_result.size == 0
-                puts "returning all cards"
                 return all_cards
             end
-            puts "returning: " + filtered_result.inspect
             return filtered_result
         end
 

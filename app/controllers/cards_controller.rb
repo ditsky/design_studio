@@ -7,8 +7,10 @@ class CardsController < ApplicationController
     card_filter = FilterManager::CardFilter.new
     valid_filter_columns = [:content, :painted, :hand_cut, :card_type]
     @cards = card_filter.filter(filter_params(params), valid_filter_columns)
-    puts "content: " + @cards.pluck(:content).inspect
-    @contents = @cards.distinct.pluck(:content)
+    @card_groups = @cards.in_groups(3)
+    for i in 0..@card_groups.size-1
+      @card_groups[i] = @card_groups[i].compact
+    end
     @columns = ["CONTENT", "STYLE", "CARD TYPE"]
   end
 
