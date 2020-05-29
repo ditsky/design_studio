@@ -3,7 +3,6 @@ Rails.application.configure do
 
   #Load images on heroku
   config.serve_static_files = true
-  config.assets.compile = true
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -30,7 +29,8 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
+  config.assets.digest = true
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
