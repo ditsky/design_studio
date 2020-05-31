@@ -16,20 +16,30 @@ module FilterManager
                 filter_symbols = [column]
             else
                 filter_symbols = Card.distinct.pluck(column)
-                filter_symbols.each do |symbol|
-                    symbol = symbol.parameterize.underscore.to_sym
+                for i in 0..filter_symbols.size-1
+                    filter_symbols[i] = filter_symbols[i].parameterize.underscore.to_sym
                 end 
             end
             return filter_by_scope(params, filter_symbols, column)
+        end
+
+        def symbol_to_s(symbol)
+            symbol = symbol.to_s
+            if symbol.include? "_"
+                return symbol.gsub!(/_/, ' ')
+            end
+            return symbol
         end
 
         def filter_by_scope(params, filter_symbols, column)
             all_cards = Card.all
             filtered_result = Card.none
             filter_symbols.each do |symbol|
+                puts params.inspect
+                puts symbol.inspect
                 if params[symbol] == "1"
-                    
-                    filtered_result = filtered_result.or(all_cards.public_send("filter_by_#{column}", symbol))
+                    puts "symbol: " + symbol_to_s(symbol).inspect
+                    filtered_result = filtered_result.or(all_cards.public_send("filter_by_#{column}", symbol_to_s(symbol)))
                 end
             end
 

@@ -1,9 +1,10 @@
-<p>
-  <strong>Selected Items:</strong>
+<div class="containter">
+  <h2 class="center">Shopping Cart</h2>
   <% @cart.cards.each do |card| %>
-    <p> <%= card.content %> <%= link_to "Remove", selection_path(get_selection(@cart, card)), method: :delete%> </p>
+    <div class="row">
+      <div class="col"> <%= card.content %> <%= link_to "Remove", selection_path(get_selection(@cart, card)), method: :delete%> </p>
+    </div>
   <% end %>
 
-</p>
-
-<%= link_to 'Clear', "#" %> |
+  <%= link_to 'Clear', "#" %>
+</div>

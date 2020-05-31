@@ -11,7 +11,7 @@
           <br> <br>
           <% all_column_filters(column).each do |filter| %>
             <div class= "form-group row">
-              <%= check_box_tag(filter) %> &nbsp; &nbsp;
+              <%= check_box_tag(filter.parameterize.underscore.to_sym) %> &nbsp; &nbsp;
               <%= label_tag(filter, filter ) %> 
             </div>
           <% end %>
@@ -28,7 +28,7 @@
           <div class="col-4">
             <% group.each do |card| %>
               <%= link_to card do %>
-                <img class="img-responsive padding-sides" src= <%= card.img %> height=300px width=250px/>
+                <img class="responsive padding-sides" src= <%= card.img %> height=300px width=250px/>
                 <br>
                 <p class="center"> <%= card.content %> <p>
                 <br>
