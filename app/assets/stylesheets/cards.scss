@@ -3,8 +3,10 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 
-.center {
+.center{
+    width: 100%;
     text-align: center;
+    justify-content: center;
 }
 
 .responsive {

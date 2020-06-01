@@ -1,10 +1,48 @@
-<div class="containter">
-  <h2 class="center">Shopping Cart</h2>
-  <% @cart.cards.each do |card| %>
-    <div class="row">
-      <div class="col"> <%= card.content %> <%= link_to "Remove", selection_path(get_selection(@cart, card)), method: :delete%> </p>
-    </div>
-  <% end %>
+<div class="containter mx-auto">
+  <h2 class="center pad-top pad-bottom">Shopping Cart</h2>
 
-  <%= link_to 'Clear', "#" %>
+  <div class="row">
+
+    <div class="col-2"> </div>
+
+    <div class="col-8">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-9">
+            <table class="table table-striped">
+              <thead >
+                <tr>
+                  <th scope="col">Card</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Price</th>
+                  <th> </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @cart.cards.each do |card| %>
+                  <tr>
+                    <th scope="row"> 
+                      <img class="responsive" src= <%= card.img %> height=250px width=150px/> 
+                    </th>
+                    <th> <%= card.content %> </th>
+                    <th> ? </th>
+                    <th> ? </th>
+                    <th> <%= link_to "Remove", selection_path(get_selection(@cart, card)), method: :delete%> </th>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-3"> 
+            Summary
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-2"> </div>
 </div>
