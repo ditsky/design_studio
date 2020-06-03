@@ -3,6 +3,11 @@ class ShoppingCartsController < ApplicationController
   
     # GET /carts/1
     def show
+      @cards = @cart.cards.group(:id)
+      @sizes = {}
+      @cards.each do |card|
+        @sizes[card.id] = @cart.cards.where(id: card.id).count
+      end
     end
 
     private

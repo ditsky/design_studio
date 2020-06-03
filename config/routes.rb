@@ -20,6 +20,10 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :cards
   resources :shopping_carts, only: [:show]
-  resources :selections, only: [:create, :destroy]
+  resources :selections, only: [:create, :destroy] do
+    collection do 
+      delete 'remove_card'
+    end
+  end
 
 end

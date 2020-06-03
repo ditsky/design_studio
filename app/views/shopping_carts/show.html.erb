@@ -1,14 +1,12 @@
+
+
 <div class="containter mx-auto">
   <h2 class="center pad-top pad-bottom">Shopping Cart</h2>
-
   <div class="row">
-
     <div class="col-2"> </div>
-
     <div class="col-8">
       <div class="container">
         <div class="row">
-
           <div class="col-9">
             <table class="table table-striped">
               <thead >
@@ -21,15 +19,23 @@
                 </tr>
               </thead>
               <tbody>
-                <% @cart.cards.each do |card| %>
+                <% @cards.each do |card| %>
                   <tr>
-                    <th scope="row"> 
+                    <td class="no-wrap" scope="row"> 
                       <img class="responsive" src= <%= card.img %> height=250px width=150px/> 
-                    </th>
-                    <th> <%= card.content %> </th>
-                    <th> ? </th>
-                    <th> ? </th>
-                    <th> <%= link_to "Remove", selection_path(get_selection(@cart, card)), method: :delete%> </th>
+                    </td>
+                    <td class="no-wrap"> <%= card.content %> </td>
+                    <td class="no-wrap"> 
+                      <%= button_to [get_selection(@cart, card)], method: :delete do %>
+                        <i class="fas fa-minus"></i>
+                      <% end %>
+                      <%= @sizes[card.id] %> 
+                      <%= button_to [:selections], params: {selection: {shopping_cart_id: @cart.id, card_id: card.id}} do %> 
+                        <i class="fas fa-plus"></i>
+                      <% end %>
+                    </td>
+                    <td class="no-wrap"> $5.00 </td>
+                    <td class="no-wrap"> <%= link_to "Remove", remove_card_selections_path(selection: {shopping_cart_id: @cart.id, card_id: card.id}), method: :delete%> </td>
                   </tr>
                 <% end %>
               </tbody>
