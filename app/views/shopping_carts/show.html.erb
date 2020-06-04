@@ -1,7 +1,6 @@
 
 
 <div class="containter mx-auto">
-  <h2 class="center pad-top pad-bottom">Shopping Cart</h2>
   <div class="row">
     <div class="col-2"> </div>
     <div class="col-8">
@@ -10,6 +9,7 @@
           <div class="col-9">
             <table class="table table-striped">
               <thead >
+                <h3 class="pad-top pad-bottom">Shopping Cart</h3>
                 <tr>
                   <th scope="col">Card</th>
                   <th scope="col">Description</th>
@@ -25,14 +25,18 @@
                       <img class="responsive" src= <%= card.img %> height=250px width=150px/> 
                     </td>
                     <td class="no-wrap"> <%= card.content %> </td>
-                    <td class="no-wrap"> 
-                      <%= button_to [get_selection(@cart, card)], method: :delete do %>
-                        <i class="fas fa-minus"></i>
-                      <% end %>
-                      <%= @sizes[card.id] %> 
-                      <%= button_to [:selections], params: {selection: {shopping_cart_id: @cart.id, card_id: card.id}} do %> 
-                        <i class="fas fa-plus"></i>
-                      <% end %>
+                    <td class="no-wrap container"> 
+                      <div class="row">
+                        <%= button_to [get_selection(@cart, card)], method: :delete do %>
+                          <i class="fas fa-minus"></i>
+                        <% end %>
+                        &nbsp;
+                        <%= @sizes[card.id] %> 
+                        &nbsp;
+                        <%= button_to [:selections], params: {selection: {shopping_cart_id: @cart.id, card_id: card.id}} do %> 
+                          <i class="fas fa-plus"></i>
+                        <% end %>
+                      </div>
                     </td>
                     <td class="no-wrap"> $5.00 </td>
                     <td class="no-wrap"> <%= link_to "Remove", remove_card_selections_path(selection: {shopping_cart_id: @cart.id, card_id: card.id}), method: :delete%> </td>
@@ -42,8 +46,18 @@
             </table>
           </div>
 
-          <div class="col-3"> 
-            Summary
+          <div class="col-3 pad-top"> 
+            <h3 class="pad-top pad-bottom"> Order Summary </h3>
+            <div class="card border-dark mb-3 bg-pink" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Subtotal <span style="float:right;"> $<%= @total %> </span> </h5>
+                <h5 class="card-title">Shipping <span style="float:right;"> FREE </span> </h5>
+                <hr>
+                <h4 class="card-title">Total <span style="float:right;"> $<%= @total %> </span> </h4>
+                <br>
+                <button class="btn btn-sm btn-primary center"> Checkout </button>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -51,4 +65,5 @@
     </div>
 
     <div class="col-2"> </div>
+  </div>
 </div>

@@ -3,11 +3,13 @@ class ShoppingCartsController < ApplicationController
   
     # GET /carts/1
     def show
+      @total = @cart.cards.size * 5
       @cards = @cart.cards.group(:id)
       @sizes = {}
       @cards.each do |card|
         @sizes[card.id] = @cart.cards.where(id: card.id).count
       end
+      
     end
 
     private
