@@ -31,9 +31,9 @@
           <div class="col-4">
             <% group.each do |card| %>
               <%= link_to card do %>
-                <img class="responsive padding-sides" src= <%= card.img %> height=300px width=250px/>
+                <img class="responsive padding-sides" src= <%= asset_path(card.img) %> height=300px width=250px/>
                 <br>
-                <p class="center"> <%= card.content %> <p>
+                <p class="center"> <%= card.short_description %> <p>
                 <br>
               <% end %>
             <% end %>
