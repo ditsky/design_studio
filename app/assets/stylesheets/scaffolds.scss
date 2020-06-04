@@ -1,6 +1,7 @@
 
 .fill {
   height:100%;
+  width:100%;
 }
 
 .wrap {
@@ -24,6 +25,20 @@
   padding-bottom: 20px;
 }
 
+.margin-left {
+  margin-left: 200px;
+}
+
+
+.margin-right{
+  margin-right: 0px;
+}
+
+.with-gutters {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
 .no-wrap {
   white-space: nowrap;
   width: 100%;
@@ -35,6 +50,10 @@
 
 .navbar-pad {
   padding-top: 80px;
+}
+
+.margin-top {
+  margin-top: 80px;
 }
 
 .bg-cream {

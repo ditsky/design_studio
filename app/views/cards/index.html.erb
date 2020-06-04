@@ -2,7 +2,7 @@
 
   <div class="row fill">
 
-    <div class="col-3">
+    <div class="col-3  jumbotron bg-cream">
       <h3> Filter Search </h3>
       <hr>
       <%= form_with(url: cards_path, method: "get", local: true) do %>
@@ -21,8 +21,11 @@
       <% end %>
     </div>
 
-    <div class="col-9 containter">
+    <div class="col-1"> </div>
+
+    <div class="col-8 jumbotron bg-cream">
       <h3 class="center"> Cards </h3>
+      <hr>
       <div class="row fill">
         <% @card_groups.each do |group| %>
           <div class="col-4">

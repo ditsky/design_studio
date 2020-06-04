@@ -17,18 +17,18 @@
   <body>
     <div class="wrap fill">
       <%= render 'layouts/navbar' %>
-      <div class="section fill container-fluid">
-        <div class="navbar-pad row fill">
-          <div class="col-1 flowers"> </div>
+      <div class="section fill">
+        <div class="navbar-pad row fill no-gutters">
+          <div class="col-1 flowers no-gutters"> </div>
 
-          <div class="section col-10">
+          <div class="section col-10 no-gutters">
             <% flash.each do |key, value| %>
               <div class="alert alert-<%= key %>"><%= value %></div>
             <% end %>
             <%= yield %>
           </div>
 
-          <div class="col-1 flowers"> </div>
+          <div class="col-1 flowers no-gutters"> </div>
         </div>   
       </div> 
     </div>
