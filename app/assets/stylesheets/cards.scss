@@ -2,11 +2,24 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-
 .center{
     width: 100%;
     text-align: center;
     justify-content: center;
+}
+
+.margin-bottom {
+    margin-bottom: 100px;
+}
+
+@media (min-width: 1500px) {
+    .pad-top-lg {
+        padding-top: 20px;
+    }
+
+    .margin-top-lg {
+        margin-top: 80px;
+    }
 }
 
 .center-w {
@@ -17,4 +30,30 @@
 .responsive {
     max-width: 100%;
     height: auto;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 100px;
+  width: 100px;
+  background-size: 100%, 100%;
+  border-radius: 50%;
+  background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 55px;
+  color: red;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 55px;
+  color: red;
+}
+
+.carousel-indicators li{
+    background-color: transparent;
 }

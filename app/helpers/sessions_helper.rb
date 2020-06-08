@@ -36,6 +36,11 @@ module SessionsHelper
         end
     end
 
+    #Need to implement this later
+    def user_admin?
+        return false
+    end
+
     #Returns the current shopping cart for the user
     def current_cart
         if logged_in?
