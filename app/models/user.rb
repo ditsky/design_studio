@@ -3,6 +3,10 @@ class User < ApplicationRecord
 
     has_one :shopping_cart
 
+    has_many :addresses
+
+    has_many :orders
+
     before_save   :downcase_email
     before_create :create_activation_digest
 

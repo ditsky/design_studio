@@ -23,6 +23,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'bcrypt', '~> 3.1.7'
 #Easy to read console output
 gem 'hirb'
+#Stripe for credit card payments
+gem 'stripe'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
