@@ -4,14 +4,34 @@
         <h1>New Designs!</h1>
         <button>All New Designs</button>
       </div>
+   </div>
+
+    <p>Buttons!</p>
+
+<div class="container">
+  <div class="row long">
+    <div class="col-6">
+
+    	 <%= link_to "Birthday", cards_path(birthday: "1"), class:"btn bg-cream fill"%> <br>
+    	
     </div>
+    <div class="col-6">
 
-    <p>birthday thank you sympathy and blank</p>
+    	<%= link_to "Sympathy", cards_path(sympathy: "1"), class:"btn bg-cream fill"%> <br>
+      
+    </div>
+  </div>
+  <div class="row long">
+    <div class="col-6">
 
-    <p>make four buttons here, depending on which one they click pass that</p>
+    	<%= link_to "Thank You", cards_path(thank_you: "1"), class:"btn bg-cream fill margin-top"%> <br>
+      
+    </div>
+    <div class="col-6">
 
-    <li><%= link_to "birthday", cards_path(birthday: "1"), class:"nav-link"%>
-    <li><%= link_to "Sympathy", cards_path(sympathy: "1"), class:"nav-link"%>		
-    <li><%= link_to "thank you", cards_path(thank_you: "1"), class:"nav-link"%>
-    <li><%= link_to "blank", cards_path(blank: "1"), class:"nav-link"%>
+    	<%= link_to "Blank", cards_path(blank: "1"), class:"btn bg-cream fill margin-top"%> <br>
+    </div>
+  </div>
+</div>
+    
 </div>
