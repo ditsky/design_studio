@@ -24,10 +24,24 @@ class SelectionsController < ApplicationController
     def destroy
         @selection.destroy
         respond_to do |format|
-          format.html { redirect_back fallback_location: root_path , notice: 'Selection was successfully removed from the cart.' }
+          flash[:success] = 'Selection was successfully removed from the cart.'
+          format.html { redirect_back fallback_location: root_path}
           format.json { head :no_content }
         end
     end
+
+    # DELETE /selections/remove_card
+    # DELETE /selections/remove_card
+    def remove_card
+      selections = Selection.where(selection_params)
+      selections.delete_all
+      respond_to do |format|
+        flash[:success] = 'Selections were successfully removed from the cart.'
+        format.html { redirect_back fallback_location: root_path}
+        format.json { head :no_content }
+      end
+    end
+
 
     private
 

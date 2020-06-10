@@ -36,11 +36,16 @@ module SessionsHelper
         end
     end
 
+    #Need to implement this later
+    def user_admin?
+        return false
+    end
+
     #Returns the current shopping cart for the user
     def current_cart
         if logged_in?
             return current_user.shopping_cart.id
-        elsif session[:cart].nil? || session[:cart]["id"].nil?
+        elsif session[:cart].nil? || session[:cart]["id"].nil? || !ShoppingCart.exists?(session[:cart]["id"])
             session[:cart] = ShoppingCart.create
         end
         return session[:cart]["id"]

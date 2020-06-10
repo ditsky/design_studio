@@ -1,19 +1,17 @@
-<center><h1> jk! Jewfro Design Studio </h1></center>
+<div class="with-gutters">
+    <div class="hero-image">
+      <div class="hero-text">
+        <h1>New Designs!</h1>
+        <button>All New Designs</button>
+      </div>
+    </div>
 
+    <p>birthday thank you sympathy and blank</p>
 
+    <p>make four buttons here, depending on which one they click pass that</p>
 
-<div class="hero-image">
-  <div class="hero-text">
-    <h1>New Designs!</h1>
-    <button>All New Designs</button>
-  </div>
+    <li><%= link_to "birthday", cards_path(birthday: "1"), class:"nav-link"%>
+    <li><%= link_to "Sympathy", cards_path(sympathy: "1"), class:"nav-link"%>		
+    <li><%= link_to "thank you", cards_path(thank_you: "1"), class:"nav-link"%>
+    <li><%= link_to "blank", cards_path(blank: "1"), class:"nav-link"%>
 </div>
-
-<p>birthday thank you sympathy and blank</p>
-
-<p>make four buttons here, depending on which one they click pass that</p>
-
-<li><%= link_to "birthday", cards_path(content: "birthday"), class:"nav-link"%>
-<li><%= link_to "Sympathy", cards_path(content: "sympathy"), class:"nav-link"%>		
-<li><%= link_to "thank you", cards_path(content: "thank you"), class:"nav-link"%>
-<li><%= link_to "blank", cards_path(content: "blank"), class:"nav-link"%>

@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_235836) do
+ActiveRecord::Schema.define(version: 2020_06_08_200751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "country"
+    t.string "full_name"
+    t.string "address_line_1"
+    t.string "address_line_2"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "phone_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+  end
 
   create_table "cards", force: :cascade do |t|
     t.string "content"
@@ -23,6 +37,19 @@ ActiveRecord::Schema.define(version: 2020_05_21_235836) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "img"
+    t.string "short_description"
+    t.string "long_description"
+    t.integer "order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.decimal "amount"
+    t.string "currency"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "shipping_address_id"
+    t.integer "billing_address_id"
   end
 
   create_table "selections", force: :cascade do |t|
@@ -30,6 +57,7 @@ ActiveRecord::Schema.define(version: 2020_05_21_235836) do
     t.integer "card_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "order_id"
   end
 
   create_table "shopping_carts", force: :cascade do |t|
