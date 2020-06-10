@@ -12,9 +12,27 @@
     margin-bottom: 100px;
 }
 
+.img-cont {
+    display: inline-block;
+}
+
+.img-center {
+    vertical-align: middle;
+}
+
 @media (min-width: 1500px) {
     .pad-top-lg {
         padding-top: 20px;
+    }
+
+    .fold-over {
+        height: 250px !important;
+        width: 200px !important;
+    }
+
+    .post-card {
+        height: 200px !important; 
+        width: 250px !important;
     }
 
     .margin-top-lg {

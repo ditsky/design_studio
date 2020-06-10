@@ -25,21 +25,27 @@
 
     <div class="col-8 jumbotron bg-cream">
       <h3 class="center"> Cards </h3>
+      
       <hr>
-      <div class="row fill">
-        <% @card_groups.each do |group| %>
-          <div class="col-4">
-            <% group.each do |card| %>
-              <%= link_to card do %>
-                <img class="responsive padding-sides" src= <%= asset_path(card.img) %> height=300px width=250px/>
-                <br>
-                <p class="center"> <%= card.short_description %> <p>
-                <br>
+      
+      <% @card_groups.each do |group| %>
+      <div class="row">
+        <% group.each do |card| %>
+          <div class="col-4 img-cont img-center">
+            <%= link_to card do %>
+              <% if card.card_type == "fold over"%>
+                <img class="fold-over responsive img-center padding-sides" src= <%= asset_path(card.img) %> />
+              <% else %>
+                <img class="post-card responsive margin-top-sm img-center padding-sides" src= <%= asset_path(card.img) %> height=150px width=200px/>
               <% end %>
+              <br>
+              <p class="center"> <%= card.short_description %> <p>
+              <br> 
             <% end %>
           </div>
         <% end %>
       </div>
+      <% end %>
     </div>
 
   </div>
