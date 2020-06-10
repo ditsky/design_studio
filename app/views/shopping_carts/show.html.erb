@@ -58,7 +58,11 @@
                   <hr>
                   <h4 class="card-title">Total <span style="float:right;"> $<%= @total %> </span> </h4>
                   <br>
-                  <button class="btn btn-sm btn-primary center"> Checkout </button>
+                  <% if logged_in? %>
+                    <%= button_to "Checkout", new_order_path, method: :get, class: "btn btn-sm btn-primary center"%>
+                  <% else %>
+                    <%= button_to "Checkout", new_order_path, method: :get, class: "btn btn-sm btn-primary center"%>
+                  <% end %>
                 </div>
               </div>
             </div>
