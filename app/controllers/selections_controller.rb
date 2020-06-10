@@ -47,7 +47,7 @@ class SelectionsController < ApplicationController
 
       # Only allow a list of trusted parameters through.
       def selection_params
-        params.require(:selection).permit(:shopping_cart_id, :card_id)
+        params.require(:selection).permit(:shopping_cart_id, :card_id, :order_id)
       end
 
       # Use callbacks to share common setup or constraints between actions.

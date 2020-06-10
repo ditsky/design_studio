@@ -1,7 +1,7 @@
 class Selection < ApplicationRecord
     belongs_to :shopping_cart
     belongs_to :card
-    belongs_to :order
+    belongs_to :order, optional: true
 
     validates :shopping_cart_id, presence: true
     validate :valid_cart
