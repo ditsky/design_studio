@@ -1,9 +1,40 @@
-<div class="container">
+<% if logged_in?%>
 
-    <div class= 'row'>
-        <div class= "col-md-3 offset-md-3">
-            col
-        </div>
+    <div class="container">
+        <%= form_with(model: @order, local: true)  do |f| %>
+
+            <div class= 'row margin-top'>
+                <div class= "col-md-3 offset-md-3">
+                    <strong> Shipping Address </strong>
+                </div>
+                <div class="col-sm">
+                    <%= f.collection_select :shipping_address_id, @addresses.order(:address_line_1), :id, :address_line_1%>
+                    <br> <br>
+                    <%= link_to "Add New Address", new_address_path%>
+                </div>
+            </div>
+
+            <hr>
+            
+            <div class= 'row'>
+                <div class= "col-md-3 offset-md-3">
+                    <strong> Payment Method </strong>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class= 'row'>
+                <div class= "col-md-3 offset-md-3">
+                    <strong> Review your order </strong>
+                </div>
+            </div>
+
+        <% end %>
     </div>
 
-</div>
+<% else %>
+
+    implement this later
+
+<% end %>

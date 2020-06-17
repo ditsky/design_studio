@@ -9,6 +9,7 @@ one:
   state: MyString
   zip: MyString
   phone_number: MyString
+  user_id: 1
 
 two:
   country: MyString
@@ -19,3 +20,4 @@ two:
   state: MyString
   zip: MyString
   phone_number: MyString
+  user_id: 1

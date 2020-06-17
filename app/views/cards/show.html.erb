@@ -1,6 +1,10 @@
 <div class="containter-fluid">
   <div class="row margin-top">
-    <div class="col-md-4 offset-md-2">
+    <% if @card.card_type == "post card"%>
+      <div class="col-md-4 offset-md-2 margin-top-postcard">
+    <% else %>
+      <div class="col-md-4 offset-md-2">
+    <% end %>
       <div id="carouselIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
         <ol class="carousel-indicators">
           <li data-target="#carouselIndicators" data-slide-to="0" class="active"> <img class="d-block w-100" src=<%= asset_path(@card.img)%>

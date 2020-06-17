@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :addresses
   #Password Resets Routes
   get 'password_resets/new'
   get 'password_resets/edit'
