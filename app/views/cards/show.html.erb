@@ -41,7 +41,7 @@
         <p> $5.00 </p>
         <hr>
         <p> <%= @card.long_description%> </p>
-        <%= button_to 'Add to cart', selections_path(selection: {shopping_cart_id: current_cart, card_id: @card.id}), class: "btn btn-primary" %>
+        <%= button_to 'Add to cart', selections_path(selection: {shopping_cart_id: current_cart.id, card_id: @card.id}), class: "btn btn-primary" %>
         <% if user_admin? %>
           <%= link_to 'Edit', edit_card_path(@card) %> |
         <% end %>

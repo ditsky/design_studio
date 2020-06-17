@@ -44,11 +44,11 @@ module SessionsHelper
     #Returns the current shopping cart for the user
     def current_cart
         if logged_in?
-            return current_user.shopping_cart.id
+            return current_user.shopping_cart
         elsif session[:cart].nil? || session[:cart]["id"].nil? || !ShoppingCart.exists?(session[:cart]["id"])
             session[:cart] = ShoppingCart.create
         end
-        return session[:cart]["id"]
+        return ShoppingCart.find(session[:cart]["id"])
     end
 
 
