@@ -2,6 +2,10 @@ module SessionsHelper
 
     def log_in(user)
         session[:user_id] = user.id
+        if (current_user.shopping_cart.nil? || current_user.shopping_cart.card_count == 0) && session[:cart]
+            ShoppingCart.where(user_id: user.id).delete_all
+            ShoppingCart.find(session[:cart]["id"]).update(user_id: user.id)
+        end
         session.delete(:cart)
     end
 

@@ -2,7 +2,8 @@
 
 <% if logged_in?%>
 
-    <div class="container">
+    <div class="container sr-root">
+        <p id="error" class="alert alert-danger"> </p>
         <form id="payment-form">
 
             <%= hidden_field_tag :amount, @total*100%>
@@ -90,7 +91,11 @@
                     <div class="container gray-border padding-sides">
                         <div class="row">
                             <div class="col-3 offset-md-1 my-auto">
-                                <%= submit_tag "Checkout", class: "btn btn-primary"%>
+ 
+                                <%= button_tag(type: "submit", class: "btn btn-primary", id: "submit") do %>
+                                    <span id="button-text"> Checkout </span>
+                                    <div class="spinner hidden" id="spinner"></div>
+                                <% end %>
                             </div>
                             <div class="col-7 my-auto">
                                 <h4> <strong> Total: $<%= @total%> </strong> </h4>
@@ -112,6 +117,24 @@
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
+
+
+    // Show a spinner on payment submission
+    var changeLoadingState = function(isLoading) {
+        if (isLoading) {
+            console.log('spinner time')
+            
+            document.getElementById("submit").disabled = true;
+            document.querySelector("#spinner").classList.remove("hidden");
+            document.querySelector("#button-text").classList.add("hidden");
+        } else {
+            document.getElementById("submit").disabled = false;
+            document.querySelector("#spinner").classList.add("hidden");
+            document.querySelector("#button-text").classList.remove("hidden");
+        }
+    };
+
+    document.getElementById("error").style.display = "none";
     // Set your publishable key: remember to change this to your live publishable key in production
     // See your keys here: https://dashboard.stripe.com/account/apikeys
     var stripe = Stripe("pk_test_51GroxnGYhSS9s9rvN6vCJC23mTemFWoKTIXA0ztQ1QJswzi29Qf95PFb9nG6AKjwijEKb4fqvL2MkPeOoCn2s5zY00RAV6TboP");
@@ -151,7 +174,7 @@
         form.addEventListener('submit', function(ev) {
             console.log("submitted")
             ev.preventDefault();
-            console.dir(responseJson)
+            changeLoadingState(true);
             stripe.confirmCardPayment(clientSecret, {
                     payment_method: {
                     card: card,
@@ -164,6 +187,9 @@
                 if (result.error) {
                     // Show error to your customer (e.g., insufficient funds)
                     console.log(result.error.message);
+                    document.getElementById("error").innerText = result.error.message;
+                    document.getElementById("error").style.display = "block";
+                    // location.reload();
                 } else {
                     // The payment has been processed!
                     if (result.paymentIntent.status === 'succeeded') {
@@ -192,6 +218,7 @@
                         // post-payment actions.
                     }
                 }
+                changeLoadingState(false);
             });
         });
     });

@@ -14,4 +14,8 @@ class ShoppingCart < ApplicationRecord
     def total
         self.cards.size * 5
     end
+
+    def card_count
+        self.cards.size
+    end
 end
