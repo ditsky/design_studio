@@ -10,4 +10,8 @@ class ShoppingCart < ApplicationRecord
     def clear
         self.selections.delete_all
     end
+
+    def total
+        self.cards.size * 5
+    end
 end

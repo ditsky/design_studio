@@ -3,18 +3,18 @@
 <% if logged_in?%>
 
     <div class="container">
-        <%= form_with(model: @order, local: true, id:"payment-form")  do |f| %>
+        <form id="payment-form">
 
-            <%= f.hidden_field :amount, :value => @total*100%>
-            <%= f.hidden_field :currency, :value => "usd"%>
-            <%= f.hidden_field :user_id, :value => current_user.id%>
+            <%= hidden_field_tag :amount, @total*100%>
+            <%= hidden_field_tag :currency, "usd"%>
+            <%= hidden_field_tag :user_id, current_user.id%>
 
             <div class= 'row margin-top'>
                 <div class= "col-md-3 offset-md-3">
                     <strong> Shipping Address </strong>
                 </div>
                 <div class="col-4">
-                    <%= f.collection_select :shipping_address_id, @addresses.order(:address_line_1), :id, :address_line_1, {}, {class: "form-control"}%>
+                    <%= collection_select(:order, :shipping_address_id, @addresses.order(:address_line_1), :id, :address_line_1, {}, {class: "form-control"})%>
                     <br> <br>
                     <%= link_to "Add New Address", new_address_path%>
                 </div>
@@ -37,7 +37,7 @@
                 <div class="col-4">
                     <strong> Billing Address </strong>
                     <br> <br>
-                    <%= f.collection_select :billing_address_id, @addresses.order(:address_line_1), :id, :address_line_1, {}, {class: "form-control"}%>
+                    <%= collection_select(:order, :billing_address_id, @addresses.order(:address_line_1), :id, :address_line_1, {}, {class: "form-control"})%>
                     <br> <br>
                     <%= link_to "Add New Address", new_address_path%>
                     <br> <br>
@@ -90,7 +90,7 @@
                     <div class="container gray-border padding-sides">
                         <div class="row">
                             <div class="col-3 offset-md-1 my-auto">
-                                <%= f.submit "Checkout", class: "btn btn-primary"%>
+                                <%= submit_tag "Checkout", class: "btn btn-primary"%>
                             </div>
                             <div class="col-7 my-auto">
                                 <h4> <strong> Total: $<%= @total%> </strong> </h4>
@@ -100,8 +100,7 @@
 
                 </div>
             </div>
-
-        <% end %>
+        </form>
     </div>
 
 <% else %>
@@ -115,7 +114,7 @@
 <script>
     // Set your publishable key: remember to change this to your live publishable key in production
     // See your keys here: https://dashboard.stripe.com/account/apikeys
-    var stripe = Stripe('pk_test_51GroxnGYhSS9s9rvN6vCJC23mTemFWoKTIXA0ztQ1QJswzi29Qf95PFb9nG6AKjwijEKb4fqvL2MkPeOoCn2s5zY00RAV6TboP');
+    var stripe = Stripe("pk_test_51GroxnGYhSS9s9rvN6vCJC23mTemFWoKTIXA0ztQ1QJswzi29Qf95PFb9nG6AKjwijEKb4fqvL2MkPeOoCn2s5zY00RAV6TboP");
     var elements = stripe.elements();
 
     // Set up Stripe.js and Elements to use in checkout form
@@ -139,31 +138,61 @@
         }
     });
 
-    var form = document.getElementById('payment-form');
+    var response = fetch('/secret').then(function(response) {
+        responseJSON = response.json()
+        return responseJSON;
+    }).then(function(responseJson) {
 
-    // form.addEventListener('submit', function(ev) {
-    //     ev.preventDefault();
-    //     stripe.confirmCardPayment(clientSecret, {
-    //             payment_method: {
-    //             card: card,
-    //             billing_details: {
-    //                 name: 'Jenny Rosen'
-    //             }
-    //         }
-    //     }).then(function(result) {
-    //         if (result.error) {
-    //         // Show error to your customer (e.g., insufficient funds)
-    //         console.log(result.error.message);
-    //         } else {
-    //         // The payment has been processed!
-    //         if (result.paymentIntent.status === 'succeeded') {
-    //             // Show a success message to your customer
-    //             // There's a risk of the customer closing the window before callback
-    //             // execution. Set up a webhook or plugin to listen for the
-    //             // payment_intent.succeeded event that handles any business critical
-    //             // post-payment actions.
-    //         }
-    //         }
-    //     });
-    // });
+        var clientSecret = responseJson.client_secret;
+        // Call stripe.confirmCardPayment() with the client secret.
+
+        var form = document.getElementById('payment-form');
+        console.dir(form)
+        form.addEventListener('submit', function(ev) {
+            console.log("submitted")
+            ev.preventDefault();
+            console.dir(responseJson)
+            stripe.confirmCardPayment(clientSecret, {
+                    payment_method: {
+                    card: card,
+                    billing_details: {
+                        name: responseJson.name
+                    }
+                }
+            }).then(function(result) {
+                console.dir(result)
+                if (result.error) {
+                    // Show error to your customer (e.g., insufficient funds)
+                    console.log(result.error.message);
+                } else {
+                    // The payment has been processed!
+                    if (result.paymentIntent.status === 'succeeded') {
+                        console.log('payment succeeded!')
+                        var data = new FormData
+                        data.append("order[amount]", $("#amount").val())
+                        data.append("order[currency]", $("#currency").val())
+                        data.append("order[user_id]", $("#user_id").val())
+                        data.append("order[shipping_address_id]", $("#order_shipping_address_id").val())
+                        data.append("order[billing_address_id]", $("#order_billing_address_id").val())
+                        Rails.ajax({
+                            url: "/orders",
+                            type: "post",
+                            data: data,
+                            success: function(data) {
+                                console.log('order created')
+                            },
+                            error: function(data) {
+                                console.log('order error')
+                            }
+                        })
+                        // Show a success message to your customer
+                        // There's a risk of the customer closing the window before callback
+                        // execution. Set up a webhook or plugin to listen for the
+                        // payment_intent.succeeded event that handles any business critical
+                        // post-payment actions.
+                    }
+                }
+            });
+        });
+    });
 </script>

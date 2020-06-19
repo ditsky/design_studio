@@ -25,6 +25,24 @@ class OrdersController < ApplicationController
         @sizes[card.id] = current_cart.cards.where(id: card.id).count
       end
     end
+
+    def secret
+      Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+
+      @intent = Stripe::PaymentIntent.create({
+        amount: current_cart.total * 100,
+        currency: 'usd',
+        payment_method_types: ['card'],
+        receipt_email: current_user.email,
+        metadata: {integration_check: 'accept_a_payment'},
+        shipping: {address: {line1: "18 Cutler Farm Road"},
+                   name: current_user.name},
+      })
+
+      render :json => {client_secret: @intent.client_secret,
+                      name: @intent.shipping.name}.to_json
+      
+    end
   
     # POST /orders
     # POST /orders.json
@@ -35,16 +53,8 @@ class OrdersController < ApplicationController
         if @order.save
           current_cart.order_selections(@order)
           current_cart.clear
-          Stripe.api_key = 'sk_test_51GroxnGYhSS9s9rvxCNA415dtnmJuhqZiTjaC0OWkB5QwSXDZas33I1JSpK5W7PBVRhzS1JT9VwWTnanTpbfj90N00evTEaKgI'
-
-          Stripe::PaymentIntent.create({
-            amount: params[:order][:amount],
-            currency: 'usd',
-            payment_method_types: ['card'],
-            receipt_email: current_user.email,
-          })
           flash[:success] = "Order Placed!"
-          format.html { redirect_to @order, notice: 'order was successfully created.' }
+          format.html { redirect_to @order }
           format.json { render :show, status: :created, location: @order }
         else
           flash[:danger] = "Order Could Not Be Proccesed"
