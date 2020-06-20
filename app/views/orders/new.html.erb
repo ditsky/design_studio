@@ -4,6 +4,7 @@
 
     <div class="container sr-root">
         <p id="error" class="alert alert-danger"> </p>
+        <p id="success" class="alert alert-success"> </p>
         <form id="payment-form">
 
             <%= hidden_field_tag :amount, @total*100%>
@@ -135,6 +136,7 @@
     };
 
     document.getElementById("error").style.display = "none";
+    document.getElementById("success").style.display = "none";
     // Set your publishable key: remember to change this to your live publishable key in production
     // See your keys here: https://dashboard.stripe.com/account/apikeys
     var stripe = Stripe("pk_test_51GroxnGYhSS9s9rvN6vCJC23mTemFWoKTIXA0ztQ1QJswzi29Qf95PFb9nG6AKjwijEKb4fqvL2MkPeOoCn2s5zY00RAV6TboP");
@@ -161,65 +163,57 @@
         }
     });
 
-    var response = fetch('/secret').then(function(response) {
-        responseJSON = response.json()
-        return responseJSON;
-    }).then(function(responseJson) {
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(ev) {
+        ev.preventDefault()
+        changeLoadingState(true);
+        console.log("submitted")
+        data = new FormData
+        data.append("order[amount]", $("#amount").val())
+        data.append("order[currency]", $("#currency").val())
+        data.append("order[user_id]", $("#user_id").val())
+        data.append("order[shipping_address_id]", $("#order_shipping_address_id").val())
+        data.append("order[billing_address_id]", $("#order_billing_address_id").val())
 
-        var clientSecret = responseJson.client_secret;
-        // Call stripe.confirmCardPayment() with the client secret.
+        Rails.ajax({
+            url: "/secret",
+            type: 'POST',
+            data: data,
+            success: function(responseJson) {
 
-        var form = document.getElementById('payment-form');
-        console.dir(form)
-        form.addEventListener('submit', function(ev) {
-            console.log("submitted")
-            ev.preventDefault();
-            changeLoadingState(true);
-            stripe.confirmCardPayment(clientSecret, {
-                    payment_method: {
-                    card: card,
-                    billing_details: {
-                        name: responseJson.name
+                var clientSecret = responseJson.client_secret;
+                stripe.confirmCardPayment(clientSecret, {
+                        payment_method: {
+                        card: card,
+                        billing_details: {
+                            name: responseJson.name,
+                            email: responseJson.email,
+                            address: {city: responseJson.billing_address.city,
+                                      country: responseJson.billing_address.country,
+                                      line1: responseJson.billing_address.line1,
+                                      line2: responseJson.billing_address.line2,
+                                      postal_code: responseJson.billing_address.postal_code,
+                                      state: responseJson.billing_address.state}
+                        }
                     }
-                }
-            }).then(function(result) {
-                console.dir(result)
-                if (result.error) {
-                    // Show error to your customer (e.g., insufficient funds)
-                    console.log(result.error.message);
-                    document.getElementById("error").innerText = result.error.message;
-                    document.getElementById("error").style.display = "block";
-                    // location.reload();
-                } else {
-                    // The payment has been processed!
-                    if (result.paymentIntent.status === 'succeeded') {
-                        console.log('payment succeeded!')
-                        var data = new FormData
-                        data.append("order[amount]", $("#amount").val())
-                        data.append("order[currency]", $("#currency").val())
-                        data.append("order[user_id]", $("#user_id").val())
-                        data.append("order[shipping_address_id]", $("#order_shipping_address_id").val())
-                        data.append("order[billing_address_id]", $("#order_billing_address_id").val())
-                        Rails.ajax({
-                            url: "/orders",
-                            type: "post",
-                            data: data,
-                            success: function(data) {
-                                console.log('order created')
-                            },
-                            error: function(data) {
-                                console.log('order error')
-                            }
-                        })
-                        // Show a success message to your customer
-                        // There's a risk of the customer closing the window before callback
-                        // execution. Set up a webhook or plugin to listen for the
-                        // payment_intent.succeeded event that handles any business critical
-                        // post-payment actions.
+                }).then(function(result) {
+                    if (result.error) {
+                        // Show error to your customer (e.g., insufficient funds)
+                        console.log(result.error.message);
+                        document.getElementById("error").innerText = result.error.message;
+                        document.getElementById("success").style.display = "none";
+                        document.getElementById("error").style.display = "block";
+                    } else {
+                        if (result.paymentIntent.status === 'succeeded') {
+                            console.log('payment succeeded!')
+                            document.getElementById("success").innerText = "Payment Succeeded!";
+                            document.getElementById("error").style.display = "none";
+                            document.getElementById("success").style.display = "block";
+                        }
                     }
-                }
-                changeLoadingState(false);
-            });
-        });
+                    changeLoadingState(false);
+                });
+            }
+        })
     });
 </script>

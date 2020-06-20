@@ -14,8 +14,9 @@ Rails.application.routes.draw do
   get 'contact', to: 'pages#contact'
   root 'pages#home'
 
-  #Stripe Endpoint
-  get 'secret', to: 'orders#secret'
+  #Stripe Endpoints
+  post 'secret', to: 'orders#secret'
+  post 'webhook', to: 'orders#webhook'
 
 
   #Resources:

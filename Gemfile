@@ -27,6 +27,8 @@ gem 'hirb'
 gem 'stripe'
 #Jquery for AJAX
 gem 'jquery-rails'
+#Gem to convert country name to codes for stripe
+gem 'country_select', '~> 4.0'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

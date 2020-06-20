@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
     before_action :set_order, only: [:show, :destroy]
+    skip_before_action :verify_authenticity_token, only: :webhook
   
     # GET /orders
     # GET /orders.json
@@ -29,20 +30,74 @@ class OrdersController < ApplicationController
     def secret
       Stripe.api_key = ENV['STRIPE_SECRET_KEY']
 
+      #shipping address
+      sa = Address.find(params[:order][:shipping_address_id])
+
       @intent = Stripe::PaymentIntent.create({
         amount: current_cart.total * 100,
         currency: 'usd',
         payment_method_types: ['card'],
         receipt_email: current_user.email,
-        metadata: {integration_check: 'accept_a_payment'},
-        shipping: {address: {line1: "18 Cutler Farm Road"},
-                   name: current_user.name},
+        metadata: {integration_check: 'accept_a_payment',
+                  user_id: params[:order][:user_id],
+                  shopping_cart_id: current_cart.id,
+                  shipping_address_id: params[:order][:shipping_address_id],
+                  billing_address_id: params[:order][:billing_address_id]},
+        shipping: {address: {city: sa.city, country: sa.country, 
+                            line1: sa.address_line_1,
+                            line2: sa.address_line_2,
+                            postal_code: sa.zip,
+                            state: sa.state},
+                   name: sa.full_name}
       })
 
+      #billing address
+      ba = Address.find(params[:order][:billing_address_id])
+
       render :json => {client_secret: @intent.client_secret,
-                      name: @intent.shipping.name}.to_json
+                      name: @intent.shipping.name,
+                      email: @intent.receipt_email,
+                      billing_address: {city: ba.city, country: ba.country,
+                                        line1: ba.address_line_1,
+                                        line2: ba.address_line_2,
+                                        postal_code: ba.zip,
+                                        state: ba.state}}.to_json
       
     end
+
+    
+
+
+    def webhook
+      event = Stripe::Event.retrieve(params[:id])
+      # Handle the event
+      payment_processor = StripeManager::PaymentProcessor.new
+      case event.type
+        when 'payment_intent.succeeded'
+          payment_intent = event.data.object # contains a Stripe::PaymentIntent
+          payment_processor.create_order(payment_intent)
+          # Then define and call a method to handle the successful payment intent.
+          # handle_payment_intent_succeeded(payment_intent)
+        when 'payment_intent.created'
+          puts "Intent Created!"
+          payment_intent = event.data.object # contains a Stripe::PaymentMethod
+          # Then define and call a method to handle the successful attachment of a PaymentMethod.
+          # handle_payment_method_attached(payment_method)
+        # ... handle other event types
+        when 'charge.succeeded'
+          puts "Customer Charges Sending Receipt"
+          #send receipt email
+        else
+          # Unexpected event type
+          head :bad_request
+          return
+      end
+
+      head :ok
+    end
+
+
+
   
     # POST /orders
     # POST /orders.json
