@@ -19,4 +19,18 @@ class UserMailer < ApplicationMailer
     @user = user
     mail to: user.email, subject: "Password reset"
   end
+
+  def order_receipt(user, order)
+    @user = user
+    @order = order
+    @cards = Card.none
+    @order.selections.each do |selection|
+      @cards = @cards.or(Card.where(id: selection.card.id))
+    end
+    @sizes = {}
+    @cards.each do |card|
+      @sizes[card.id] = @order.selections.where(card_id: card.id).count
+    end
+    mail to: user.email, subject: "Order Receipt"
+  end
 end

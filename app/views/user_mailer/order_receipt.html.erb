@@ -1,0 +1,38 @@
+<h1> Jennifer's Design Studio </h1>
+
+<p> Hi <%= @user.name %>, </p>
+
+<p>
+We have recieved your card order and have begun to process it. Below are your order details:
+</p>
+
+<table class="table table-striped">
+    <thead >
+    <h3 class="center pad-top pad-bottom">Purchased Items</h3>
+    <tr>
+        <th scope="col">Card</th>
+        <th scope="col">Description</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th> </th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @cards.each do |card| %>
+        <tr>
+        <td class="no-wrap" scope="row"> 
+            <img class="responsive" src= <%= asset_path(card.img) %> height=250px width=150px/> 
+        </td>
+        <td class="no-wrap"> <%= card.short_description %> </td>
+        <td class="no-wrap container"> 
+            <div class="row">
+            <%= @sizes[card.id] %> 
+            </div>
+        </td>
+        <td class="no-wrap"> $<%= @sizes[card.id] * 5 %> </td>
+        </tr>
+    <% end %>
+    </tbody>
+</table>
+
+<p> Thanks for your purchase! If you have concerns or questions email me at: <a href="mailto:jenniferruditsky@gmail.com">jenniferruditsky@gmail.com</a></p>

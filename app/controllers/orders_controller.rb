@@ -5,6 +5,12 @@ class OrdersController < ApplicationController
     # GET /orders
     # GET /orders.json
     def index
+      if logged_in?
+        @orders = current_user.orders
+      else
+        flash[:danger] = "Can not view orders until you are logged in"
+        redirect_back fallback_location: root_url
+      end
     end
   
     # GET /orders/1
@@ -14,16 +20,21 @@ class OrdersController < ApplicationController
   
     # GET /orders/new
     def new
-      @order = Order.new
-      @addresses = {}
-      if logged_in?
-        @addresses = current_user.addresses
-      end
-      @total = current_cart.cards.size * 5
-      @cards = current_cart.cards.group(:id)
-      @sizes = {}
-      current_cart.cards.each do |card|
-        @sizes[card.id] = current_cart.cards.where(id: card.id).count
+      if (!logged_in? || current_cart.card_count == 0)
+        flash[:danger] = "Can not proceed to checkout until you are logged in with items in your cart"
+        redirect_back fallback_location: shopping_cart_path(current_cart)
+      else
+        @order = Order.new
+        @addresses = {}
+        if logged_in?
+          @addresses = current_user.addresses
+        end
+        @total = current_cart.cards.size * 5
+        @cards = current_cart.cards.group(:id)
+        @sizes = {}
+        current_cart.cards.each do |card|
+          @sizes[card.id] = current_cart.cards.where(id: card.id).count
+        end
       end
     end
 
@@ -73,20 +84,16 @@ class OrdersController < ApplicationController
       # Handle the event
       payment_processor = StripeManager::PaymentProcessor.new
       case event.type
-        when 'payment_intent.succeeded'
+        when 'payment_intent.succeeded' 
           payment_intent = event.data.object # contains a Stripe::PaymentIntent
-          payment_processor.create_order(payment_intent)
-          # Then define and call a method to handle the successful payment intent.
-          # handle_payment_intent_succeeded(payment_intent)
+          puts "Payment Processed!: " + payment_intent.inspect 
+          payment_processor.process(payment_intent)
         when 'payment_intent.created'
-          puts "Intent Created!"
-          payment_intent = event.data.object # contains a Stripe::PaymentMethod
-          # Then define and call a method to handle the successful attachment of a PaymentMethod.
-          # handle_payment_method_attached(payment_method)
-        # ... handle other event types
+          payment_intent = event.data.object # contains a Stripe::PaymentIntent
+          puts "Intent Created!: " + payment_intent.inspect
         when 'charge.succeeded'
-          puts "Customer Charges Sending Receipt"
-          #send receipt email
+          charge = event.data.object
+          puts "Customer Charged: " + charge.inspect    
         else
           # Unexpected event type
           head :bad_request

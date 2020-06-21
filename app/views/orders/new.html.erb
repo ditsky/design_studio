@@ -4,7 +4,8 @@
 
     <div class="container sr-root">
         <p id="error" class="alert alert-danger"> </p>
-        <p id="success" class="alert alert-success"> </p>
+        <p id="success" class="alert alert-success">  </p>
+        <%= link_to "View Your Orders", orders_path(@order.id), :id => "order"%>
         <form id="payment-form">
 
             <%= hidden_field_tag :amount, @total*100%>
@@ -137,6 +138,7 @@
 
     document.getElementById("error").style.display = "none";
     document.getElementById("success").style.display = "none";
+    document.getElementById("order").style.display = "none";
     // Set your publishable key: remember to change this to your live publishable key in production
     // See your keys here: https://dashboard.stripe.com/account/apikeys
     var stripe = Stripe("pk_test_51GroxnGYhSS9s9rvN6vCJC23mTemFWoKTIXA0ztQ1QJswzi29Qf95PFb9nG6AKjwijEKb4fqvL2MkPeOoCn2s5zY00RAV6TboP");
@@ -203,15 +205,24 @@
                         document.getElementById("error").innerText = result.error.message;
                         document.getElementById("success").style.display = "none";
                         document.getElementById("error").style.display = "block";
+                        changeLoadingState(false);
                     } else {
                         if (result.paymentIntent.status === 'succeeded') {
                             console.log('payment succeeded!')
-                            document.getElementById("success").innerText = "Payment Succeeded!";
+                            setTimeout(() => {  document.getElementById("success").innerText = "Payment Succeeded! Your Order is Now Being Proccessed";
                             document.getElementById("error").style.display = "none";
                             document.getElementById("success").style.display = "block";
+                            document.getElementById("order").style.display = "block";
+                            changeLoadingState(false); }, 4000);
+                            
+                        } else {
+                            document.getElementById("error").innerText = "An Unknown Error Has Occured";
+                            document.getElementById("error").style.display = "block";
+                            document.getElementById("success").style.display = "none";
+                            changeLoadingState(false);
                         }
                     }
-                    changeLoadingState(false);
+                    
                 });
             }
         })

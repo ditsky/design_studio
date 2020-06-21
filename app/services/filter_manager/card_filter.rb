@@ -35,10 +35,7 @@ module FilterManager
             all_cards = Card.all
             filtered_result = Card.none
             filter_symbols.each do |symbol|
-                puts params.inspect
-                puts symbol.inspect
                 if params[symbol] == "1"
-                    puts "symbol: " + symbol_to_s(symbol).inspect
                     filtered_result = filtered_result.or(all_cards.public_send("filter_by_#{column}", symbol_to_s(symbol)))
                 end
             end

@@ -1,0 +1,12 @@
+Jennifer's Design Studio
+
+    Hi <%= @user.name %>,
+
+    We have recieved your card order and have begun to process it. Below are your order details:
+
+    <% @cards.each do |card| %>
+        Description: <%= card.short_description %> Quantity: <%= @sizes[card.id] %> Price: $<%= @sizes[card.id] * 5 %>
+    <% end %>
+
+
+Thanks for your purchase! If you have concerns or questions email me at: jenniferruditsky@gmail.com.

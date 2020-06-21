@@ -43,6 +43,11 @@ class User < ApplicationRecord
         UserMailer.account_activation(self).deliver_now
     end
 
+    #Sends order receipt email
+    def send_order_receipt_email(order)
+        UserMailer.order_receipt(self, order).deliver_now
+    end
+
      # Sets the password reset attributes.
     def create_reset_digest
         self.reset_token = User.new_token

@@ -24,7 +24,7 @@
                     <td class="no-wrap" scope="row"> 
                       <img class="responsive" src= <%= asset_path(card.img) %> height=250px width=150px/> 
                     </td>
-                    <td class="no-wrap"> <%= card.content %> </td>
+                    <td class="no-wrap"> <%= card.short_description %> </td>
                     <td class="no-wrap container"> 
                       <div class="row">
                         <%= button_to [get_selection(@cart, card)], method: :delete do %>
@@ -38,7 +38,7 @@
                         <% end %>
                       </div>
                     </td>
-                    <td class="no-wrap"> $5.00 </td>
+                    <td class="no-wrap"> $<%= @sizes[card.id] * 5 %> </td>
                     <td class="no-wrap"> <%= link_to "Remove", remove_card_selections_path(selection: {shopping_cart_id: @cart.id, card_id: card.id}), method: :delete%> </td>
                   </tr>
                 <% end %>
@@ -61,7 +61,8 @@
                   <% if logged_in? %>
                     <%= button_to "Checkout", new_order_path, method: :get, class: "btn btn-sm btn-primary center"%>
                   <% else %>
-                    <%= button_to "Checkout", new_order_path, method: :get, class: "btn btn-sm btn-primary center"%>
+                    <p> You Must Be Logged in and have items in your cart to checkout </p>
+                    <%= button_to "Checkout", new_order_path, :disabled => true, method: :get, class: "btn btn-sm btn-primary center"%>
                   <% end %>
                 </div>
               </div>
