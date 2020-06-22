@@ -39,7 +39,11 @@ class OrdersController < ApplicationController
     end
 
     def secret
-      Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+      if Rails.env.production?
+        Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+      else
+        Stripe.api_key = ENV['STRIPE_SECRET_KEY_DEV']
+      end
 
       #shipping address
       sa = Address.find(params[:order][:shipping_address_id])
