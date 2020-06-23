@@ -125,10 +125,17 @@ class OrdersController < ApplicationController
         payment_intent: @order.payment_intent,
       })
       puts refund.inspect
-      @order.destroy
-      respond_to do |format|
-        format.html { redirect_to orders_url }
-        format.json { head :no_content }
+
+      if refund.status == "succeeded"
+        @order.destroy
+        respond_to do |format|
+          flash[:success] = "Your order has been refunded"
+          format.html { redirect_to orders_url }
+          format.json { head :no_content }
+        end
+      else
+        flash[:alert] = "There was An Error Refunding Your Charge"
+        redirect_back fallback_location: orders_path
       end
     end
   
