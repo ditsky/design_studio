@@ -13,7 +13,8 @@ module StripeManager
                                 currency: intent.currency,
                                 user_id: intent.metadata.user_id, 
                                 shipping_address_id: intent.metadata.shipping_address_id,
-                                billing_address_id: intent.metadata.billing_address_id
+                                billing_address_id: intent.metadata.billing_address_id,
+                                payment_intent: intent.id
             )
             return order
         end

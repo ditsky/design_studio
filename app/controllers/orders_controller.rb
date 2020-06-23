@@ -98,6 +98,9 @@ class OrdersController < ApplicationController
         when 'charge.succeeded'
           charge = event.data.object
           puts "Customer Charged: " + charge.inspect    
+        when 'charge.refunded'
+          charge = event.data.object
+          puts "Customer Refunded: " + charge.inspect
         else
           # Unexpected event type
           head :bad_request
@@ -106,36 +109,25 @@ class OrdersController < ApplicationController
 
       head :ok
     end
-
-
-
   
-    # POST /orders
-    # POST /orders.json
-    def create
-      @order = Order.new(order_params)
-  
-      respond_to do |format|
-        if @order.save
-          current_cart.order_selections(@order)
-          current_cart.clear
-          flash[:success] = "Order Placed!"
-          format.html { redirect_to @order }
-          format.json { render :show, status: :created, location: @order }
-        else
-          flash[:danger] = "Order Could Not Be Proccesed"
-          format.html { redirect_to new_order_path }
-          format.json { render json: @order.errors, status: :unprocessable_entity }
-        end
-      end
-    end
-  
+    
     # DELETE /orders/1
     # DELETE /orders/1.json
     def destroy
+
+      if Rails.env.production?
+        Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+      else
+        Stripe.api_key = ENV['STRIPE_SECRET_KEY_DEV']
+      end
+
+      refund = Stripe::Refund.create({
+        payment_intent: @order.payment_intent,
+      })
+      puts refund.inspect
       @order.destroy
       respond_to do |format|
-        format.html { redirect_to orders_url, notice: 'order was successfully destroyed.' }
+        format.html { redirect_to orders_url }
         format.json { head :no_content }
       end
     end
@@ -148,6 +140,6 @@ class OrdersController < ApplicationController
   
       # Only allow a list of trusted parameters through.
       def order_params
-        params.require(:order).permit(:amount, :currency, :user_id, :shipping_address_id, :billing_address_id)
+        params.require(:order).permit(:shipping_address_id)
       end
   end

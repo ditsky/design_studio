@@ -30,6 +30,6 @@ Rails.application.routes.draw do
       delete 'remove_card'
     end
   end
-  resources :orders, only: [:index, :show, :new, :create, :destroy]
+  resources :orders, only: [:index, :show, :new, :destroy]
 
 end
