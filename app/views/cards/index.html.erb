@@ -2,7 +2,7 @@
 
   <div class="row fill margin-bottom">
 
-    <div class="col-3  jumbotron bg-cream">
+    <div class="col-3 jumbotron bg-cream">
       <h3> Filter Search </h3>
       <hr>
       <%= form_with(url: cards_path, method: "get", local: true) do %>
@@ -11,13 +11,13 @@
           <br> <br>
           <% all_column_filters(column).each do |filter| %>
             <div class= "form-group row">
-              <%= check_box_tag(filter.parameterize.underscore.to_sym) %> &nbsp; &nbsp;
-              <%= label_tag(filter, filter ) %> 
+              <%= check_box_tag(filter.parameterize.underscore.to_sym, "1", false, {class:"lg-checkbox"}) %> &nbsp; &nbsp;
+              <%= label_tag(filter, filter.capitalize, class:"label-bold") %> 
             </div>
           <% end %>
           <hr>
         <% end %>
-        <%= submit_tag("Save") %>
+        <%= submit_tag("Save", class: "btn btn-primary") %>
       <% end %>
     </div>
 
@@ -39,7 +39,7 @@
                 <img class="post-card responsive margin-top-sm img-center padding-sides" src= <%= asset_path(card.img) %> height=150px width=200px/>
               <% end %>
               <br>
-              <p class="center"> <%= card.short_description %> <p>
+              <p class="center"> <strong> <%= card.short_description %> </strong> <p>
               <br> 
             <% end %>
           </div>

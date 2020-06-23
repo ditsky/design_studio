@@ -41,7 +41,7 @@
 
       <div class="field form-group">
         <%= form.label :state %>
-        <%= form.text_field :state, class: "form-control" %>
+        <%= collection_select :address, :state, @states, :to_s, :to_s, include_blank: true, class: "form-control" %>
       </div>
 
       <div class="field form-group">

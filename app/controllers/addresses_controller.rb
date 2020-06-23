@@ -14,6 +14,60 @@ class AddressesController < ApplicationController
 
   # GET /addresses/new
   def new
+    @states=
+    [
+        'AK',
+        'AL',
+        'AR',
+        'AZ',
+        'CA',
+        'CO',
+        'CT',
+        'DC',
+        'DE',
+        'FL',
+        'GA',
+        'HI',
+        'IA',
+        'ID',
+        'IL',
+        'IN',
+        'KS',
+        'KY',
+        'LA',
+        'MA',
+        'MD',
+        'ME',
+        'MI',
+        'MN',
+        'MO',
+        'MS',
+        'MT',
+        'NC',
+        'ND',
+        'NE',
+        'NH',
+        'NJ',
+        'NM',
+        'NV',
+        'NY',
+        'OH',
+        'OK',
+        'OR',
+        'PA',
+        'RI',
+        'SC',
+        'SD',
+        'TN',
+        'TX',
+        'UT',
+        'VA',
+        'VT',
+        'WA',
+        'WI',
+        'WV',
+        'WY'
+      ]
     @address = Address.new
   end
 
@@ -28,7 +82,8 @@ class AddressesController < ApplicationController
 
     respond_to do |format|
       if @address.save
-        format.html { redirect_back fallback_location: @address, notice: 'Address was successfully created.' }
+        flash[:success] = 'Address was successfully created.'
+        format.html { redirect_back fallback_location: @address }
         format.json { render :show, status: :created, location: @address }
       else
         format.html { render :new }
