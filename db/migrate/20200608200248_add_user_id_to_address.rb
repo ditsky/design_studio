@@ -1,6 +1,6 @@
 class AddUserIdToAddress < ActiveRecord::Migration[6.0]
   def change
-    create_table :orders do |t|
+    create_table :addresses do |t|
       t.string "country"
       t.string "full_name"
       t.string "address_line_1"
