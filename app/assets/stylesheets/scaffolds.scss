@@ -1,4 +1,12 @@
 
+
+@media (min-width: 1500px) {
+  .hide {
+    display: none;
+  }
+}
+
+
 .fill {
   height:100%;
   width:100%;
@@ -55,6 +63,10 @@ button:disabled {
 
 .navbar-pad {
   padding-top: 80px;
+}
+
+.height {
+  min-height: 80px;
 }
 
 .margin-top {
