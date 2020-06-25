@@ -41,8 +41,12 @@
       <li>
         <%= link_to shopping_cart_path(current_cart), class: "nav-link" do %>
           <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+          <% if current_cart.selections.size > 0 %>
+              <span class="pad-top-less"> x <%= current_cart.selections.size %> </span>
+          <% end %> 
         <% end %>
       </li>
+
     </ul>
   </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#central-links">

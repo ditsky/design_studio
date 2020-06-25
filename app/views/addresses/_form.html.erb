@@ -1,66 +1,69 @@
-<div class="container">
-  <div class="translucent margin-left col-md-5 col-md-offset-4 jumbotron bg-cream">
-    <h1 class="center">New Address</h1>
-    <%= form_with(model: address, local: true) do |form| %>
-      <% if address.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(address.errors.count, "error") %> prohibited this address from being saved:</h2>
+<div class="row no-gutters fill">
+  <div class="col-md-6 offset-md-3">
+    <div class="translucent jumbotron bg-cream margin-top margin-bottom">
+      <h1 class="center">New Address</h1>
+      <%= form_with(model: address, local: true) do |form| %>
+        <% if address.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(address.errors.count, "error") %> prohibited this address from being saved:</h2>
 
-          <ul>
-            <% address.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
+            <ul>
+              <% address.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="field form-group">
+          <%= form.label :country %>
+          <%= form.country_select :country, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= form.label :full_name %>
+          <%= form.text_field :full_name, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= form.label :address_line_1 %>
+          <%= form.text_field :address_line_1, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= form.label :address_line_2 %>
+          <%= form.text_field :address_line_2, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= form.label :city %>
+          <%= form.text_field :city, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= form.label :state %>
+          <%= collection_select :address, :state, @states, :to_s, :to_s, include_blank: true, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= form.label :zip %>
+          <%= form.text_field :zip, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= form.label :phone_number %>
+          <%= form.text_field :phone_number, class: "form-control" %>
+        </div>
+
+        <div class="field">
+          <%= form.hidden_field :user_id, :value => current_user.id, class: "form-control" %>
+        </div>
+
+        <div class="actions form-group">
+          <%= link_to "Cancel", addresses_path, class: "btn btn btn-outline-secondary"%>
+          <%= form.submit class: "btn btn-primary" %>
         </div>
       <% end %>
-
-      <div class="field form-group">
-        <%= form.label :country %>
-        <%= form.country_select :country, class: "form-control" %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.label :full_name %>
-        <%= form.text_field :full_name, class: "form-control" %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.label :address_line_1 %>
-        <%= form.text_field :address_line_1, class: "form-control" %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.label :address_line_2 %>
-        <%= form.text_field :address_line_2, class: "form-control" %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.label :city %>
-        <%= form.text_field :city, class: "form-control" %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.label :state %>
-        <%= collection_select :address, :state, @states, :to_s, :to_s, include_blank: true, class: "form-control" %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.label :zip %>
-        <%= form.text_field :zip, class: "form-control" %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.label :phone_number %>
-        <%= form.text_field :phone_number, class: "form-control" %>
-      </div>
-
-      <div class="field">
-        <%= form.hidden_field :user_id, :value => current_user.id, class: "form-control" %>
-      </div>
-
-      <div class="actions form-group">
-        <%= form.submit class: "btn btn-primary" %>
-      </div>
-    <% end %>
+    </div>
   </div>
 </div>

@@ -1,5 +1,6 @@
 class AddressesController < ApplicationController
   before_action :set_address, only: [:show, :edit, :update, :destroy]
+  before_action :set_states, only: [:edit, :new]
 
   # GET /addresses
   # GET /addresses.json
@@ -14,60 +15,6 @@ class AddressesController < ApplicationController
 
   # GET /addresses/new
   def new
-    @states=
-    [
-        'AK',
-        'AL',
-        'AR',
-        'AZ',
-        'CA',
-        'CO',
-        'CT',
-        'DC',
-        'DE',
-        'FL',
-        'GA',
-        'HI',
-        'IA',
-        'ID',
-        'IL',
-        'IN',
-        'KS',
-        'KY',
-        'LA',
-        'MA',
-        'MD',
-        'ME',
-        'MI',
-        'MN',
-        'MO',
-        'MS',
-        'MT',
-        'NC',
-        'ND',
-        'NE',
-        'NH',
-        'NJ',
-        'NM',
-        'NV',
-        'NY',
-        'OH',
-        'OK',
-        'OR',
-        'PA',
-        'RI',
-        'SC',
-        'SD',
-        'TN',
-        'TX',
-        'UT',
-        'VA',
-        'VT',
-        'WA',
-        'WI',
-        'WV',
-        'WY'
-      ]
     @address = Address.new
   end
 
@@ -120,6 +67,63 @@ class AddressesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_address
       @address = Address.find(params[:id])
+    end
+
+    def set_states
+      @states=
+      [
+        'AK',
+        'AL',
+        'AR',
+        'AZ',
+        'CA',
+        'CO',
+        'CT',
+        'DC',
+        'DE',
+        'FL',
+        'GA',
+        'HI',
+        'IA',
+        'ID',
+        'IL',
+        'IN',
+        'KS',
+        'KY',
+        'LA',
+        'MA',
+        'MD',
+        'ME',
+        'MI',
+        'MN',
+        'MO',
+        'MS',
+        'MT',
+        'NC',
+        'ND',
+        'NE',
+        'NH',
+        'NJ',
+        'NM',
+        'NV',
+        'NY',
+        'OH',
+        'OK',
+        'OR',
+        'PA',
+        'RI',
+        'SC',
+        'SD',
+        'TN',
+        'TX',
+        'UT',
+        'VA',
+        'VT',
+        'WA',
+        'WI',
+        'WV',
+        'WY'
+      ]
     end
 
     # Only allow a list of trusted parameters through.

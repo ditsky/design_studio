@@ -1,6 +1,8 @@
-<h1>Editing User</h1>
-
-<%= render 'form', user: @user %>
+<div class="row bg-studio fill no-gutters">
+    <div class="margin-left col-md-5 col-md-offset-4">
+        <%= render 'form', user: @user %>
+    </div>
+</div>
 
 <%= link_to 'Show', @user %> |
 <%= link_to 'Back', users_path %>
