@@ -10,6 +10,16 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @orders = current_user.orders.last(3)
+    @sizes = {}
+    @overflow = {}
+    @orders.each do |order|
+      @sizes[order.id] = {}
+      order.cards.each do |card|
+        @sizes[order.id][card.id] = order.card_count(card.id)
+      end
+      @overflow[order.id] = order.cards.count - 2
+    end
   end
 
   # GET /users/new
@@ -19,6 +29,10 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    if (!logged_in? || @user != current_user)
+      flash[:danger] = "You must be logged into an account to edit it"
+      redirect_back fallback_location: root_url
+    end
   end
 
   # POST /users

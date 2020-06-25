@@ -13,4 +13,5 @@ class Card < ApplicationRecord
     def order_card(card, order)
         card.update(order_id: order.id)
     end
+
 end

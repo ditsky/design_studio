@@ -16,4 +16,19 @@ class Order < ApplicationRecord
         return currency == "usd"
     end
 
+    #Returns all unique cards for order
+    def cards
+        cards = Card.none
+        self.selections.each do |selection|
+            cards = cards.or(Card.where(id: selection.card.id))
+        end
+        return cards
+    end
+
+    #Returns number of occurences of given card in order
+    def card_count(card_id)
+        return self.selections.where(card_id: card_id).count
+    end
+    
+
 end

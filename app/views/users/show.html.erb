@@ -1,12 +1,62 @@
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<div class="bg-field fill">
+  <div class="container">
+    <div class="row">
+      
+      <div class="offset-md-2 col-8">
+        <div class="card card-block margin-top padding-sides bg-light-pink translucent">
+          <div class="card-body">
+            <h4 class="card-title"> <%= @user.name %></h4>
+            <h5 class="card-text"> 
+              <%= @user.email %> 
+              <% if @user == current_user %>
+                <%= link_to "Edit Information", edit_user_path(@user), class: "btn btn-primary white float-right"%>
+              <% end %>
+            </h5>
+            <p class="card-text">
+            <% if @user == current_user %>
+              <p> <%= link_to "View all addresses", addresses_path%> </p>
+              <p> <%= link_to "View all orders", orders_path%> </p>
+            <% end %>
+            </p>
+          </div>
+        
+            
+        </div>
+      </div>
+    </div>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+    <% if !@orders.empty? %>
+      <h3 class="center label-bold blue pad-top-more"> Your Recent Orders: </h3>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+      <div class="row margin-top margin-bottom">
+        <% @orders.each do |order| %>
+         
+          <div class="col-4">
+            <%= link_to orders_path do %>
+              <div class="card card-block padding-sides bg-light-pink translucent">
+                <div class="card-body">
+                  <h5 class="card-header"> Ordered On <%= order.created_at.to_date %> </h5>
+                  <% order.cards.first(2).each do |card| %>
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-9">
+                          <img class="responsive padding-sides float-left" src= <%= asset_path(card.img) %> />
+                        </div>
+                        <div class="col-3 margin-top">
+                          <h4 class=""> x<%= @sizes[order.id][card.id]%> </h4>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+                <% if @overflow[order.id] > 0%>
+                  <h6 class="center"> ... + <%=@overflow[order.id]%> more ... </h6>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
