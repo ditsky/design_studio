@@ -2,6 +2,7 @@ class Card < ApplicationRecord
     #associations
     has_many :selections
     has_many :shopping_carts, through: :selections
+    has_many :images
 
     #filters for index page
     scope :filter_by_content, -> (content) {where content: content}

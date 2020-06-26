@@ -1,38 +1,37 @@
-<div class="with-gutters">
+<div class="with-gutters margin-bottom">
     <div class="hero-image">
-      <div class="hero-text">
-        <h1>New Designs!</h1>
-        <button>All New Designs</button>
+      <div class="hero-text padding-sides">
+        <h1 class="magenta label-bold">Hand Painted Watercolor Cards</h1>
+        <%= link_to "All Designs", cards_path, class: "btn btn-magenta"%>
       </div>
    </div>
 
-<div class="container">
-  <br>
-  <div class="row long">
-    
-    <div class="col-6">
-
-    	 <%= link_to "Birthday", cards_path(birthday: "1"), class:"btn bg-cream fill black-border"%> <br>
-    	
-    </div>
-    <div class="col-6">
-
-    	<%= link_to "Sympathy", cards_path(sympathy: "1"), class:"btn bg-cream fill black-border"%> <br>
+  <div class="container">
+    <br>
+    <div class="row">
+      <div class="col-6 long">
       
+        <%= render 'card_button', content: "birthday", images: @birthday_cards %>
+        
+      </div>
+      <div class="col-6 long">
+
+        <%= render 'card_button', content: "thank you", images: @thank_you_cards %>
+        
+      </div>
+    </div>
+    <br> <br>
+    <div class="row">
+      <div class="col-6 long">
+
+        <%= render 'card_button', content: "sympathy", images: @sympathy_cards %>
+        
+      </div>
+      <div class="col-6 long">
+
+        <%= render 'card_button', content: "blank", images: @blank_cards %>
+      </div>
     </div>
   </div>
-  <br> <br>
-  <div class="row long">
-    <div class="col-6">
-
-    	<%= link_to "Thank You", cards_path(thank_you: "1"), class:"btn bg-cream fill black-border"%> <br>
-      
-    </div>
-    <div class="col-6">
-
-    	<%= link_to "Blank", cards_path(blank: "1"), class:"btn bg-cream fill black-border "%> <br>
-    </div>
-  </div>
-</div>
     
 </div>

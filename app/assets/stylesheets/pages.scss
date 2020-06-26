@@ -16,12 +16,44 @@ body, html {
   background-color: rgb(250, 217, 217)
 }
 
+.bg-light-green {
+  background-color: rgb(202, 255, 181)
+}
+
+.opaque {
+  opacity: 1 !important;
+}
+
+.magenta {
+  color: rgb(255, 44, 244);
+}
+
+.btn-info {
+  color: #fff !important;
+}
+
+.btn-success {
+  color: #fff !important;
+}
+
+.btn-magenta {
+  color: #ffffff !important;
+  background-color: #f94bff;
+  border-color: #f94bff;
+}
+
 .black-border {
   border: 1px solid black;
 }
 
 .gray-border {
   border: 1px solid #ccc;
+  border-radius: 16px;
+}
+
+
+.magenta-border {
+  border: 1px solid rgb(255, 44, 244);
   border-radius: 16px;
 }
 
@@ -70,7 +102,10 @@ body, html {
   font-family: "Trattatello, fantasy"
 }
 
-
+.limit-size {
+  max-height: 200px;
+  max-width: 200px;
+}
 
 .button-cell{
 	display: table-cell;
@@ -95,10 +130,11 @@ body, html {
 /* The hero image */
 .hero-image {
   /* Use "linear-gradient" to add a darken background effect to the image. This will make the text easier to read */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("test.jpg");
+  background-image: linear-gradient(rgba(252, 253, 252, 0.5), rgba(220, 255, 210, 0.5)), url("banner-background.jpg");
 
   /* Set a specific height */
   height: 130px;
+  
 
   /* Position and center the image to scale nicely on all screens */
   margin-top: 20px;
@@ -110,6 +146,7 @@ body, html {
 
 /* Place text in the middle of the image */
 .hero-text {
+  backdrop-filter: blur(3px);
   text-align: center;
   position: absolute;
   top: 50%;

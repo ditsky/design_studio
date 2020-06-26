@@ -1,0 +1,17 @@
+<%= link_to cards_path(content => "1"), class:"btn bg-cream fill black-border" do %> 
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <% images.each do |card| %>
+                <img class="responsive limit-size" src=<%= asset_path(card.img)%> >
+                <% end %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h1 class="label-bold margin-top"> <%= content.capitalize %> Cards </h1>
+            </div>
+        </div>
+    </div>
+<% end %>

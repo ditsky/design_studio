@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_23_195816) do
+ActiveRecord::Schema.define(version: 2020_06_26_215803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,13 @@ ActiveRecord::Schema.define(version: 2020_06_23_195816) do
     t.string "short_description"
     t.string "long_description"
     t.integer "order_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string "filename"
+    t.integer "card_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "orders", force: :cascade do |t|
