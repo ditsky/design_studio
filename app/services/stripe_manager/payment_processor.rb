@@ -5,7 +5,7 @@ module StripeManager
         def process(intent)
             order = create_order(intent)
             handle_cart(intent, order)
-            send_receipt(intent, order)
+            send_receipts(intent, order)
         end
 
         def create_order(intent)
@@ -25,9 +25,10 @@ module StripeManager
             shopping_cart.clear
         end
 
-        def send_receipt(intent, order)
+        def send_receipts(intent, order)
             user = User.find(intent.metadata.user_id)
             user.send_order_receipt_email(order)
+            UserMailer.order_created(order).deliver_now
         end
 
     end

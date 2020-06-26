@@ -23,14 +23,16 @@ class UserMailer < ApplicationMailer
   def order_receipt(user, order)
     @user = user
     @order = order
-    @cards = Card.none
-    @order.selections.each do |selection|
-      @cards = @cards.or(Card.where(id: selection.card.id))
-    end
-    @sizes = {}
-    @cards.each do |card|
-      @sizes[card.id] = @order.selections.where(card_id: card.id).count
-    end
+    @cards = @order.cards
+    @sizes = @order.card_totals
     mail to: user.email, subject: "Order Receipt"
+  end
+
+
+  def order_created(order)
+    @order = order
+    @cards = @order.cards
+    @sizes = @order.card_totals
+    mail to: ENV['ADMIN_EMAIL'], subject: "You Have Recieved an Order!"
   end
 end

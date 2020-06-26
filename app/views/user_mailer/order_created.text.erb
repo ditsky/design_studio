@@ -1,0 +1,16 @@
+Jennifer's Design Studio
+
+Hi Mom!
+
+
+You have recieved an order! Below are the details:
+
+
+<% @cards.each do |card| %>
+    Description: <%= card.short_description %> Quantity: <%= @sizes[card.id] %> Price: $<%= @sizes[card.id] * 5 %>
+<% end %>
+
+
+Visit this link to view all the orders on the site <%= link_to orders_path.to_s, orders_path%>.
+Make sure to make sure the user has not canceled the order before you start working on it,
+and change the order status to "in proccess" when designing it and "shipping" once you have shipped it.

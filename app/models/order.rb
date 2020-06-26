@@ -29,6 +29,15 @@ class Order < ApplicationRecord
     def card_count(card_id)
         return self.selections.where(card_id: card_id).count
     end
+
+    #Returns a hash with number of occurences for each card in the order
+    def card_totals
+        sizes = {}
+        self.cards.each do |card|
+            sizes[card.id] = card_count(card.id)
+        end
+        return sizes
+    end
     
 
 end

@@ -1,9 +1,9 @@
 <h1> Jennifer's Design Studio </h1>
 
-<p> Hi <%= @user.name %>, </p>
+<p> Hi Mom! </p>
 
 <p>
-We have recieved your card order and have begun to process it. Below are your order details:
+You have recieved an order! Below are the details:
 </p>
 
 <table class="table table-striped">
@@ -31,4 +31,9 @@ We have recieved your card order and have begun to process it. Below are your or
     </tbody>
 </table>
 
-<p> Thanks for your purchase! If you have concerns or questions email me at: <a href="mailto:<%=ENV['ADMIN_EMAIL']%>"><%=ENV['ADMIN_EMAIL']%></a></p>
+<p> 
+    Click this link to view all the orders on the site <%= link_to "click me", orders_path%>.
+    Make sure to make sure the user has not canceled the order before you start working on it,
+    and change the order status to "in proccess" when designing it and "shipping" once you have shipped it.
+</p>
+
