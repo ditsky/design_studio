@@ -3,6 +3,8 @@ class Card < ApplicationRecord
     has_many :selections
     has_many :shopping_carts, through: :selections
     has_many :images
+    has_many_attached :images_s3
+    has_one_attached :display_s3
 
     validates :short_description, uniqueness: true
 

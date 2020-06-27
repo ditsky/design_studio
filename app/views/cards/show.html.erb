@@ -8,12 +8,12 @@
       <div id="carouselIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
         <ol class="carousel-indicators">
           <% slide = 0%>
-          <% @card.images.each do |image| %>
+          <% @card.images_s3.each do |image| %>
             <% if slide == 0%>
-              <li data-target="#carouselIndicators" data-slide-to=<%=slide.to_s%> class="active"> <img class="d-block w-100" src=<%= asset_path(image.filename)%>
+              <li data-target="#carouselIndicators" data-slide-to=<%=slide.to_s%> class="active"> <img class="d-block w-100" src=<%= url_for(image) %>
                 class="img-fluid"></li>
             <% else %>
-              <li data-target="#carouselIndicators" data-slide-to=<%=slide.to_s%>><img class="d-block w-100" src=<%= asset_path(image.filename)%>
+              <li data-target="#carouselIndicators" data-slide-to=<%=slide.to_s%>><img class="d-block w-100" src=<%= url_for(image)%>
                   class="img-fluid"></li>
             <% end %>
             <% slide = slide + 1%>
@@ -21,14 +21,14 @@
         </ol>
         <div class="carousel-inner margin-bottom">
           <% item = 0 %>
-          <% @card.images.each do |image| %>
+          <% @card.images_s3.each do |image| %>
             <% if item == 0 %>
               <div class="carousel-item active">
-                <img src=<%= asset_path(image.filename)%> class="d-block w-100" alt="...">
+                <img src=<%= url_for(image)%> class="d-block w-100" alt="...">
               </div>
             <% else %>
               <div class="carousel-item">
-                <img src=<%= asset_path(image.filename)%> class="d-block w-100" alt="...">
+                <img src=<%= url_for(image)%> class="d-block w-100" alt="...">
               </div>
             <% end %>
             <% item = item + 1%>

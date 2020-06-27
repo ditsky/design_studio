@@ -31,17 +31,30 @@ class CardsController < ApplicationController
   def create
     @card = Card.new(card_params)
     respond_to do |format|
-      if (params[:card][:display] && @card.save)
-        image_uploader = CardManager::UploadProcessor.new
-        puts params[:card].inspect
+
+
+      if (@card.save)
         params[:card][:images] << params[:card][:display]
-        image_uploader.upload(params[:card][:images], params[:card][:display], @card)
+        @card.images_s3.attach(params[:card][:images])
+        @card.display_s3.attach(params[:card][:display])
+        puts url_for(@card.display_s3).inspect
         format.html { redirect_to @card, notice: 'Card was successfully created.' }
         format.json { render :show, status: :created, location: @card }
       else
         format.html { render :new }
         format.json { render json: @card.errors, status: :unprocessable_entity }
       end
+
+      # if (params[:card][:display] && @card.save)
+      #   image_uploader = CardManager::UploadProcessor.new
+      #   params[:card][:images] << params[:card][:display]
+      #   image_uploader.upload(params[:card][:images], params[:card][:display], @card)
+      #   format.html { redirect_to @card, notice: 'Card was successfully created.' }
+      #   format.json { render :show, status: :created, location: @card }
+      # else
+      #   format.html { render :new }
+      #   format.json { render json: @card.errors, status: :unprocessable_entity }
+      # end
     end
   end
 
@@ -62,8 +75,10 @@ class CardsController < ApplicationController
   # DELETE /cards/1
   # DELETE /cards/1.json
   def destroy
-    image_deleter = CardManager::UploadProcessor.new
-    image_deleter.delete(@card.images)
+    # image_deleter = CardManager::UploadProcessor.new
+    # image_deleter.delete(@card.images)
+    @card.images_s3.purge
+    @card.display_s3.purge
     @card.destroy
     respond_to do |format|
       format.html { redirect_to cards_url, notice: 'Card was successfully destroyed.' }
@@ -86,7 +101,7 @@ class CardsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def card_params
-      params.permit(:display, :images)
+      params.permit(:display, images: [])
       params.require(:card).permit(:content, :card_type, :painted, :hand_cut, :filter, :short_description, :long_description)
     end
 

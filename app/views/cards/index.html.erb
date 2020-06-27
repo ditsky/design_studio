@@ -34,9 +34,9 @@
             <div class="col-4 img-cont img-center">
               <%= link_to card do %>
                 <% if card.card_type == "fold over"%>
-                  <img class="fold-over responsive img-center padding-sides" src= <%= asset_path(card.img) %> />
+                  <img class="fold-over responsive img-center padding-sides" src= <%= url_for(card.display_s3) %> />
                 <% else %>
-                  <img class="post-card responsive margin-top-sm img-center padding-sides" src= <%= asset_path(card.img) %> height=150px width=200px/>
+                  <img class="post-card responsive margin-top-sm img-center padding-sides" src= <%= url_for(card.display_s3) %> height=150px width=200px/>
                 <% end %>
                 <br>
                 <p class="center"> <strong> <%= card.short_description %> </strong> <p>

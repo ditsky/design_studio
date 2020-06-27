@@ -15,8 +15,10 @@ mfbday = Card.create(content: "birthday", card_type: "post card", painted: true,
                                                                                 The size is 4x6 and comes with an envelope and a piece of parchment to protect the top of the card when mailing.")
 mfbday_path = "cards/birthday/multifloral-birthday/"
 
+mfbday.display_s3.attach(io: File.open(root_path + mfbday_path + "multifloral-birthday-display.png"), filename: "multifloral-birthday-display.png")
 Dir.foreach(root_path + mfbday_path) do |filename|
     next if filename == '.' or filename == '..'
+    mfbday.images_s3.attach(io: File.open(root_path + mfbday_path + filename), filename: filename)
     Image.create(filename: mfbday_path + filename, card_id: mfbday.id)
 end
 
@@ -27,8 +29,10 @@ pfbday = Card.create(content: "birthday", card_type: "post card", painted: true,
 
 pfbday_path = "cards/birthday/pink-floral-birthday/"
 
+pfbday.display_s3.attach(io: File.open(root_path + pfbday_path + "pink-floral-birthday-display.png"), filename: "pink-floral-birthday-display.png")
 Dir.foreach(root_path + pfbday_path) do |filename|
     next if filename == '.' or filename == '..'
+    pfbday.images_s3.attach(io: File.open(root_path + pfbday_path + filename), filename: filename)
     Image.create(filename: pfbday_path + filename, card_id: pfbday.id)
 end 
 
@@ -40,8 +44,10 @@ mgl = Card.create(content: "blank", card_type: "post card", painted: true, hand_
 
 mgl_path = "cards/blank/multi-green/"
 
+mgl.display_s3.attach(io: File.open(root_path + mgl_path + "multi-green-display.png"), filename: "multi-green-display.png")
 Dir.foreach(root_path + mgl_path) do |filename|
     next if filename == '.' or filename == '..'
+    mgl.images_s3.attach(io: File.open(root_path + mgl_path + filename), filename: filename)
     Image.create(filename: mgl_path + filename, card_id: mgl.id)
 end 
 
@@ -52,8 +58,10 @@ pmmf = Card.create(content: "blank", card_type: "fold over", painted: true, hand
                                                                                 Size is 5x7 and is perfect for framing.")
 pmmf_path = "cards/blank/mixed-peach-multifloral/"
 
+pmmf.display_s3.attach(io: File.open(root_path + pmmf_path + "mixed-peach-multifloral-display.png"), filename: "mixed-peach-multifloral-display.png")
 Dir.foreach(root_path + pmmf_path) do |filename|
     next if filename == '.' or filename == '..'
+    pmmf.images_s3.attach(io: File.open(root_path + pmmf_path + filename), filename: filename)
     Image.create(filename: pmmf_path + filename, card_id: pmmf.id)
 end
 
@@ -64,8 +72,10 @@ mmmf = Card.create(content: "blank", card_type: "fold over", painted: true, hand
 
 mmmf_path = "cards/blank/mixed-magenta-multifloral/"
 
+mmmf.display_s3.attach(io: File.open(root_path + mmmf_path + "mixed-magenta-multifloral-display.png"), filename: "mixed-magenta-multifloral-display.png")
 Dir.foreach(root_path + mmmf_path) do |filename|
     next if filename == '.' or filename == '..'
+    mmmf.images_s3.attach(io: File.open(root_path + mmmf_path + filename), filename: filename)
     Image.create(filename: mmmf_path + filename, card_id: mmmf.id)
 end
 
@@ -76,8 +86,11 @@ bmmf = Card.create(content: "blank", card_type: "fold over", painted: true, hand
 
 bmmf_path = "cards/blank/mixed-blue-multifloral/"    
 
+
+bmmf.display_s3.attach(io: File.open(root_path + bmmf_path + "mixed-blue-multifloral-display.png"), filename: "mixed-blue-multifloral-display.png")
 Dir.foreach(root_path + bmmf_path) do |filename|
     next if filename == '.' or filename == '..'
+    bmmf.images_s3.attach(io: File.open(root_path + bmmf_path + filename), filename: filename)
     Image.create(filename: bmmf_path + filename, card_id: bmmf.id)
 end
 
@@ -88,8 +101,10 @@ mmf = Card.create(content: "blank", card_type: "fold over", painted: true, hand_
 
 mmf_path = "cards/blank/magenta-multifloral/"
 
+mmf.display_s3.attach(io: File.open(root_path + mmf_path + "magenta-multifloral-display.png"), filename: "magenta-multifloral-display.png")
 Dir.foreach(root_path + mmf_path) do |filename|
     next if filename == '.' or filename == '..'
+    mmf.images_s3.attach(io: File.open(root_path + mmf_path + filename), filename: filename)
     Image.create(filename: mmf_path + filename, card_id: mmf.id)
 end
 

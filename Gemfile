@@ -29,6 +29,8 @@ gem 'stripe'
 gem 'jquery-rails'
 #Gem to convert country name to codes for stripe
 gem 'country_select', '~> 4.0'
+#S3 for image uploads
+gem "aws-sdk-s3", require: false
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
