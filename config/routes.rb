@@ -23,7 +23,11 @@ Rails.application.routes.draw do
   resources :users
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
-  resources :cards
+  resources :cards do
+    member do
+      delete 'delete_image'
+    end
+  end
   resources :shopping_carts, only: [:show]
   resources :selections, only: [:create, :destroy] do
     collection do 

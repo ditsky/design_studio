@@ -1,5 +1,5 @@
 class CardsController < ApplicationController
-  before_action :set_card, only: [:show, :edit, :update, :destroy]
+  before_action :set_card, only: [:show, :edit, :update, :destroy, :delete_image]
   before_action :check_admin, only: [:new, :edit, :create, :update, :destroy]
 
   # GET /cards
@@ -31,13 +31,13 @@ class CardsController < ApplicationController
   def create
     @card = Card.new(card_params)
     respond_to do |format|
-
-
-      if (@card.save)
-        params[:card][:images] << params[:card][:display]
-        @card.images_s3.attach(params[:card][:images])
-        @card.display_s3.attach(params[:card][:display])
-        puts url_for(@card.display_s3).inspect
+      if (params[:card][:display] && @card.save)
+        if (params[:card][:images])
+          @card.images_s3.attach(params[:card][:images])
+        end
+        if params[:card][:display]
+          @card.display_s3.attach(params[:card][:display])
+        end
         format.html { redirect_to @card, notice: 'Card was successfully created.' }
         format.json { render :show, status: :created, location: @card }
       else
@@ -63,6 +63,12 @@ class CardsController < ApplicationController
   def update
     respond_to do |format|
       if @card.update(card_params)
+        if (params[:card][:images])
+          @card.images_s3.attach(params[:card][:images])
+        end
+        if params[:card][:display]
+          @card.display_s3.attach(params[:card][:display])
+        end
         format.html { redirect_to @card, notice: 'Card was successfully updated.' }
         format.json { render :show, status: :ok, location: @card }
       else
@@ -70,6 +76,12 @@ class CardsController < ApplicationController
         format.json { render json: @card.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  #DELETE /cards/1/delete_image
+  def delete_image
+    @card.images_s3.where(id: params[:image]).purge
+    redirect_to edit_card_path
   end
 
   # DELETE /cards/1
@@ -101,7 +113,7 @@ class CardsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def card_params
-      params.permit(:display, images: [])
+      params.permit(:display, :image, images: [])
       params.require(:card).permit(:content, :card_type, :painted, :hand_cut, :filter, :short_description, :long_description)
     end
 
