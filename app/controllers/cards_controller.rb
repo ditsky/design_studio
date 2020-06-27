@@ -1,5 +1,6 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy]
+  before_action :check_admin, only: [:new, :edit, :create, :update, :destroy]
 
   # GET /cards
   # GET /cards.json
@@ -18,12 +19,7 @@ class CardsController < ApplicationController
 
   # GET /cards/new
   def new
-    if (!logged_in? || !user_admin?)
-      flash[:danger] = "Can not create cards if you are not logged in as an admin"
-      redirect_back fallback_location: cards_path
-    else
-      @card = Card.new
-    end
+    @card = Card.new
   end
 
   # GET /cards/1/edit
@@ -34,7 +30,6 @@ class CardsController < ApplicationController
   # POST /cards.json
   def create
     @card = Card.new(card_params)
-
     respond_to do |format|
       if (params[:card][:display] && @card.save)
         image_uploader = CardManager::UploadProcessor.new
@@ -80,6 +75,13 @@ class CardsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_card
       @card = Card.find(params[:id])
+    end
+
+    def check_admin
+      if !user_admin?
+        flash[:danger] = "Can not update a card without admin status"
+        redirect_back fallback_location: new_card_path
+      end
     end
 
     # Only allow a list of trusted parameters through.

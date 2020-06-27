@@ -4,8 +4,11 @@ module CardManager
 
 
         def upload(images, display_image, card)
-            folder_path = Rails.root.join('app', 'assets', 'images', 'cards', 'uploads')
             
+            folder_path = Rails.root.join('app', 'assets', 'images', 'cards', 'uploads')
+            if Rails.env.production? 
+                folder_path = Rails.root.join('assets', 'images', 'cards', 'uploads')
+            end
             images.each do |image|
                 image_path = folder_path.join(image.original_filename)
                 File.open(image_path, 'wb') do |file|
