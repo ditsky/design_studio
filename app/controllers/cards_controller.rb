@@ -11,18 +11,6 @@ class CardsController < ApplicationController
     @columns = ["CONTENT", "STYLE", "CARD TYPE"]
   end
 
-  # # GET /cards
-  # # GET /cards.json
-  # def index
-  #   @cards = Card.all
-    
-  #   filter_params(params).each do |key, value|
-  #     @cards = @cards.public_send("filter_by_#{key}", value) if value.present?
-  #   end
-  #   @contents = @cards.distinct.pluck(:content)
-  #   @columns = ["CONTENT", "STYLE", "CARD TYPE"]
-  # end
-
   # GET /cards/1
   # GET /cards/1.json
   def show
@@ -30,7 +18,12 @@ class CardsController < ApplicationController
 
   # GET /cards/new
   def new
-    @card = Card.new
+    if (!logged_in? || !current_user.admin)
+      flash[:danger] = "Can not create cards if you are not logged in as an admin"
+      redirect_back fallback_location: cards_path
+    else
+      @card = Card.new
+    end
   end
 
   # GET /cards/1/edit
@@ -43,7 +36,11 @@ class CardsController < ApplicationController
     @card = Card.new(card_params)
 
     respond_to do |format|
-      if @card.save
+      if (params[:card][:display] && @card.save)
+        image_uploader = UploadManager::ImageUploader.new
+        puts params[:card].inspect
+        params[:card][:images] << params[:card][:display]
+        image_uploader.upload(params[:card][:images], params[:card][:display], @card)
         format.html { redirect_to @card, notice: 'Card was successfully created.' }
         format.json { render :show, status: :created, location: @card }
       else
@@ -85,7 +82,8 @@ class CardsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def card_params
-      params.require(:card).permit(:content, :card_type, :painted, :hand_cut, :filter)
+      params.permit(:display, :images)
+      params.require(:card).permit(:content, :card_type, :painted, :hand_cut, :filter, :short_description, :long_description)
     end
 
     #Allows the filter paramter namespace to be optional in the URL

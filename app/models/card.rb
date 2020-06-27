@@ -4,6 +4,8 @@ class Card < ApplicationRecord
     has_many :shopping_carts, through: :selections
     has_many :images
 
+    validates :short_description, uniqueness: true
+
     #filters for index page
     scope :filter_by_content, -> (content) {where content: content}
     scope :filter_by_card_type, -> (card_type) {where card_type: card_type}

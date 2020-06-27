@@ -31,6 +31,27 @@
     <%= form.check_box :hand_cut %>
   </div>
 
+  <div class="field">
+    <%= form.label :short_description %>
+    <%= form.text_field :short_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :long_description %>
+    <%= form.text_field :long_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :display_image %>
+    <%= form.file_field :display %>
+  </div>
+
+  <div class="field">
+    <%= form.label :images %>
+    <%= form.file_field :images, :multiple => true %>
+
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
