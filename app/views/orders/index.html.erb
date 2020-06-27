@@ -35,9 +35,9 @@
                             <% order.selections.limit(5).each do |selection| %>
                                 <% card = selection.card%>
                                 <% if card.card_type == "fold over"%>
-                                    <img src=<%= asset_path(card.img)%> height=200px width=150px>
+                                    <img src=<%= rails_blob_path(card.display_s3)%> height=200px width=150px>
                                 <% else %>
-                                    <img src=<%= asset_path(card.img)%> height=150px width=200px>
+                                    <img src=<%= rails_blob_path(card.display_s3)%> height=150px width=200px>
                                 <% end %>
                             <% end %>
                         </div>

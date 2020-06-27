@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col">
                 <% images.each do |card| %>
-                <img class="responsive limit-size" src=<%= asset_path(card.img)%> >
+                <img class="responsive limit-size" src=<%= rails_blob_path(card.display_s3)%> >
                 <% end %>
             </div>
         </div>

@@ -55,7 +55,7 @@
                         <% @cards.each do |card| %>
                             <div class="row h-100 ">
                                 <div class="col-3">
-                                    <img class="responsive" src= <%= asset_path(card.img) %> height=250px width=150px/>
+                                    <img class="responsive" src= <%= rails_blob_path(card.display_s3) %> height=250px width=150px/>
                                 </div>
                                 <div class="col-3 my-auto">
                                     <%= card.short_description %>

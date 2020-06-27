@@ -44,7 +44,7 @@
                     <div class="container-fluid">
                       <div class="row">
                         <div class="col-9">
-                          <img class="responsive padding-sides float-left" src= <%= asset_path(card.img) %> />
+                          <img class="responsive padding-sides float-left" src= <%= rails_blob_path(card.display_s3) %> />
                         </div>
                         <div class="col-3 margin-top">
                           <h4 class=""> x<%= @sizes[order.id][card.id]%> </h4>

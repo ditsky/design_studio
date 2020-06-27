@@ -22,7 +22,7 @@
                 <% @cards.each do |card| %>
                   <tr>
                     <td class="no-wrap" scope="row"> 
-                      <img class="responsive" src= <%= asset_path(card.img) %> height=250px width=150px/> 
+                      <img class="responsive" src= <%= rails_blob_path(card.display_s3) %> height=250px width=150px/> 
                     </td>
                     <td class="no-wrap"> <%= card.short_description %> </td>
                     <td class="no-wrap container"> 
