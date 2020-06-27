@@ -10,10 +10,10 @@
           <% slide = 0%>
           <% @card.images_s3.each do |image| %>
             <% if slide == 0%>
-              <li data-target="#carouselIndicators" data-slide-to=<%=slide.to_s%> class="active"> <img class="d-block w-100" src=<%= url_for(image) %>
+              <li data-target="#carouselIndicators" data-slide-to=<%=slide.to_s%> class="active"> <img class="d-block w-100" src=<%= rails_blob_path(image) %>
                 class="img-fluid"></li>
             <% else %>
-              <li data-target="#carouselIndicators" data-slide-to=<%=slide.to_s%>><img class="d-block w-100" src=<%= url_for(image)%>
+              <li data-target="#carouselIndicators" data-slide-to=<%=slide.to_s%>><img class="d-block w-100" src=<%= rails_blob_path(image)%>
                   class="img-fluid"></li>
             <% end %>
             <% slide = slide + 1%>
@@ -24,11 +24,11 @@
           <% @card.images_s3.each do |image| %>
             <% if item == 0 %>
               <div class="carousel-item active">
-                <img src=<%= url_for(image)%> class="d-block w-100" alt="...">
+                <img src=<%= rails_blob_path(image)%> class="d-block w-100" alt="...">
               </div>
             <% else %>
               <div class="carousel-item">
-                <img src=<%= url_for(image)%> class="d-block w-100" alt="...">
+                <img src=<%= rails_blob_path(image)%> class="d-block w-100" alt="...">
               </div>
             <% end %>
             <% item = item + 1%>
