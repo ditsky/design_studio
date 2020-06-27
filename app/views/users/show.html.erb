@@ -14,7 +14,11 @@
             </h5>
             <p class="card-text">
             <% if @user == current_user %>
-              <p> <%= link_to "View all addresses", addresses_path%> </p>
+              <% if user_admin? %>
+                <p> <%= link_to "Create a card", new_card_path %> </p>
+              <% else %>
+                <p> <%= link_to "View all addresses", addresses_path%> </p>
+              <% end %>
               <p> <%= link_to "View all orders", orders_path%> </p>
             <% end %>
             </p>

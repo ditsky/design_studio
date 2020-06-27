@@ -42,6 +42,9 @@ module SessionsHelper
 
     #Need to implement this later
     def user_admin?
+        if (current_user && current_user.admin)
+            return true
+        end
         return false
     end
 

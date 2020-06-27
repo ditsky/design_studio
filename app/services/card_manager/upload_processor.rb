@@ -1,6 +1,6 @@
-module UploadManager
+module CardManager
 
-    class ImageUploader
+    class UploadProcessor
 
 
         def upload(images, display_image, card)
@@ -14,10 +14,18 @@ module UploadManager
                 asset_path = "cards/uploads/" + image.original_filename
                 Image.create(filename: asset_path, card_id: card.id)
                 if image == display_image
-                    card.update(img: image_path)
+                    card.update(img: asset_path)
                 end
             end
 
+        end
+
+        def delete(images)
+            images.each do |image|
+                image_path = Rails.root.join('app', 'assets', 'images', image.filename)
+                File.delete(image_path) if File.exist?(image_path)
+            end
+            images.delete_all
         end
 
 

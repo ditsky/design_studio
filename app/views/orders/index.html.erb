@@ -1,5 +1,9 @@
 <div class="container margin-bottom">
-    <h3 class="center margin-top"> Your Orders: </h3>
+    <% if user_admin? %>
+        <h3 class="center margin-top"> Orders: </h3>
+    <% else %>
+        <h3 class="center margin-top"> Your Orders: </h3>
+    <% end %>
     <% @orders.each do |order| %>
         <div class="container">
             <div class="card margin-top-sm">

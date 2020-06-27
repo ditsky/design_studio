@@ -18,7 +18,7 @@ class CardsController < ApplicationController
 
   # GET /cards/new
   def new
-    if (!logged_in? || !current_user.admin)
+    if (!logged_in? || !user_admin?)
       flash[:danger] = "Can not create cards if you are not logged in as an admin"
       redirect_back fallback_location: cards_path
     else
@@ -37,7 +37,7 @@ class CardsController < ApplicationController
 
     respond_to do |format|
       if (params[:card][:display] && @card.save)
-        image_uploader = UploadManager::ImageUploader.new
+        image_uploader = CardManager::UploadProcessor.new
         puts params[:card].inspect
         params[:card][:images] << params[:card][:display]
         image_uploader.upload(params[:card][:images], params[:card][:display], @card)
@@ -67,6 +67,8 @@ class CardsController < ApplicationController
   # DELETE /cards/1
   # DELETE /cards/1.json
   def destroy
+    image_deleter = CardManager::UploadProcessor.new
+    image_deleter.delete(@card.images)
     @card.destroy
     respond_to do |format|
       format.html { redirect_to cards_url, notice: 'Card was successfully destroyed.' }

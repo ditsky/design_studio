@@ -29,22 +29,25 @@
       <hr>
       
       <% @card_groups.each do |group| %>
-      <div class="row">
-        <% group.each do |card| %>
-          <div class="col-4 img-cont img-center">
-            <%= link_to card do %>
-              <% if card.card_type == "fold over"%>
-                <img class="fold-over responsive img-center padding-sides" src= <%= asset_path(card.img) %> />
-              <% else %>
-                <img class="post-card responsive margin-top-sm img-center padding-sides" src= <%= asset_path(card.img) %> height=150px width=200px/>
+        <div class="row">
+          <% group.each do |card| %>
+            <div class="col-4 img-cont img-center">
+              <%= link_to card do %>
+                <% if card.card_type == "fold over"%>
+                  <img class="fold-over responsive img-center padding-sides" src= <%= asset_path(card.img) %> />
+                <% else %>
+                  <img class="post-card responsive margin-top-sm img-center padding-sides" src= <%= asset_path(card.img) %> height=150px width=200px/>
+                <% end %>
+                <br>
+                <p class="center"> <strong> <%= card.short_description %> </strong> <p>
+                <br> 
               <% end %>
-              <br>
-              <p class="center"> <strong> <%= card.short_description %> </strong> <p>
-              <br> 
-            <% end %>
-          </div>
-        <% end %>
-      </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <% if user_admin? %>
+        <%= link_to "Create a card", new_card_path, class: "btn btn-magenta float-right"%>
       <% end %>
     </div>
 

@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
     # GET /orders.json
     def index
       if logged_in?
-        if current_user.admin
+        if user_admin?
           @orders = Order.all
           @admin = true
           @options = ["pending", "in process", "shipping"]
@@ -123,7 +123,7 @@ class OrdersController < ApplicationController
       respond_to do |format|
         
         updated = false
-        if (logged_in? && current_user.admin)
+        if (logged_in? && user_admin?)
           updated = @order.update(order_params_admin)
         elsif (logged_in?)
           updated = @order.update(order_params)

@@ -1,58 +1,68 @@
-<%= form_with(model: card, local: true) do |form| %>
-  <% if card.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(card.errors.count, "error") %> prohibited this card from being saved:</h2>
+<div class="row no-gutters fill">
+  <div class="col-md-6 offset-md-3">
+    <div class="translucent jumbotron bg-cream margin-top margin-bottom">
+      <h1 class="center">Card Details</h1>
+      <%= form_with(model: card, local: true) do |form| %>
+        <% if card.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(card.errors.count, "error") %> prohibited this card from being saved:</h2>
 
-      <ul>
-        <% card.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+            <ul>
+              <% card.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
+
+        <div class="field">
+          <%= form.label :content %>
+          <p class="small"> (eg. birthday, sympathy, blank) </p>
+          <%= form.text_field :content, class: "form-control" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :card_type %>
+          <p class="small"> (eg. post card, fold over) </p>
+          <%= form.text_field :card_type, class: "form-control" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :painted %>
+          <%= form.check_box :painted, class: "lg-checkbox" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :hand_cut %>
+          <%= form.check_box :hand_cut, class: "lg-checkbox" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :short_description %>
+          <p class="small"> (eg. Multifloral Birthday Card) </p>
+          <%= form.text_field :short_description, class: "form-control" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :long_description %>
+          <%= form.text_field :long_description, class: "form-control" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :display_image %>
+          <%= form.file_field :display, class: "form-control-file" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :other_images %>
+          <%= form.file_field :images, :multiple => true, class: "form-control-file" %>
+
+        </div>
+
+        <div class="actions">
+          <%= form.submit class: "btn btn-magenta" %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_field :content %>
   </div>
-
-  <div class="field">
-    <%= form.label :card_type %>
-    <%= form.text_field :card_type %>
-  </div>
-
-  <div class="field">
-    <%= form.label :painted %>
-    <%= form.check_box :painted %>
-  </div>
-
-  <div class="field">
-    <%= form.label :hand_cut %>
-    <%= form.check_box :hand_cut %>
-  </div>
-
-  <div class="field">
-    <%= form.label :short_description %>
-    <%= form.text_field :short_description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :long_description %>
-    <%= form.text_field :long_description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :display_image %>
-    <%= form.file_field :display %>
-  </div>
-
-  <div class="field">
-    <%= form.label :images %>
-    <%= form.file_field :images, :multiple => true %>
-
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

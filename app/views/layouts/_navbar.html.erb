@@ -10,7 +10,9 @@
           <li> <%= link_to "Login", login_path, class:"nav-link"%>
         <% end %>
         <li><%= link_to "Cards", cards_path, class: "nav-link" %></li>
-
+        <% if user_admin? %>
+          <li><%= link_to "Orders", orders_path, class:"nav-link"%></li>
+        <% end %>
         <div class="hide">
           <% if logged_in? %>
             <li> <%= link_to "Profile", user_path(current_user), class: "nav-link"%></li>

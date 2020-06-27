@@ -42,6 +42,10 @@ body, html {
   border-color: #f94bff;
 }
 
+.btn-danger {
+  color: #ffffff !important;
+}
+
 .black-border {
   border: 1px solid black;
 }
@@ -130,7 +134,7 @@ body, html {
 /* The hero image */
 .hero-image {
   /* Use "linear-gradient" to add a darken background effect to the image. This will make the text easier to read */
-  background-image: linear-gradient(rgba(252, 253, 252, 0.5), rgba(220, 255, 210, 0.5)), url("banner-background.jpg");
+  background-image: linear-gradient(rgba(252, 253, 252, 0.5), rgba(240, 255, 235, 0.5)), url("banner-background.jpg");
 
   /* Set a specific height */
   height: 130px;
