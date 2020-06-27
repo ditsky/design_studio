@@ -93,6 +93,11 @@ Dir.foreach(root_path + mmf_path) do |filename|
     Image.create(filename: mmf_path + filename, card_id: mmf.id)
 end
 
+
+#Create Admin Users
+User.create(name: "Jennifer Ruditsky", email: "jenniferruditsky@gmail.com", activated: true, admin: true, password: ENV['ADMIN_PASSWORD'], password_confirmation: ENV['ADMIN_PASSWORD'])
+User.create(name: "Sam Ruditsky", email: "sruditsky@brandeis.edu", activated: true, admin: true, password: ENV['SAM_PASSWORD'], password_confirmation: ENV['SAM_PASSWORD'])
+
 # Card.create(content: "thank you", card_type: "post card", painted: true, hand_cut: true, img:"magenta-multifloral-display.png",
 #             short_description: "Magenta Multi-floral Card", long_description: "This watercolor card was  painted and hand cut by me in my studio. Each is an original piece of art and is not printed. Every card comes with an envelope and a piece of parchment to protect the card when placed in the envelope. 
 #                                                                         The card is blank inside for you to write your own personal message.

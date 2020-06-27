@@ -1,12 +1,19 @@
 class OrdersController < ApplicationController
-    before_action :set_order, only: [:show, :destroy]
+    before_action :set_order, only: [:show, :destroy, :update]
     skip_before_action :verify_authenticity_token, only: :webhook
   
     # GET /orders
     # GET /orders.json
     def index
       if logged_in?
-        @orders = current_user.orders
+        if current_user.admin
+          @orders = Order.all
+          @admin = true
+          @options = ["pending", "in process", "shipping"]
+        else
+          @orders = current_user.orders
+          @admin = false
+        end
       else
         flash[:danger] = "Can not view orders until you are logged in"
         redirect_back fallback_location: root_url
@@ -109,6 +116,29 @@ class OrdersController < ApplicationController
 
       head :ok
     end
+
+    # PATCH/PUT /orders/1
+    # PATCH/PUT /orders/1.json
+    def update
+      respond_to do |format|
+        
+        updated = false
+        if (logged_in? && current_user.admin)
+          updated = @order.update(order_params_admin)
+        elsif (logged_in?)
+          updated = @order.update(order_params)
+        end
+        
+        if updated
+          flash[:success] = "Order Successfully Updated"
+          format.html { redirect_to orders_path }
+          format.json { render :index, status: :ok, location: orders_path }
+        else
+          format.html { render :edit }
+          format.json { render json: @order.errors, status: :unprocessable_entity }
+        end
+      end
+    end
   
     
     # DELETE /orders/1
@@ -148,5 +178,9 @@ class OrdersController < ApplicationController
       # Only allow a list of trusted parameters through.
       def order_params
         params.require(:order).permit(:shipping_address_id)
+      end
+
+      def order_params_admin
+        params.require(:order).permit(:status)
       end
   end

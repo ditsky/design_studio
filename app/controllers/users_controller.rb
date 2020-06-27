@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
+    @user.admin = false #Make sure no one is trying to grant themselves admin powers
     respond_to do |format|
       if @user.save
         ShoppingCart.create(user_id: @user.id)

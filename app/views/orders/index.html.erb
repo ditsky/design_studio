@@ -1,9 +1,8 @@
 <div class="container margin-bottom">
-    <p class="alert alert-info"> it may take a moment for your most recent order to appear </p>
-    <h3 class="center"> Your Orders: </h3>
+    <h3 class="center margin-top"> Your Orders: </h3>
     <% @orders.each do |order| %>
         <div class="container">
-            <div class="card">
+            <div class="card margin-top-sm">
                 <div class="card-header bg-maroon">
                     <div class="row">
                         <div class="col-2">
@@ -47,11 +46,19 @@
                         <div class="col-md-auto">
                             <h5 class="center"> <strong> Status: order <%= order.status %> </strong> </h5>
                             <br>
-                            <% if order.status == "pending"%>  
-                                <%= link_to "Cancel Order", order_path(order), method: :delete, class: "btn btn-primary"%>
+                            <% if @admin %>
+                                <%= form_with model: order do |f| %>
+                                    <%= f.select :status, @options, {}, { :class => 'form-control' } %>
+                                    <br> <br>
+                                    <%= f.submit class: "btn btn-magenta center"%>
+                                <% end %>
                             <% else %>
-                                <p> Can not cancel order while shipping </p>
-                                <%= link_to "Cancel Order", order_path(order), method: :delete, class: "btn btn-primary disabled"%>
+                                <% if order.status == "pending"%>  
+                                    <%= link_to "Cancel Order", order_path(order), method: :delete, class: "btn btn-magenta center"%>
+                                <% else %>
+                                    <p> Can not cancel order while being processed or shipped </p>
+                                    <%= link_to "Cancel Order", order_path(order), method: :delete, class: "btn btn-magenta disabled center"%>
+                                <% end %>
                             <% end %>
                         </div>
                     </div>
