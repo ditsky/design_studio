@@ -6,6 +6,13 @@
   }
 }
 
+@media(max-width: 991px){
+  .large-nav-text{
+    font-size: large !important;
+    padding-top: 20px;
+  }
+}
+
 .pad-top-less {
   padding-top: 8px;
 }

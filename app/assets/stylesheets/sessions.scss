@@ -2,10 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-
-.bg-studio {
-    background-image: url(bg-studio-new.jpg);
-    background-size: 100% 100%;
+@media (min-width: 1211px) {
+    .bg-studio {
+        background-image: url(bg-studio-new.jpg);
+        background-size: 100% 100%;
+    }
 }
 
 .bg-field {

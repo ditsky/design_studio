@@ -7,22 +7,22 @@
     <div class="navbar-collapse collapse" id="central-links">
       <ul class="navbar-nav mx-auto center">
         <% if !logged_in? %>
-          <li> <%= link_to "Login", login_path, class:"nav-link"%>
+          <li> <%= link_to "Login", login_path, class:"nav-link large-nav-text"%>
         <% end %>
-        <li><%= link_to "Cards", cards_path, class: "nav-link" %></li>
+        <li><%= link_to "Cards", cards_path, class: "nav-link large-nav-text" %></li>
         <% if user_admin? %>
-          <li><%= link_to "Orders", orders_path, class:"nav-link"%></li>
+          <li><%= link_to "Orders", orders_path, class:"nav-link large-nav-text"%></li>
         <% end %>
         <div class="hide">
           <% if logged_in? %>
-            <li> <%= link_to "Profile", user_path(current_user), class: "nav-link"%></li>
+            <li> <%= link_to "Profile", user_path(current_user), class: "nav-link large-nav-text"%></li>
           <% else %>
-            <li> <%= link_to "Profile", login_path, class: "nav-link"%></li>
+            <li> <%= link_to "Profile", login_path, class: "nav-link large-nav-text"%></li>
           <% end %>
-          <li> <%= link_to "Cart", shopping_cart_path(current_cart), class: "nav-link"%></li>
+          <li> <%= link_to "Cart", shopping_cart_path(current_cart), class: "nav-link large-nav-text"%></li>
         </div>
         <% if logged_in? %>
-          <li><%= link_to "Logout", logout_path, method: :delete, class: "nav-link" %></li>
+          <li><%= link_to "Logout", logout_path, method: :delete, class: "nav-link large-nav-text" %></li>
         <% end %>
       </ul>
     </div>

@@ -1,5 +1,8 @@
 <div class="row bg-studio fill no-gutters">
-    <div class="margin-left col-md-5 col-md-offset-4">
+    <div class="hide-lg margin-left col-md-5 col-md-offset-4">
+        <%= render 'form', user: @user %>
+    </div>
+    <div class="hide-sm col-md-10 offset-md-1">
         <%= render 'form', user: @user %>
     </div>
 </div>
