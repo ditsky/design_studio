@@ -14,6 +14,9 @@ class OrdersController < ApplicationController
           @orders = current_user.orders
           @admin = false
         end
+        if params[:status]
+          @orders = @orders.where(status: params[:status])
+        end
       else
         flash[:danger] = "Can not view orders until you are logged in"
         redirect_back fallback_location: root_url

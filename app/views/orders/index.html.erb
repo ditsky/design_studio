@@ -1,9 +1,26 @@
+
+
+
 <div class="container margin-bottom">
     <% if user_admin? %>
         <h3 class="center margin-top"> Orders: </h3>
     <% else %>
         <h3 class="center margin-top"> Your Orders: </h3>
     <% end %>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <%= link_to 'all', orders_path, class: "nav-link"%>
+        </li>
+        <li class="nav-item">
+            <%= link_to 'pending', orders_path(status: "pending"), class: "nav-link"%>
+        </li>
+        <li class="nav-item">
+            <%= link_to 'in process', orders_path(status: "in process"), class: "nav-link"%>
+        </li>
+        <li class="nav-item">
+            <%= link_to 'shipping', orders_path(status: "shipping"), class: "nav-link"%>
+        </li>
+    </ul>
     <% @orders.each do |order| %>
         <div class="container">
             <div class="card margin-top-sm">
