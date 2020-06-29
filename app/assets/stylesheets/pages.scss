@@ -2,10 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-@media (max-width: 900px){
-  body, html{
-  }
-}
 
 body, html {
     height: 100%;
@@ -16,6 +12,12 @@ body, html {
     background-color: rgb(250, 234, 234)
 }
 
+@media (max-width: 750px) {
+  .hide-lg-more {
+    display: none;
+  }
+}
+
 @media (max-width: 1210px) {
   .hide-lg {
     display: none;
@@ -24,7 +26,7 @@ body, html {
   .mobile-img-cont {
     margin: auto;
     height:175px;
-    width:175px;
+    width: 100%;
     border: 5px solid rgb(252, 199, 199);
     text-align: center;
   }
@@ -32,6 +34,12 @@ body, html {
 
 @media (min-width: 1211px) {
   .hide-sm {
+    display: none;
+  }
+}
+
+@media (min-width: 751px) {
+  .hide-sm-more {
     display: none;
   }
 }
@@ -79,6 +87,10 @@ body, html {
   border-radius: 16px;
 }
 
+
+.border-top{
+  border-top: 1px solid rgb(255, 255, 255);
+}
 
 .magenta-border {
   border: 1px solid rgb(255, 44, 244);
@@ -157,6 +169,7 @@ body, html {
 
 .responsive-mobile-post-card {
   width: auto;
+  max-width: 100%;
   height: 75%;
 }
 

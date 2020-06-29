@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div class="navbar-pad row fill margin-bottom hide-lg">
+  <div class="navbar-pad row fill margin-bottom hide-lg-more">
 
     <div class="col-3 jumbotron bg-cream">
       <h3> Filter Search </h3>
@@ -17,7 +17,7 @@
           <% end %>
           <hr>
         <% end %>
-        <%= submit_tag("Save", class: "btn btn-primary") %>
+        <%= submit_tag("Save", class: "btn btn-magenta") %>
       <% end %>
     </div>
 
@@ -53,13 +53,38 @@
 
   </div>
 
-  <div class="hide-sm zoom-more fill margin-bottom">
-    <h3 class="center margin-top-sm"> Cards: </h3>
+  <div class="hide-sm-more fill margin-bottom">
+    <h5 class="label-bold margin-top-sm"> CARDS </h5>
     <div class="row margin-bottom-sm">
-      <div class="col bg-dark-pink filter-box">
-        <span class="float-left"> Filters </span>
-        <i class="float-right fas fa-plus fa-2x"></i>
-      </div>
+      <nav class="navbar navbar-expand-lg navbar-light bg-cream full-width">
+        <span class="navbar-brand">Refine </span>
+        <button class="ml-auto navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-plus"></i>
+        </button>
+        
+      </nav>
+      <div class="collapse navbar-collapse bg-normal with-gutters" id="navbarTogglerDemo01">
+          <ul class="navbar-nav mt-2 mt-lg-0">
+            <% i = 0%>
+            <%= form_with(url: cards_path, method: "get", local: true) do %>
+              <% @columns_l.each do |column| %>
+                <strong class> <%= column %> </strong>
+                <br> <br>
+                <% all_column_filters(column).each do |filter| %>
+                  <div class= "form-group row">
+                    <%= check_box_tag(filter.parameterize.underscore.to_sym, "1", false, {class:"lg-checkbox"}) %> &nbsp; &nbsp;
+                    <%= label_tag(filter, filter.capitalize, class:"label-bold") %> 
+                  </div>
+                <% end %>
+                <% if column != @columns_l.last %>
+                  <hr>
+                <% end %>
+              <% end %>
+              <%= submit_tag("Save", class: "btn btn-magenta") %>
+              <hr>
+            <% end %>
+          </ul>
+        </div>
     </div>
     <div class="row">
       <div class="col">

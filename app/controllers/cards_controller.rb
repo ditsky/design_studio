@@ -11,6 +11,7 @@ class CardsController < ApplicationController
     @card_groups = @cards.each_slice(3).to_a
     @card_groups_mobile = @cards.each_slice(2).to_a
     @columns = ["CONTENT", "STYLE", "CARD TYPE"]
+    @columns_l = ["Content", "Style", "Card Type"]
   end
 
   # GET /cards/1
