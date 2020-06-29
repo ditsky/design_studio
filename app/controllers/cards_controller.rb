@@ -9,6 +9,7 @@ class CardsController < ApplicationController
     valid_filter_columns = [:content, :painted, :hand_cut, :card_type]
     @cards = card_filter.filter(filter_params(params), valid_filter_columns)
     @card_groups = @cards.each_slice(3).to_a
+    @card_groups_mobile = @cards.each_slice(2).to_a
     @columns = ["CONTENT", "STYLE", "CARD TYPE"]
   end
 

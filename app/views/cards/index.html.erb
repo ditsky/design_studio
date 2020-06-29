@@ -1,6 +1,6 @@
-<div class="navbar-pad container">
+<div class="container">
 
-  <div class="row fill margin-bottom">
+  <div class="navbar-pad row fill margin-bottom hide-lg">
 
     <div class="col-3 jumbotron bg-cream">
       <h3> Filter Search </h3>
@@ -24,7 +24,7 @@
     <div class="col-1"> </div>
 
     <div class="col-8 jumbotron bg-cream">
-      <h3 class="center"> Cards </h3>
+      <h3 class="centers"> Cards </h3>
       
       <hr>
       
@@ -51,5 +51,41 @@
       <% end %>
     </div>
 
+  </div>
+
+  <div class="hide-sm zoom fill margin-bottom">
+    <h3 class="center margin-top-sm"> Cards: </h3>
+    <div class="row margin-bottom-sm">
+      <div class="col bg-dark-pink filter-box">
+        <span class="float-left"> Filters </span>
+        <i class="float-right fas fa-plus fa-2x"></i>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="container">
+          <% @card_groups_mobile.each do |group| %>
+            <div class="row">
+              <% group.each do |card| %>
+                <br> <br>
+                <div class="col-6 padding-sides">
+                  <%= link_to card do %>
+                    <div class="mobile-img-cont ">
+                      <% if card.card_type == "fold over"%>
+                        <img class="responsive-mobile-fold-over" src= <%= rails_blob_path(card.display_s3) %> />
+                      <% else %>
+                        <img class="responsive-mobile-post-card margin-top-sm" src= <%= rails_blob_path(card.display_s3) %> />
+                      <% end %>
+                    </div>
+                    <p class="center"> <strong> <%= card.short_description %> </strong> <p>
+                  <% end %>
+                </div>
+                <br> <br>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

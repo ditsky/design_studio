@@ -2,6 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+@media (max-width: 900px){
+  body, html{
+    .zoom {
+      zoom: 150%;
+    }
+  }
+}
 
 body, html {
     height: 100%;
@@ -15,6 +22,14 @@ body, html {
 @media (max-width: 1210px) {
   .hide-lg {
     display: none;
+  }
+
+  .mobile-img-cont {
+    margin: auto;
+    height:300px;
+    width:300px;
+    border: 10px solid rgb(252, 199, 199);
+    text-align: center;
   }
 }
 
@@ -122,6 +137,16 @@ body, html {
   max-width: 50%;
   height: auto;
   max-height: 200px;
+}
+
+.responsive-mobile-fold-over {
+  width: 75%;
+  height: auto;
+}
+
+.responsive-mobile-post-card {
+  width: auto;
+  height: 75%;
 }
 
   // .limit-size {
