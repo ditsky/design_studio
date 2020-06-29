@@ -4,9 +4,6 @@
 
 @media (max-width: 900px){
   body, html{
-    .zoom {
-      zoom: 150%;
-    }
   }
 }
 
@@ -26,9 +23,9 @@ body, html {
 
   .mobile-img-cont {
     margin: auto;
-    height:300px;
-    width:300px;
-    border: 10px solid rgb(252, 199, 199);
+    height:175px;
+    width:175px;
+    border: 5px solid rgb(252, 199, 199);
     text-align: center;
   }
 }
@@ -119,14 +116,28 @@ body, html {
 //   background-size: cover;
 // }
 
+@media (max-width: 1210px) {
+  h1 {
+    font-size: medium;
+  }
+}
+
 .flowers {
   background-image: url(side-flowers.jpg);
   background-size: 1200px;
   background-repeat: repeat-y;
 }
 
-.long {
-  height: 400px;
+@media (min-width: 1211px) {
+  .long {
+    height: 400px;
+  }
+}
+
+@media (max-width: 1210px) {
+  .long {
+    height: 200px;
+  }
 }
 
 .fancy-font {
@@ -168,10 +179,6 @@ body, html {
 
 .table-cont{
     height: 100%;
-}
-
-.long{
-	height: 400px;
 }
 
 

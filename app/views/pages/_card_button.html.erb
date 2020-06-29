@@ -1,16 +1,16 @@
 <%= link_to cards_path(content => "1"), class:"btn bg-cream fill black-border" do %> 
     <br>
     <div class="container fill">
-        <div class="row center">
+        <div class="margin-left-sm row center">
         
             <% images.each do |card| %>
-                <img class="responsive-img limit-size" src=<%= rails_blob_path(card.display_s3)%> >
+                <img class="responsive-img limit-size margin-bottom-sm" src=<%= rails_blob_path(card.display_s3)%> >
             <% end %>
             
         </div>
         <div class="row">
             <div class="col">
-                <h1 class="label-bold margin-top"> <%= content.capitalize %> Cards </h1>
+                <h1 class="label-bold"> <%= content.capitalize %> Cards </h1>
             </div>
         </div>
     </div>

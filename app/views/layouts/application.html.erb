@@ -8,6 +8,7 @@
     <title>DesignStudio</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -16,7 +17,7 @@
   <body>
     <div class="wrap fill">
       <%= render 'layouts/navbar' %>
-      <div class="section fill">
+      <div class="section fill hide-lg">
         <div class="navbar-pad row fill no-gutters">
           <div class="col-1 flowers no-gutters"> </div>
 
@@ -30,6 +31,12 @@
           <div class="col-1 flowers no-gutters"> </div>
         </div>   
       </div> 
+      <div class="navbar-pad section fill hide-sm">
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
+        <%= yield %>
+      </div>
     </div>
 
     <%= render 'layouts/footer'%>
