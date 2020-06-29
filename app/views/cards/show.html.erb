@@ -10,10 +10,10 @@
           <% slide = 0%>
           <% @card.images_s3.each do |image| %>
             <% if slide == 0%>
-              <li data-target="#carouselIndicators" data-slide-to=<%=slide.to_s%> class="active"> <img class="d-block w-100" src=<%= rails_blob_path(image) %>
+              <li id="indicator" data-target="#carouselIndicators" data-slide-to=<%=slide.to_s%> class="active"> <img class="d-block w-100" src=<%= rails_blob_path(image) %>
                 class="img-fluid"></li>
             <% else %>
-              <li data-target="#carouselIndicators" data-slide-to=<%=slide.to_s%>><img class="d-block w-100" src=<%= rails_blob_path(image)%>
+              <li id="indicator" data-target="#carouselIndicators" data-slide-to=<%=slide.to_s%>><img class="d-block w-100" src=<%= rails_blob_path(image)%>
                   class="img-fluid"></li>
             <% end %>
             <% slide = slide + 1%>
@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="col-md-4 pad-top-lg">
-      <div class="jumbotron bg-cream margin-top-lg">
+      <div class="jumbotron bg-cream margin-top-lg margin-bottom-mobile">
         <h3> <%= @card.short_description %> </h3>
         <p> $5.00 </p>
         <hr>
@@ -61,3 +61,5 @@
     </div>
   </div>
 </div>
+
+

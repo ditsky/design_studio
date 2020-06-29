@@ -17,7 +17,7 @@
   <body>
     <div class="wrap fill">
       <%= render 'layouts/navbar' %>
-      <div class="section fill hide-lg">
+      <div id="lg" class="section fill hide-lg-more">
         <div class="navbar-pad row fill no-gutters">
           <div class="col-1 flowers no-gutters"> </div>
 
@@ -31,7 +31,7 @@
           <div class="col-1 flowers no-gutters"> </div>
         </div>   
       </div> 
-      <div class="navbar-pad section fill hide-sm">
+      <div class="navbar-pad section fill hide-sm-more">
         <% flash.each do |key, value| %>
           <div class="alert alert-<%= key %>"><%= value %></div>
         <% end %>
@@ -40,5 +40,12 @@
     </div>
 
     <%= render 'layouts/footer'%>
+    <script>
+      width = $(window).width();
+      if (width <= 750) {
+        document.getElementById("lg").remove();
+      }
+      window.onresize = function(){ location.reload(); }
+    </script>
   </body>
 </html>

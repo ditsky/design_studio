@@ -39,8 +39,16 @@
     vertical-align: middle;
 }
 
-.margin-top-postcard { 
-    margin-top: 50px;
+@media (min-width: 751px) {
+    .margin-top-postcard { 
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 750px) {
+    .margin-bottom-mobile {
+        margin-bottom: 200px;
+    }
 }
 
 .lg-checkbox {
