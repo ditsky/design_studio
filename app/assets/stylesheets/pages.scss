@@ -78,6 +78,16 @@ body, html {
   color: #ffffff !important;
 }
 
+.bottom {
+  position: absolute;
+   bottom: 10px;
+   right: 0;
+}
+
+.no-border {
+  border: none;
+}
+
 .black-border {
   border: 1px solid black;
 }
@@ -156,10 +166,42 @@ body, html {
   font-family: "Trattatello, fantasy"
 }
 
+.cursive-font {
+  font-family: "URW Chancery L, cursive"
+}
+
+.responsive-img-postcard {
+  max-width: 60%;
+  max-height: 50%;
+}
+
+
+
 .responsive-img {
   max-width: 50%;
   height: auto;
-  max-height: 200px;
+}
+
+@media (max-width: 750px) {
+  .responsive-img-mobile{
+    max-width: 70%;
+    height: auto;
+  }
+
+}
+
+@media (min-width: 751px) {
+  .responsive-img-mobile{
+    max-width: 50%;
+    height: auto;
+  }
+
+}
+
+
+.responsive-img-sm {
+  max-width: 40%;
+  height: auto;
 }
 
 .responsive-mobile-fold-over {
@@ -173,10 +215,6 @@ body, html {
   height: 75%;
 }
 
-  // .limit-size {
-  //   max-height: 200px;
-  //   max-width: 200px;
-  // }
 
 
 .button-cell{

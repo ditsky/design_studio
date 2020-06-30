@@ -31,7 +31,7 @@
           <div class="col-1 flowers no-gutters"> </div>
         </div>   
       </div> 
-      <div class="navbar-pad section fill hide-sm-more">
+      <div id="sm" class="navbar-pad section fill hide-sm-more">
         <% flash.each do |key, value| %>
           <div class="alert alert-<%= key %>"><%= value %></div>
         <% end %>
@@ -44,6 +44,8 @@
       width = $(window).width();
       if (width <= 750) {
         document.getElementById("lg").remove();
+      } else {
+        document.getElementById("sm").remove();
       }
       window.onresize = function(){ location.reload(); }
     </script>

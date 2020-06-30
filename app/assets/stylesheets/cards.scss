@@ -8,6 +8,36 @@
     justify-content: center;
 }
 
+@media (min-width: 751px) {
+    .center-both{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+.center-both-mobile{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media (max-width: 750px) {
+    .margin-top-mobile {
+        margin-top: 20px;
+    }
+}
+
+.box-relative {
+    position: relative;
+}
+
+.rectangle {
+    width: 90%;
+    height: 300px;
+}
+
 .filter-box {
     height: 30px;
     width: 90%;

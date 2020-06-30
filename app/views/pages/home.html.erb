@@ -1,37 +1,74 @@
-<div class="with-gutters margin-bottom">
-    <div class="hero-image">
-      <div class="hero-text padding-sides">
-        <h2 class="magenta label-bold">Hand Painted Watercolor Cards</h2>
-        <%= link_to "All Designs", cards_path, class: "btn btn-magenta"%>
-      </div>
-   </div>
+<div class="container-fluid">
 
-  <div class="container">
-    <br>
-    <div class="row">
-      <div class="col-6 long">
-      
-        <%= render 'card_button', content: "birthday", images: @birthday_cards %>
-        
-      </div>
-      <div class="col-6 long">
 
-        <%= render 'card_button', content: "thank you", images: @thank_you_cards %>
-        
-      </div>
+    <div class="card margin-top-md bg-light-pink padding-sides">
+        <div class="row no-gutters">
+            <div class="col-md-6">
+                <img class="card-img" src=<%= asset_path "bg-studio-new.jpg"%>>
+            </div>
+            <div class="col-md-6 box-relative">
+                <div class="center-both cursive-font">
+                    <h1 class="label-bold margin-top-mobile"> Some really Artsy Saying </h1>
+                    <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                        when an unknown printer took a galley of type and scrambled it to make a type 
+                        specimen book. It has survived not only five centuries, but also the leap into 
+                        electronic typesetting, remaining essentially unchanged. It was popularised in 
+                        the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
+                        and more recently with desktop publishing software like Aldus PageMaker 
+                        including versions of Lorem Ipsum.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-    <br> <br>
-    <div class="row">
-      <div class="col-6 long">
 
-        <%= render 'card_button', content: "sympathy", images: @sympathy_cards %>
-        
-      </div>
-      <div class="col-6 long">
-
-        <%= render 'card_button', content: "blank", images: @blank_cards %>
-      </div>
+    <div class="margin-top row box-relative">
+        <div class="center-both-mobile">
+            <%= link_to "View All Designs", cards_path, class: "btn btn-magenta center"%>
+        </div>
     </div>
-  </div>
-    
+
+    <div class="margin-top row box-relative">
+        <div class="center-both-mobile">
+            <h4 class="center"> Select By Category </h4>
+        </div>
+    </div>
+
+    <div class="hide-lg-more">
+        <div class="row margin-top">
+            <div class="offset-md-2 col-4">
+                <%= render 'card_button', content: "birthday", images: @birthday_cards, card_type: get_type("birthday") %>
+            </div>
+            <div class="col-4">
+                <%= render 'card_button', content: "thank you", images: @thank_you_cards, card_type: get_type("thank you") %>
+            </div>
+        </div>
+
+        <div class="row margin-top margin-bottom">
+            <div class="offset-md-2 col-4">
+                <%= render 'card_button', content: "sympathy", images: @sympathy_cards, card_type: get_type("birthday") %>
+            </div>
+            <div class="col-4">
+                <%= render 'card_button', content: "blank", images: @blank_cards, card_type: get_type("blank") %>
+            </div>
+        </div>
+    </div>
+
+    <div class="hide-sm-more margin-bottom">
+        <% @cards.each do |group| %>
+            <div class="row">
+                <div class="col-1">
+                </div>
+                <div class="col-10 margin-top-md">
+                    <%= render 'card_button', content: group.first.content, images: group, card_type: get_type(group.first.content) %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+
+
+
+
+
 </div>

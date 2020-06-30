@@ -9,9 +9,10 @@ class PagesController < ApplicationController
 
   def home
     @birthday_cards = Card.where(content: "birthday").first(2)
-    @sympathy_cards = Card.where(content: "sympathy").first(2)
-    @thank_you_cards = Card.where(content: "thank you").first(2)
+    @sympathy_cards = Card.where(content: "birthday").first(2)
+    @thank_you_cards = Card.where(content: "blank").first(2)
     @blank_cards = Card.where(content: "blank").first(2)
+    @cards = [@birthday_cards, @thank_you_cards, @blank_cards, @sympathy_cards]
   end
 
 

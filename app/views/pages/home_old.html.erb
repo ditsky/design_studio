@@ -1,0 +1,37 @@
+<div class="with-gutters margin-bottom">
+    <div class="hero-image">
+      <div class="hero-text padding-sides">
+        <h2 class="magenta label-bold">Hand Painted Watercolor Cards</h2>
+        <%= link_to "All Designs", cards_path, class: "btn btn-magenta"%>
+      </div>
+   </div>
+
+  <div class="container">
+    <br>
+    <div class="row">
+      <div class="col-6 long">
+      
+        <%= render 'card_button', content: "birthday", images: @birthday_cards %>
+        
+      </div>
+      <div class="col-6 long">
+
+        <%= render 'card_button', content: "thank you", images: @thank_you_cards %>
+        
+      </div>
+    </div>
+    <br> <br>
+    <div class="row">
+      <div class="col-6 long">
+
+        <%= render 'card_button', content: "sympathy", images: @sympathy_cards %>
+        
+      </div>
+      <div class="col-6 long">
+
+        <%= render 'card_button', content: "blank", images: @blank_cards %>
+      </div>
+    </div>
+  </div>
+    
+</div>
