@@ -1,25 +1,21 @@
-<%= link_to cards_path(content => "1"), class:"btn gray-border rectangle" do %> 
-    <div class="container fill box-relative">
+<% if border %>
+    <% css = "btn rectangle d-flex justify-content-center gray-border"%>
+<% else %>
+    <% css = "btn rectangle d-flex justify-content-center"%>
+<% end %>
+<%= link_to cards_path(content => "1"), class:css do %> 
+    <div class="container fill">
         <% if card_type == "post card"%>
-            <div class="margin-bottom">
-                <% images.each do |card| %>
-                    <div class="row center">
-                        <img class="responsive-img-mobile" src=<%= rails_blob_path(card.display_s3)%> >
-                    </div>
-                <% end %>
-            </div>
-            <br>
-            <span class="center label-bold cursive-font bottom"> <%= content.capitalize %> Cards </span>
+            <div class="margin-top-md margin-left-md row center">
         <% else %>
-
             <div class="row center">
+        <% end %>
             
                 <% images.each do |card| %>
-                    <img class="responsive-img" src=<%= rails_blob_path(card.display_s3)%> >
+                    <img class="responsive-img-mobile" src=<%= rails_blob_path(card.display_s3)%> >
                 <% end %>
                 <br>
                 <span class="center label-bold cursive-font bottom"> <%= content.capitalize %> Cards </span>
             </div>  
-        <% end %>
     </div>
 <% end %>
