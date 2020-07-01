@@ -79,10 +79,10 @@
   <div class="hide-sm-more" id="sm">
     <div class="row pad-all-md">
       <div class="col-6">
-        <h5 class="label-bold">Shopping Cart</h3>
+        <h5 class="label-bold"> CART </h5>
       </div>
       <div class="col-2">
-        <%= link_to "Checkout", new_order_path, class: "btn btn-magenta"%>
+        
       </div>
     </div>
 
@@ -94,26 +94,48 @@
               <td class="no-wrap" scope="row"> 
                 <img class="responsive" src= <%= rails_blob_path(card.display_s3) %> height=250px width=150px/> 
               </td>
-              <td class="no-wrap"> <%= card.short_description %> </td>
-              <td class="no-wrap container"> 
-                <div class="row">
-                  <%= button_to [get_selection(@cart, card)], method: :delete do %>
+              <td class=""> <%= card.short_description %> </td>
+              <td class="no-wrap"> 
+                <div class="">
+                  <%= link_to [get_selection(@cart, card)], method: :delete do %>
                     <i class="fas fa-minus"></i>
                   <% end %>
                   &nbsp;
                   <%= @sizes[card.id] %> 
                   &nbsp;
-                  <%= button_to [:selections], params: {selection: {shopping_cart_id: @cart.id, card_id: card.id}} do %> 
+                  <%= link_to [:selections], params: {selection: {shopping_cart_id: @cart.id, card_id: card.id}} do %> 
                     <i class="fas fa-plus"></i>
                   <% end %>
                 </div>
               </td>
-              <td class="no-wrap"> $<%= @sizes[card.id] * 5 %> </td>
+              <td class=""> $<%= @sizes[card.id] * 5 %> </td>
               <td class="no-wrap margin-right-sm"> <%= link_to "Remove", remove_card_selections_path(selection: {shopping_cart_id: @cart.id, card_id: card.id}), method: :delete%> </td>
             </tr>
           <% end %>
         </tbody>
       </table>
+    </div>
+
+    <div class="row margin-top-sm">
+      <div class="col-1"> </div>
+      <div class="col-10 jumbotron bg-cream margin-bottom">
+        <h3 class="pad-bottom"> Order Summary </h3>
+        <div class="card border-dark mb-3 bg-pink">
+          <div class="card-body">
+            <h5 class="card-title">Subtotal <span style="float:right;"> $<%= @total %> </span> </h5>
+            <h5 class="card-title">Shipping <span style="float:right;"> FREE </span> </h5>
+            <hr>
+            <h4 class="card-title">Total <span style="float:right;"> $<%= @total %> </span> </h4>
+            <br>
+            <% if logged_in? %>
+              <%= button_to "Checkout", new_order_path, method: :get, class: "btn btn-sm btn-primary center"%>
+            <% else %>
+              <p> You Must Be Logged in and have items in your cart to checkout </p>
+              <%= button_to "Checkout", new_order_path, :disabled => true, method: :get, class: "btn btn-sm btn-magenta center"%>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
       

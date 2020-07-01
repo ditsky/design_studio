@@ -88,8 +88,8 @@ button:disabled {
 }
 
 .no-wrap {
-  white-space: nowrap;
-  width: 100%;
+  white-space: nowrap; 
+  overflow: hidden;
 }
 
 .section {
