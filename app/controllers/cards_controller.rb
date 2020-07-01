@@ -120,7 +120,8 @@ class CardsController < ApplicationController
     end
 
     #Allows the filter paramter namespace to be optional in the URL
+    #Should change this to just content, card type, etc later.
     def filter_params(params)
-      params.slice(:sympathy, :blank, :birthday, :thank_you, :painted, :hand_cut, :fold_over, :post_card)
+      params.slice(:sympathy, :love, :blank, :birthday, :thank_you, :painted, :hand_cut, :fold_over, :post_card)
     end
 end

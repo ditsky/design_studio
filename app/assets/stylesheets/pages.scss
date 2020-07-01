@@ -119,6 +119,10 @@ body, html {
   padding: 40px;
 }
 
+.pad-all-md {
+  padding: 20px;
+}
+
 .navbar-center {
   position: absolute;
   left: 50%;
@@ -205,6 +209,11 @@ body, html {
 }
 
 .responsive-mobile-fold-over {
+  width: 75%;
+  height: auto;
+}
+
+.full-img {
   width: 75%;
   height: auto;
 }
