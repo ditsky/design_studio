@@ -1,2 +1,2 @@
-Checkout mobile page - fix payment field on mobile
 Profile mobile page
+Clean up checkout script and mobile breakpoints

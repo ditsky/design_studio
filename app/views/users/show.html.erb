@@ -2,25 +2,26 @@
   <div class="container">
     <div class="row">
       
-      <div class="offset-md-2 col-8">
+      <div class="offset-md-2 col-md-8">
         <div class="card card-block margin-top padding-sides bg-cream">
           <div class="card-body">
             <h4 class="card-title"> <%= @user.name %></h4>
             <h5 class="card-text"> 
               <%= @user.email %> 
-              <% if @user == current_user %>
-                <%= link_to "Edit Information", edit_user_path(@user), class: "btn btn-primary white float-right"%>
-              <% end %>
             </h5>
             <p class="card-text">
             <% if @user == current_user %>
               <% if user_admin? %>
                 <p> <%= link_to "Create a card", new_card_path %> </p>
               <% else %>
-                <p> <%= link_to "View all addresses", addresses_path%> </p>
+                <p> 
+                  <%= link_to "View all addresses", addresses_path%> 
+                  <%= link_to "Edit Information", edit_user_path(@user), class: "btn btn-magenta white float-right"%>
+                </p>
               <% end %>
               <p> <%= link_to "View all orders", orders_path%> </p>
             <% end %>
+
             </p>
           </div>
         
