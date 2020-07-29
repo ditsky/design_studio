@@ -17,36 +17,22 @@
   <body>
     <div class="wrap fill">
       <%= render 'layouts/navbar' %>
-      <div id="lg" class="section fill hide-lg-more">
+      <div class="section fill">
         <div class="navbar-pad row fill no-gutters">
-          <div class="col-1 flowers no-gutters"> </div>
+          <div class="hide-lg-more col-1 flowers no-gutters"> </div>
 
-          <div class="section col-10 no-gutters">
+          <div class="section col no-gutters">
             <% flash.each do |key, value| %>
               <div class="alert alert-<%= key %>"><%= value %></div>
             <% end %>
             <%= yield %>
           </div>
 
-          <div class="col-1 flowers no-gutters"> </div>
+          <div class="hide-lg-more col-1 flowers no-gutters"> </div>
         </div>   
       </div> 
-      <div id="sm" class="navbar-pad section fill hide-sm-more">
-        <% flash.each do |key, value| %>
-          <div class="alert alert-<%= key %>"><%= value %></div>
-        <% end %>
-        <%= yield %>
-      </div>
     </div>
 
     <%= render 'layouts/footer'%>
-    <script>
-      width = $(window).width();
-      if (width <= 750) {
-        document.getElementById("lg").remove();
-      } else {
-        document.getElementById("sm").remove();
-      }
-    </script>
   </body>
 </html>
