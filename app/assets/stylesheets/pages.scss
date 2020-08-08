@@ -150,8 +150,8 @@ body, html {
 
 .flowers {
   background-image: url(side-flowers.jpg);
+  background-repeat: repeat;
   background-size: 1200px;
-  background-repeat: repeat-y;
 }
 
 @media (min-width: 1211px) {

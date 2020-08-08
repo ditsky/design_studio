@@ -1,2 +1,6 @@
-Profile mobile page
+Fix demonic large pictures
+Fix adding new type of design category
+Fix Sidebar no repeat
 Clean up checkout script and mobile breakpoints
+Clean CLean Clean
+Go through site with mom
