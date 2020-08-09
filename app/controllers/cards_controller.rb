@@ -46,17 +46,6 @@ class CardsController < ApplicationController
         format.html { render :new }
         format.json { render json: @card.errors, status: :unprocessable_entity }
       end
-
-      # if (params[:card][:display] && @card.save)
-      #   image_uploader = CardManager::UploadProcessor.new
-      #   params[:card][:images] << params[:card][:display]
-      #   image_uploader.upload(params[:card][:images], params[:card][:display], @card)
-      #   format.html { redirect_to @card, notice: 'Card was successfully created.' }
-      #   format.json { render :show, status: :created, location: @card }
-      # else
-      #   format.html { render :new }
-      #   format.json { render json: @card.errors, status: :unprocessable_entity }
-      # end
     end
   end
 

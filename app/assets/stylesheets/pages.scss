@@ -5,8 +5,7 @@
 
 body, html {
     width: 100%;
-    height: 100vh;
-    position: relative;
+    height: auto;
     margin: 0;
     box-sizing: border-box;
     background-color: rgb(250, 234, 234)
@@ -149,7 +148,6 @@ body, html {
 }
 
 .flowers {
-  min-height: 1700px;
   background-repeat: repeat-y;
   background-image: url("side-flowers.png");
   -webkit-background-size: 1200px;
