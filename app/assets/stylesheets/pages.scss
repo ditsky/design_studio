@@ -11,7 +11,7 @@ body, html {
     background-color: rgb(250, 234, 234)
 }
 
-@media (max-width: 750px) {
+@media (max-width: 800px) {
   .hide-lg-more {
     display: none;
   }
@@ -37,7 +37,7 @@ body, html {
   }
 }
 
-@media (min-width: 751px) {
+@media (min-width: 801px) {
   .hide-sm-more {
     display: none;
   }
