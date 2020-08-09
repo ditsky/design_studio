@@ -6,9 +6,14 @@
 body, html {
     width: 100%;
     height: auto;
+    min-height: 100vh;
     margin: 0;
     box-sizing: border-box;
     background-color: rgb(250, 234, 234)
+}
+
+.min-h {
+  min-height: 100vh;
 }
 
 @media (max-width: 800px) {
