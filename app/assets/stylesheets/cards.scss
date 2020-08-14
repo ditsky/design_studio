@@ -15,6 +15,11 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
+
+    .bottom {
+        position: absolute;
+        bottom: 0;
+    }
 }
 .center-both-mobile{
     position: absolute;

@@ -36,10 +36,10 @@
                 <% if card.card_type == "fold over"%>
                   <img class="fold-over responsive img-center padding-sides" src= <%= rails_blob_path(card.display_s3) %> />
                 <% else %>
-                  <img class="post-card responsive margin-top-sm img-center padding-sides" src= <%= rails_blob_path(card.display_s3) %> height=150px width=200px/>
+                  <img class="post-card responsive margin-top-med img-center padding-sides" src= <%= rails_blob_path(card.display_s3) %> height=150px width=200px/>
                 <% end %>
                 <br>
-                <p class="center"> <strong> <%= card.short_description %> </strong> <p>
+                <p class="center bottom"> <strong> <%= card.short_description %> </strong> <p>
                 <br> 
               <% end %>
             </div>
