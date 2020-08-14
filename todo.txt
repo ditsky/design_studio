@@ -1,4 +1,3 @@
-Change home page button to relative spacing
 Clean up checkout script and mobile breakpoints
 Clean CLean Clean
 Go through site with mom

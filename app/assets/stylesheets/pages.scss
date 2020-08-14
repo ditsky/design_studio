@@ -193,16 +193,20 @@ body, html {
 
 @media (max-width: 750px) {
   .responsive-img-mobile{
+    width: auto;
     max-width: 100%;
     height: auto;
+    max-height: 90%;
   }
 
 }
 
 @media (min-width: 751px) {
   .responsive-img-mobile{
+    width: auto;
     max-width: 50%;
     height: auto;
+    max-height: 90%;
   }
 
 }
