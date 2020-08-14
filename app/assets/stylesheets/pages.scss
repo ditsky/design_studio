@@ -214,8 +214,10 @@ body, html {
 }
 
 .responsive-mobile-fold-over {
-  width: 75%;
+  width: auto;
+  max-width: 75%;
   height: auto;
+  max-height: 90%;
 }
 
 .full-img {
