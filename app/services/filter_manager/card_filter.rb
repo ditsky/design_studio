@@ -3,6 +3,7 @@ module FilterManager
     class CardFilter
 
         def filter(params, columns)
+            print params
             filtered_result = get_filtered_result(params, columns[0])
             columns.delete_at(0)
             columns.each do |column|
@@ -35,6 +36,7 @@ module FilterManager
             all_cards = Card.all
             filtered_result = Card.none
             filter_symbols.each do |symbol|
+                symbol = symbol.to_s
                 if params[symbol] == "1"
                     filtered_result = filtered_result.or(all_cards.public_send("filter_by_#{column}", symbol_to_s(symbol)))
                 end

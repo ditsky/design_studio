@@ -7,7 +7,7 @@ class CardsController < ApplicationController
   def index
     card_filter = FilterManager::CardFilter.new
     valid_filter_columns = [:content, :painted, :hand_cut, :card_type]
-    @cards = card_filter.filter(filter_params(params), valid_filter_columns)
+    @cards = card_filter.filter(params, valid_filter_columns)
     @card_groups = @cards.each_slice(3).to_a
     @card_groups_mobile = @cards.each_slice(2).to_a
     @columns = ["CONTENT", "STYLE", "CARD TYPE"]
@@ -111,6 +111,7 @@ class CardsController < ApplicationController
     #Allows the filter paramter namespace to be optional in the URL
     #Should change this to just content, card type, etc later.
     def filter_params(params)
-      params.slice(:sympathy, :love, :blank, :birthday, :thank_you, :painted, :hand_cut, :fold_over, :post_card)
+      params.slice(:filters)
+      # params.slice(:sympathy, :love, :blank, :birthday, :thank_you, :painted, :hand_cut, :fold_over, :post_card)
     end
 end

@@ -1,4 +1,4 @@
-Fix demonic large pictures
+Change home page button to relative spacing
 Fix adding new type of design category
 Clean up checkout script and mobile breakpoints
 Clean CLean Clean
