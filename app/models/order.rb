@@ -7,9 +7,17 @@ class Order < ApplicationRecord
     validate :correct_amount
     validate :usd
 
-    #Need to update this alter
+    #Need to update this after
     def correct_amount
-        return amount == self.selections.size * 5 
+        return amount == total
+    end
+
+    def total
+        total = 0
+        self.selections.each do |card|
+            total += card.price
+        end
+        total
     end
 
     def usd

@@ -39,7 +39,7 @@ class OrdersController < ApplicationController
         if logged_in?
           @addresses = current_user.addresses
         end
-        @total = current_cart.cards.size * 5
+        @total = current_cart.total
         @cards = current_cart.cards.group(:id)
         @sizes = {}
         current_cart.cards.each do |card|

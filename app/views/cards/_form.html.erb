@@ -22,6 +22,11 @@
       </div>
 
       <div class="field">
+        <%= form.label :price %>
+        <%= form.number_field :price, class: "form-control" %>
+      </div>
+
+      <div class="field">
         <%= form.label :card_type %>
         <p class="small"> (eg. post card, fold over) </p>
         <%= form.text_field :card_type, class: "form-control" %>

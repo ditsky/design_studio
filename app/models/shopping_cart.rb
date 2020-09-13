@@ -12,7 +12,11 @@ class ShoppingCart < ApplicationRecord
     end
 
     def total
-        self.cards.size * 5
+        total = 0
+        self.cards.each do |card|
+            total += card.price
+        end
+        total
     end
 
     def card_count
