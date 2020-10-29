@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  #SSL
+  get '.well-known/acme-challenge/3JshJRHEwH8Tk5jyjBvagpaN9eYV9XjvP3sM7iq5RUo', to: 'ssl#verify', defaults: { format: 'json' }
+
   resources :addresses
   #Password Resets Routes
   get 'password_resets/new'
