@@ -105,6 +105,8 @@ class CardsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def card_params
       params.permit(:display, :image, images: [])
+      params[:card][:content].downcase!
+      params[:card][:card_type].downcase!
       params.require(:card).permit(:content, :card_type, :price, :painted, :hand_cut, :filter, :short_description, :long_description)
     end
 
