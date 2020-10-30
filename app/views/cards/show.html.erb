@@ -48,7 +48,7 @@
     <div class="col-md-4 pad-top-lg">
       <div class="jumbotron bg-cream margin-top-lg margin-bottom-mobile">
         <h3> <%= @card.short_description %> </h3>
-        <p> $<%= @card.price%> </p>
+        <p> $<%= price_to_string(@card.price)%> </p>
         <hr>
         <p> <%= @card.long_description%> </p>
         <% if user_admin? %>

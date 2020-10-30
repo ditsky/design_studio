@@ -18,7 +18,7 @@
             <% end %>
         </div>
         </td>
-        <td class=""> $<%= @sizes[card.id] * card.price %> </td>
+        <td class=""> $<%= price_to_string(@sizes[card.id] * card.price) %> </td>
         <td class="no-wrap margin-right-sm"> <%= link_to "Remove", remove_card_selections_path(selection: {shopping_cart_id: @cart.id, card_id: card.id}), method: :delete%> </td>
     </tr>
     <% end %>

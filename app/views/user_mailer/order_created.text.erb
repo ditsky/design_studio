@@ -7,7 +7,7 @@ You have recieved an order! Below are the details:
 
 
 <% @cards.each do |card| %>
-    Description: <%= card.short_description %> Quantity: <%= @sizes[card.id] %> Price: $<%= @sizes[card.id] * card.price %>
+    Description: <%= card.short_description %> Quantity: <%= @sizes[card.id] %> Price: $<%= price_to_string(@sizes[card.id] * card.price) %>
 <% end %>
 
 

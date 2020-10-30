@@ -25,7 +25,7 @@ You have recieved an order! Below are the details:
                 <%= @sizes[card.id] %> 
                 </div>
             </td>
-            <td class="no-wrap"> $<%= @sizes[card.id] * card.price %> </td>
+            <td class="no-wrap"> $<%= price_to_string(@sizes[card.id] * card.price) %> </td>
         </tr>
     <% end %>
     </tbody>

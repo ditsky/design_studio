@@ -114,7 +114,7 @@
                                     <% end %>
                                 </div>
                                 <div class="col-3 my-auto">
-                                    $<%= @sizes[card.id] * card.price %>
+                                    $<%= price_to_string(@sizes[card.id] * card.price) %>
                                 </div>
                             </div>
                         <% end %>

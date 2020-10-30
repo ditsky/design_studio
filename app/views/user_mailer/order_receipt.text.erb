@@ -5,7 +5,7 @@ Jennifer's Design Studio
     We have recieved your card order and have begun to process it. Below are your order details:
 
     <% @cards.each do |card| %>
-        Description: <%= card.short_description %> Quantity: <%= @sizes[card.id] %> Price: $<%= @sizes[card.id] * card.price %>
+        Description: <%= card.short_description %> Quantity: <%= @sizes[card.id] %> Price: $<%= price_to_string(@sizes[card.id] * card.price) %>
     <% end %>
 
 
