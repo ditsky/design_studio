@@ -55,13 +55,13 @@
 
       <div class="field">
         <%= form.label :display_image %>
-        <p class="small"> (you must provide a display image if one doesn't already exist, if one does this image will replace it.) </p>
+        <p class=""> (you must provide a display image if one doesn't already exist, if one does this image will replace it.) </p>
         <%= form.file_field :display, class: "form-control-file" %>
       </div>
 
       <div class="field">
         <%= form.label :other_images %>
-        <p class="small"> (add the display image here as well if you want it displayed on the carousel, even if you added it to the previous file input.) </p>
+        <p class=""> (You have to add all images at once. Either drag to select all images you want or click one and then shift click another to select all in a list) </p>
         <%= form.file_field :images, :multiple => true, class: "form-control-file" %>
 
       </div>
