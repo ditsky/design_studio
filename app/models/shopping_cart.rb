@@ -16,7 +16,7 @@ class ShoppingCart < ApplicationRecord
         self.cards.each do |card|
             total += card.price
         end
-        total
+        total.to_i
     end
 
     def card_count
