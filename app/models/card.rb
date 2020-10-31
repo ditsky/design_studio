@@ -7,6 +7,7 @@ class Card < ApplicationRecord
     has_one_attached :display_s3
 
     validates :short_description, uniqueness: true
+    validates :content, :presence => true
 
     #filters for index page
     scope :filter_by_content, -> (content) {where content: content}
