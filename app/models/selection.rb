@@ -17,6 +17,11 @@ class Selection < ApplicationRecord
         return false
     end
 
+    #Card price
+    def price
+        card.price
+    end
+
     #Checks if the card exists
     def valid_card
         if Card.exists?(card_id)
