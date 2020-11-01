@@ -33,9 +33,8 @@
       </div>
 
       <div class="field">
-        <%= form.label :card_type %>
-        <p class="small"> (eg. post card, fold over) </p>
-        <%= form.text_field :card_type, class: "form-control" %>
+        <%= form.label :image_orientation %>
+        <%= form.select :card_type, [["Vertical", "fold over"], ["Horizontal", "post card"]], class: "form-control" %>
       </div>
 
       <div class="field">
