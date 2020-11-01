@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_162711) do
+ActiveRecord::Schema.define(version: 2020_11_01_195924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_162711) do
     t.string "long_description"
     t.integer "order_id"
     t.float "price", default: 5.0
+    t.string "size", default: "5x7"
   end
 
   create_table "images", force: :cascade do |t|

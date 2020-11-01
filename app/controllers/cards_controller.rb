@@ -6,12 +6,12 @@ class CardsController < ApplicationController
   # GET /cards.json
   def index
     card_filter = FilterManager::CardFilter.new
-    valid_filter_columns = [:content, :painted, :hand_cut, :card_type]
+    valid_filter_columns = [:content, :painted, :hand_cut, :size]
     @cards = card_filter.filter(params, valid_filter_columns)
     @card_groups = @cards.each_slice(3).to_a
     @card_groups_mobile = @cards.each_slice(2).to_a
-    @columns = ["CONTENT", "STYLE", "CARD TYPE"]
-    @columns_l = ["Content", "Style", "Card Type"]
+    @columns = ["DESIGN", "STYLE", "SIZE"]
+    @columns_l = ["Design", "Style", "Size"]
   end
 
   # GET /cards/1
@@ -107,7 +107,7 @@ class CardsController < ApplicationController
       params.permit(:display, :image, images: [])
       params[:card][:content].downcase!
       params[:card][:card_type].downcase!
-      params.require(:card).permit(:content, :card_type, :price, :painted, :hand_cut, :filter, :short_description, :long_description)
+      params.require(:card).permit(:content, :size, :card_type, :price, :painted, :hand_cut, :filter, :short_description, :long_description)
     end
 
     #Allows the filter paramter namespace to be optional in the URL

@@ -14,7 +14,9 @@ class ShoppingCart < ApplicationRecord
     def total
         total = 0
         self.cards.each do |card|
-            total += card.price
+            if (card.price)
+                total += card.price
+            end
         end
         total.to_i
     end

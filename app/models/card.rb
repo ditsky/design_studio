@@ -8,12 +8,14 @@ class Card < ApplicationRecord
 
     validates :short_description, uniqueness: true
     validates :content, :presence => true
+    validates :price, :presence => true
 
     #filters for index page
     scope :filter_by_content, -> (content) {where content: content}
     scope :filter_by_card_type, -> (card_type) {where card_type: card_type}
     scope :filter_by_painted, -> (painted) {where painted: painted}
     scope :filter_by_hand_cut, -> (hand_cut) {where hand_cut: hand_cut}
+    scope :filter_by_size, -> (size) {where size: size}
 
     #Method for adding card to an order
     def order_card(card, order)
