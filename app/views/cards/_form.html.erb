@@ -27,6 +27,12 @@
       </div>
 
       <div class="field">
+        <%= form.label :size %>
+        <p class="small"> (eg. 5x7) </p>
+        <%= form.text_field :size, class: "form-control" %>
+      </div>
+
+      <div class="field">
         <%= form.label :card_type %>
         <p class="small"> (eg. post card, fold over) </p>
         <%= form.text_field :card_type, class: "form-control" %>
