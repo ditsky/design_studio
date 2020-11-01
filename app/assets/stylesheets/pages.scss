@@ -224,11 +224,23 @@ body, html {
   max-height: 90%;
 }
 
-.responsive-desktop-img {
+.responsive-desktop-fold-over{
+  height: 90%;
   width: auto;
-  max-width: 100%;
-  height: auto;
-  max-height: 80%;
+  max-width: 90%;
+  
+}
+
+.responsive-desktop-post-card{
+  height: 90%;
+  width: auto;
+  max-width: 90%;
+}
+
+.desktop-img-cont {
+  height: 275px;
+  margin: auto;
+  text-align: center;
 }
 
 .full-img {

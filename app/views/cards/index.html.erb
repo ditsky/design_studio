@@ -31,13 +31,15 @@
       <% @card_groups.each do |group| %>
         <div class="row">
           <% group.each do |card| %>
-            <div class="col-4 img-cont img-center">
+            <div class="col-4">
               <%= link_to card do %>
-                <% if card.card_type == "fold over"%>
-                  <img class="responsive-desktop-img fold-over responsive img-center padding-sides" src= <%= rails_blob_path(card.display_s3) %> />
-                <% else %>
-                  <img class="responsive-desktop-img post-card responsive margin-top-med img-center padding-sides" src= <%= rails_blob_path(card.display_s3) %> height=150px width=200px/>
-                <% end %>
+                <div class="desktop-img-cont">
+                  <% if card.card_type == "fold over"%>
+                    <img class="responsive-desktop-fold-over" src= <%= rails_blob_path(card.display_s3) %> />
+                  <% else %>
+                    <img class="responsive-desktop-post-card" src= <%= rails_blob_path(card.display_s3) %> height=150px width=200px/>
+                  <% end %>
+                </div>
                 <br>
                 <p class="center bottom"> <strong> <%= card.short_description %> </strong> <p>
                 <br> 
