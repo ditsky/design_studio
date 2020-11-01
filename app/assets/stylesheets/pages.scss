@@ -232,9 +232,10 @@ body, html {
 }
 
 .responsive-desktop-post-card{
-  height: 90%;
-  width: auto;
-  max-width: 90%;
+  width: 90%;
+  height: auto;
+  padding-top: 40px;
+  max-height: 90%;
 }
 
 .desktop-img-cont {
