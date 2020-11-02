@@ -107,6 +107,7 @@ class CardsController < ApplicationController
       params.permit(:display, :image, images: [])
       params[:card][:content].downcase!
       params[:card][:card_type].downcase!
+      params[:card][:size].downcase!
       params.require(:card).permit(:content, :size, :card_type, :price, :painted, :hand_cut, :filter, :short_description, :long_description)
     end
 

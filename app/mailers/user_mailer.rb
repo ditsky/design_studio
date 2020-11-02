@@ -22,14 +22,14 @@ class UserMailer < ApplicationMailer
 
   def order_receipt(user, order)
     @user = user
-    @order = order
-    @cards = @order.cards
-    @sizes = @order.card_totals
+    @cards = order.cards
+    @sizes = order.card_totals
     mail to: user.email, subject: "Order Receipt"
   end
 
 
   def order_created(order)
+    puts "In mailer: " + order.cards.size.to_s
     @order = order
     @cards = @order.cards
     @sizes = @order.card_totals

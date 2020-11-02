@@ -26,10 +26,12 @@ class Order < ApplicationRecord
 
     #Returns all unique cards for order
     def cards
+        puts "Before order.cards selections: " + selections.size.to_s
         cards = Card.none
         self.selections.each do |selection|
             cards = cards.or(Card.where(id: selection.card.id))
         end
+        puts "In order.cards: " + cards.size.to_s
         return cards
     end
 

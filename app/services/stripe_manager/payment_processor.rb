@@ -4,7 +4,11 @@ module StripeManager
 
         def process(intent)
             order = create_order(intent)
+            order_id = order.id
+            puts "\n\n\n\n\nBefore Cart: " + order.cards.size.to_s + "\n\n\n"
             handle_cart(intent, order)
+            order = Order.find(order_id)
+            puts "After Cart: " + order.cards.size.to_s
             send_receipts(intent, order)
         end
 
@@ -27,6 +31,7 @@ module StripeManager
 
         def send_receipts(intent, order)
             user = User.find(intent.metadata.user_id)
+            puts "Sending Receipt: " + order.cards.size.to_s
             user.send_order_receipt_email(order)
             UserMailer.order_created(order).deliver_now
         end

@@ -33,6 +33,4 @@ module CardsHelper
         return price_string
     end
 
-
-
 end

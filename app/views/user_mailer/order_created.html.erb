@@ -4,30 +4,31 @@
 
 <p>
 You have recieved an order! Below are the details:
+@cards.size = <%= @cards.size %>
 </p>
 
 <table class="table table-striped">
     <thead >
-    <h3 class="center pad-top pad-bottom">Purchased Items</h3>
-    <tr>
-        <th scope="col">Description</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Price</th>
-        <th> </th>
-    </tr>
+        <h3 class="center pad-top pad-bottom">Purchased Items</h3>
+        <tr>
+            <th scope="col">Description</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th> </th>
+        </tr>
     </thead>
     <tbody>
-    <% @cards.each do |card| %>
-        <tr>
-            <td class="no-wrap"> <%= card.short_description %> </td>
-            <td class="no-wrap container"> 
-                <div class="row">
-                <%= @sizes[card.id] %> 
-                </div>
-            </td>
-            <td class="no-wrap"> $<%= price_to_string(@sizes[card.id] * card.price) %> </td>
-        </tr>
-    <% end %>
+        <% @cards.each do |card| %>
+            <tr>
+                <td class="no-wrap"> <%= card.short_description %> </td>
+                <td class="no-wrap container"> 
+                    <div class="row">
+                    <%= @sizes[card.id] %> 
+                    </div>
+                </td>
+                <td class="no-wrap"> $<%= price_to_string(@sizes[card.id] * card.price) %> </td>
+            </tr>
+        <% end %>
     </tbody>
 </table>
 
