@@ -16,6 +16,7 @@ class AddressesController < ApplicationController
   # GET /addresses/new
   def new
     @address = Address.new
+    session[:return_to] ||= request.referer
   end
 
   # GET /addresses/1/edit
@@ -30,7 +31,7 @@ class AddressesController < ApplicationController
     respond_to do |format|
       if @address.save
         flash[:success] = 'Address was successfully created.'
-        format.html { redirect_back fallback_location: @address }
+        format.html { redirect_to session.delete(:return_to) }
         format.json { render :show, status: :created, location: @address }
       else
         format.html { render :new }

@@ -29,10 +29,22 @@ class UserMailer < ApplicationMailer
 
 
   def order_created(order)
-    puts "In mailer: " + order.cards.size.to_s
     @order = order
     @cards = @order.cards
     @sizes = @order.card_totals
     mail to: ENV['ADMIN_EMAIL'], subject: "You Have Recieved an Order!"
   end
+
+  def order_shipped(user, order)
+    @user = user
+    @order = order
+    @cards = order.cards
+    @address = order.shipping_address
+    @valid = true
+    if (@address == "ERROR NO SHIPPING ADDRESS")
+      @valid = false
+    end
+    mail to: user.email, subject: "Order Shipped!"
+  end
+
 end

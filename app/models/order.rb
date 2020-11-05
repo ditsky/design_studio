@@ -6,6 +6,19 @@ class Order < ApplicationRecord
 
     validate :correct_amount
     validate :usd
+    validates :user_id, :presence => true
+
+    def shipping_address
+        if (Address.exists?(shipping_address_id))
+            return Address.find(shipping_address_id)
+        else 
+            return "ERROR NO SHIPPING ADDRESS"
+        end
+    end
+
+    def send_shipping_email
+        user.send_shipping_email(self)
+    end
 
     #Need to update this after
     def correct_amount

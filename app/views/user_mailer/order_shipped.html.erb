@@ -1,0 +1,18 @@
+<h1> Jennifer's Design Studio </h1>
+
+<p> Hi <%= @user.name %>, </p>
+
+<% if @valid %>
+
+    <p>
+    Your order of <%= @cards.size %> items has been shipped to <%= @order.shipping_address.city + ", " + @order.shipping_address.state%>!
+    <%= link_to "View your orders", login_url(redirect: true) %>
+    </p>
+
+    <p> Thanks for your purchase! If you have concerns or questions email me at: <a href="mailto:<%=ENV['ADMIN_EMAIL']%>"><%=ENV['ADMIN_EMAIL']%></a></p>
+
+<% else %>
+
+    <p> There was an issue shipping your order. Please contact me at: <a href="mailto:<%=ENV['ADMIN_EMAIL']%>"><%=ENV['ADMIN_EMAIL']%></a> if you haven't already heard from us. </p>
+
+<% end %>

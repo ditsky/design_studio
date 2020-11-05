@@ -48,6 +48,11 @@ class User < ApplicationRecord
         UserMailer.order_receipt(self, order).deliver_now
     end
 
+    # Sends shipping email.
+    def send_shipping_email(order)
+        UserMailer.order_shipped(self, order).deliver_now
+    end
+
      # Sets the password reset attributes.
     def create_reset_digest
         self.reset_token = User.new_token

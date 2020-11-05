@@ -1,6 +1,7 @@
 <div class="translucent jumbotron bg-cream margin-top margin-bottom">
     <h1 class="center">Login</h1>
     <%= form_with(url: login_path, method: "post", scope: :session, local: true) do %>
+    
         <div class="form-group">
             <%= label_tag(:email, "email") %>
             <%= text_field_tag :email, "", class: "form-control" %>

@@ -1,0 +1,16 @@
+Jennifer's Design Studio
+
+    Hi <%= @user.name %>,
+
+<% if @valid %>
+
+    Your order of <%= @cards.size %> items has been shipped to <%= @order.shipping_address.city + ", " + @order.shipping_address.state%>!
+    Visit this link after logging in to view all the orders on the site: https://jennifersdesignstudio.org/orders.
+
+    Thanks for your purchase! If you have concerns or questions email me at: <%=ENV['ADMIN_EMAIL']%>
+
+<% else %>
+
+    There was an issue shipping your order. Please contact me at: <%=ENV['ADMIN_EMAIL']%> if you haven't already heard from us.
+
+<% end %>

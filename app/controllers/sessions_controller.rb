@@ -1,5 +1,8 @@
 class SessionsController < ApplicationController
   def new
+    if params[:redirect] && params[:redirect] == "true"
+      session[:email_link] = true
+    end
   end
 
   def create
@@ -8,10 +11,16 @@ class SessionsController < ApplicationController
       if user.activated?
         log_in user
         params[:remember_me] == '1' ? remember(user) : forget(user)
-        redirect_to user
+        if session[:email_link] == true 
+          session.delete(:email_link)
+          redirect_to orders_path
+        else
+          redirect_to user
+        end
       else
+        user.send_activation_email
         message  = "Account not activated. "
-        message += "Check your email for the activation link."
+        message += "Check your email for a new activation link."   
         flash[:warning] = message
         redirect_to root_url
       end

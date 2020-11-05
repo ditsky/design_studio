@@ -125,6 +125,7 @@ class OrdersController < ApplicationController
     def update
       respond_to do |format|
         
+        previous_status = @order.status
         updated = false
         if (logged_in? && user_admin?)
           updated = @order.update(order_params_admin)
@@ -133,6 +134,10 @@ class OrdersController < ApplicationController
         end
         
         if updated
+          if @order.status = "shipping" && previous_status != "shipping"
+            @order.send_shipping_email
+          end
+          
           flash[:success] = "Order Successfully Updated"
           format.html { redirect_to orders_path }
           format.json { render :index, status: :ok, location: orders_path }
