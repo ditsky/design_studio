@@ -37,7 +37,7 @@
 
         <div class="row margin-top margin-bottom">
             <div class="offset-md-1 col-5">
-                <%= render 'card_button', content: "sympathy", images: @sympathy_cards, card_type: get_type("birthday"), border: false %>
+                <%= render 'card_button', content: "love", images: @sympathy_cards, card_type: get_type("love"), border: false %>
             </div>
             <div class="col-5">
                 <%= render 'card_button', content: "any occasion", images: @any_occasion_cards, card_type: get_type("any occasion"), border: false %>
@@ -48,14 +48,13 @@
     <div class="hide-sm-more margin-bottom">
         <% @cards.each do |group| %>
             <div class="container">
-            <div class="row">
-                <div class="col-1">
+                <div class="row">
+                    <div class="col-1">
+                    </div>
+                    <div class="col-10 margin-top-md">
+                        <%= render 'card_button', content: group.first.content, images: [group.first], card_type: get_type(group.first.content), border: true%>
+                    </div>
                 </div>
-                <div class="col-10 margin-top-md">
-                    <%= render 'card_button', content: group.first.content, images: [group.first], card_type: get_type(group.first.content), border: true%>
-                </div>
-                
-            </div>
             </div>
         <% end %>
     </div>
