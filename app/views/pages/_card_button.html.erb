@@ -3,7 +3,7 @@
 <% else %>
     <% css = "btn rectangle d-flex justify-content-center"%>
 <% end %>
-<%= link_to cards_path(content.parameterize.underscore=> "1"), class:css do %> 
+<%= link_to cards_path(content.parameterize.underscore => "1"), class:css do %> 
     <div class="container fill">
         <% if card_type == "post card"%>
             <div class="margin-left-md fill-h row center">
