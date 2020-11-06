@@ -25,9 +25,10 @@
 
     <div class="hide-lg-more">
         <div class="row margin-top">
-            <div class="offset-md-1 col-5">
+            <div class="offset-1 col-5">
                 <%= render 'card_button', content: "birthday", images: @birthday_cards, card_type: get_type("birthday"), border: false %>
             </div>
+            
             <div class="col-5">
                 <%= render 'card_button', content: "thank you", images: @thank_you_cards, card_type: get_type("thank you"), border: false %>
             </div>
@@ -36,9 +37,10 @@
         <hr>
 
         <div class="row margin-top margin-bottom">
-            <div class="offset-md-1 col-5">
+            <div class="offset-1 col-5">
                 <%= render 'card_button', content: "love", images: @sympathy_cards, card_type: get_type("love"), border: false %>
             </div>
+            
             <div class="col-5">
                 <%= render 'card_button', content: "any occasion", images: @any_occasion_cards, card_type: get_type("any occasion"), border: false %>
             </div>

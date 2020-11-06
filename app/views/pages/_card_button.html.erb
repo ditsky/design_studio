@@ -5,17 +5,12 @@
 <% end %>
 <%= link_to cards_path(content.parameterize.underscore => "1"), class:css do %> 
     <div class="container fill">
-        <% if card_type == "post card"%>
-            <div class="margin-left-md fill-h row center">
-        <% else %>
-            <div class="fill-h row center">
-        <% end %>
-            
-                <% images.each do |card| %>
-                    <img class="responsive-img-mobile" src=<%= rails_blob_path(card.display_s3)%> >
-                <% end %>
-                <br>
-                <span class="center label-bold cursive-font bottom"> <%= content.capitalize %> Cards </span>
-            </div>  
+        <div class="fill-h center margin-top-sm">
+            <% images.each do |card| %>
+                <img class="padding-sides center responsive-img-mobile" src=<%= rails_blob_path(card.display_s3)%> >
+            <% end %>
+            <br>
+            <span class="center label-bold cursive-font bottom"> <%= content.capitalize %> Cards </span>
+        </div>
     </div>
 <% end %>
