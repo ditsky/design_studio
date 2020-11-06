@@ -4,10 +4,10 @@
     <% css = "btn rectangle d-flex justify-content-center"%>
 <% end %>
 <%= link_to cards_path(content.parameterize.underscore => "1"), class:css do %> 
-    <div class="container fill">
-        <div class="fill-h center margin-top-sm">
+    <div class="container">
+        <div class="center margin-top-sm">
             <% images.each do |card| %>
-                <img class="padding-sides center responsive-img-mobile" src=<%= rails_blob_path(card.display_s3)%> >
+                <img class="padding-sides center responsive-img-mobile-sm" src=<%= rails_blob_path(card.display_s3)%> >
             <% end %>
             <br>
             <span class="center label-bold cursive-font bottom"> <%= content.capitalize %> Cards </span>
