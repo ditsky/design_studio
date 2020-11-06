@@ -201,17 +201,9 @@ body, html {
   }
 
   .responsive-img-mobile-sm{
-    width: auto;
-    max-width: 100%;
+    width: 90%;
     height: auto;
-    max-height: 90%;
-
-    .responsive-img-mobile-sm{
-      width: auto;
-      max-width: 100%;
-      height: auto;
-      max-height: 90%;
-    }
+    max-height: 250px;
   }
 
 }
