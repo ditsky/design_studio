@@ -191,7 +191,8 @@ body, html {
   height: auto;
 }
 
-@media (max-width: 750px) {
+//Smol
+@media (max-width: 463px) {
   .responsive-img-mobile{
     width: auto;
     max-width: 100%;
@@ -204,11 +205,37 @@ body, html {
     max-width: 100%;
     height: auto;
     max-height: 90%;
+
+    .responsive-img-mobile-sm{
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      max-height: 90%;
+    }
   }
 
 }
 
-@media (min-width: 751px) {
+// medium
+@media (max-width: 750px) and (min-width: 463px) {
+  .responsive-img-mobile{
+    width: auto;
+    max-width: 70%;
+    height: auto;
+    max-height: 90%;
+  }
+
+  .responsive-img-mobile-sm{
+    width: auto;
+    max-width: 70%;
+    height: auto;
+    max-height: 90%;
+  }
+
+}
+
+//Large
+@media (min-width: 750px) {
   .responsive-img-mobile{
     width: auto;
     max-width: 50%;
