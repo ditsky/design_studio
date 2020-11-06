@@ -24,7 +24,7 @@
     <% @orders.each do |order| %>
         <div class="container">
             <div class="card margin-top-sm">
-                <div class="card-header bg-maroon">
+                <div class="hide-lg-more card-header bg-maroon">
                     <div class="row">
                         <div class="col-2">
                             <strong> <span> Date </span> </strong> <br> 
@@ -40,16 +40,52 @@
                         </div>
                         <div class="col-2">
                             <strong> <span> Shipping To </span> </strong> <br>
-                            <%= order.shipping_address.address_line_1 %>
+                            <%= link_to order.shipping_address.address_line_1, order.shipping_address, class: "white" %>
                         </div>                                                        
                     
                     </div>
                 </div>
-                <div class="card-body bg-cream">
+                <div class="hide-sm-more card-header bg-maroon">
+                    <div class="row">
+                        <div class="col offset-1">
+                            <strong> <span> Date: </span> </strong> <br>
+                        </div>
+                        <div class="col">
+                            <%= order.created_at.to_date %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col offset-1">
+                            <strong> <span> Total: </span> </strong>
+                        </div>
+                        <div class="col">
+                            $<%= order.amount/100 %>0
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col offset-1">
+                            <strong> <span> Ordered By: </span> </strong> <br>
+                        </div>
+                        <div class="col">
+                            <%= order.user.name %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col offset-1">
+                            <strong> <span> Shipping To: </span> </strong> <br>
+                        </div>      
+                        <div class="col">
+                            <%= link_to order.shipping_address.address_line_1, order.shipping_address, class: "white" %>
+                        </div>
+                    </div>                                                  
+                    
+                    
+                </div>
+                <div class="hide-lg-more card-body bg-cream">
                     <h5 class="card-title"> <strong> Ordered Cards: </strong> </h5>
                     <div class="row">
-                        <div class="col-7">
-                            <% order.selections.limit(5).each do |selection| %>
+                        <div class="col">
+                            <% order.selections.limit(3).each do |selection| %>
                                 <% card = selection.card%>
                                 <% if card.card_type == "fold over"%>
                                     <img src=<%= rails_blob_path(card.display_s3)%> height=200px width=150px>
@@ -57,13 +93,13 @@
                                     <img src=<%= rails_blob_path(card.display_s3)%> height=150px width=200px>
                                 <% end %>
                             <% end %>
+                            <% size = order.selections.size - 3 %>
                         </div>
-                        <div class="col-1">
-                            <% size = order.selections.size - 5 %>
+                        <div class="col-2">
                             <% if size > 1%>
-                                <p> + <%= size %> more </p>
+                                <p class="txt-lg margin-top"> + <%= size %> more </p>
                             <% end %>
-                        </div>
+                        </div>        
                         <div class="col-md-auto">
                             <h5 class="center"> <strong> Status: order <%= order.status %> </strong> </h5>
                             <br>
@@ -82,6 +118,47 @@
                                 <% end %>
                             <% end %>
                         </div>
+                        <div class="col-1"> </div>
+                    </div>
+                </div>
+                <div class="hide-sm-more card-body bg-cream">
+                    <h5 class="center card-title"> <strong> Ordered Cards: </strong> </h5>
+                    <% order.selections.limit(3).each do |selection| %>
+                        <div class="row">
+                            <div class="col-8 offset-2 center">
+                                <% card = selection.card%>
+                                <% if card.card_type == "fold over"%>
+                                    <img src=<%= rails_blob_path(card.display_s3)%> height=200px width=150px>
+                                <% else %>
+                                    <img src=<%= rails_blob_path(card.display_s3)%> height=150px width=200px>
+                                <% end %>
+                            </div>
+                        </div>
+                    <% end %>
+                    <div class="row">
+                        <% size = order.selections.size - 3 %>
+                        <% if size > 1%>
+                            <p class="txt-lg center"> + <%= size %> more </p>
+                        <% end %>
+                    </div>
+                    <div class="col-md-auto">
+                        <br>
+                        <h5 class="center"> <strong> Status: order <%= order.status %> </strong> </h5>
+                        <br>
+                        <% if @admin %>
+                            <%= form_with model: order do |f| %>
+                                <%= f.select :status, @options, {}, { :class => 'form-control' } %>
+                                <br> <br>
+                                <%= f.submit class: "btn btn-magenta center"%>
+                            <% end %>
+                        <% else %>
+                            <% if order.status == "pending"%>  
+                                <%= link_to "Cancel Order", order_path(order), method: :delete, class: "btn btn-magenta center"%>
+                            <% else %>
+                                <p> Can not cancel order while being processed or shipped </p>
+                                <%= link_to "Cancel Order", order_path(order), method: :delete, class: "btn btn-magenta disabled center"%>
+                            <% end %>
+                        <% end %>
                     </div>
                 </div>
             </div>

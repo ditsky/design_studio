@@ -9,7 +9,7 @@
         <% if !logged_in? %>
           <li> <%= link_to "Login", login_path, class:"nav-link large-nav-text"%>
         <% end %>
-        <li><%= link_to "Cards", cards_path, class: "nav-link large-nav-text" %></li>
+        <li><%= link_to "Designs", cards_path, class: "nav-link large-nav-text" %></li>
         <% if user_admin? %>
           <li><%= link_to "Orders", orders_path, class:"nav-link large-nav-text"%></li>
         <% end %>

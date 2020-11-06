@@ -3,7 +3,7 @@
   <div class="navbar-pad row fill margin-bottom hide-lg-more">
 
     <div class="col-3 jumbotron bg-cream">
-      <h3> Filter Search </h3>
+      <h3 class="label-bold"> Refine Search </h3>
       <hr>
       <%= form_with(url: cards_path, method: "get", local: true) do %>
         <% @columns.each do |column| %>
@@ -24,7 +24,7 @@
     <div class="col-1"> </div>
 
     <div class="col-8 jumbotron bg-cream">
-      <h3 class="centers"> Cards </h3>
+      <h3 class="label-bold"> Designs </h3>
       
       <hr>
       
@@ -57,7 +57,7 @@
 
   <div class="hide-sm-more fill margin-bottom">
   
-    <h5 class="label-bold margin-top-sm"> CARDS </h5>
+    <h5 class="label-bold margin-top-sm"> DESIGNS </h5>
     <div class="row margin-bottom-sm">
       <nav class="navbar navbar-expand-lg navbar-light bg-cream full-width">
         <span class="navbar-brand">Refine </span>
