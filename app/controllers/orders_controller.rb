@@ -23,11 +23,6 @@ class OrdersController < ApplicationController
       end
     end
   
-    # GET /orders/1
-    # GET /orders/1.json
-    def show
-    end
-  
     # GET /orders/new
     def new
       if (!logged_in? || current_cart.card_count == 0)
