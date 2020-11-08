@@ -8,7 +8,6 @@ class SelectionsController < ApplicationController
 
         respond_to do |format|
             if @selection.save
-                flash[:success] = "Selection Added to your shopping cart"
                 format.html { redirect_back fallback_location: cards_path }
                 format.json { head :no_content }
             else
@@ -24,7 +23,6 @@ class SelectionsController < ApplicationController
     def destroy
         @selection.destroy
         respond_to do |format|
-          flash[:success] = 'Selection was successfully removed from the cart.'
           format.html { redirect_back fallback_location: root_path}
           format.json { head :no_content }
         end

@@ -93,11 +93,11 @@
                                     <img src=<%= rails_blob_path(card.display_s3)%> height=150px width=200px>
                                 <% end %>
                             <% end %>
-                            <% size = order.selections.size - 3 %>
                         </div>
-                        <div class="col-2">
-                            <% if size > 1%>
-                                <p class="txt-lg margin-top"> + <%= size %> more </p>
+                        <% size = order.selections.size - 3 %>
+                        <div class="col-1">
+                            <% if size >= 1%>
+                                <p class="txt-lg margin-top-md margin-right"> + <%= size %> more </p>
                             <% end %>
                         </div>        
                         <div class="col-md-auto">
@@ -128,17 +128,17 @@
                             <div class="col-8 offset-2 center">
                                 <% card = selection.card%>
                                 <% if card.card_type == "fold over"%>
-                                    <img src=<%= rails_blob_path(card.display_s3)%> height=200px width=150px>
+                                    <img class="margin-bottom-sm" src=<%= rails_blob_path(card.display_s3)%> height=200px width=150px>
                                 <% else %>
-                                    <img src=<%= rails_blob_path(card.display_s3)%> height=150px width=200px>
+                                    <img class="margin-bottom-sm" src=<%= rails_blob_path(card.display_s3)%> height=150px width=200px>
                                 <% end %>
                             </div>
                         </div>
                     <% end %>
                     <div class="row">
                         <% size = order.selections.size - 3 %>
-                        <% if size > 1%>
-                            <p class="txt-lg center"> + <%= size %> more </p>
+                        <% if size >= 1%>
+                            <p class="txt-lg center margin-top-sm"> + <%= size %> more </p>
                         <% end %>
                     </div>
                     <div class="col-md-auto">
