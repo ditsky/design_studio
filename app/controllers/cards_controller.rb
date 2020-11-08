@@ -10,8 +10,8 @@ class CardsController < ApplicationController
     @cards = card_filter.filter(params, valid_filter_columns)
     @card_groups = @cards.each_slice(3).to_a
     @card_groups_mobile = @cards.each_slice(2).to_a
-    @columns = ["DESIGN", "STYLE", "SIZE"]
-    @columns_l = ["Design", "Style", "Size"]
+    @columns = ["DESIGN", "STYLE", "SHAPE/SIZE"]
+    @columns_l = ["Design", "Style", "Shape/Size"]
   end
 
   # GET /cards/1

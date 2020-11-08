@@ -9,7 +9,7 @@ module CardsHelper
             return ["painted", "hand cut"]
         elsif (column == "CARD TYPE" || column == "Card Type")
             return Card.distinct.pluck(:card_type)
-        elsif (column == "SIZE" || column == "Size")
+        elsif (column == "SHAPE/SIZE" || column == "Shape/Size")
             return Card.distinct.pluck(:size)
         end
     end
