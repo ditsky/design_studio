@@ -47,23 +47,35 @@
         </div>
 
         <div class="hide-sm-more" id ="sm">
-            <div class= 'row margin-top'>
-                <div class= "col-6">
-                    <strong class="move-right"> Shipping Address </strong>
-                </div>
-                <div class="col-6">
-                    <%= collection_select(:order, :shipping_address_id, @addresses.order(:address_line_1), :id, :address_line_1, {}, {class: "form-control"})%>
-                    <br> <br>
-                    <%= link_to "Add New Address", new_address_path%>
+            <div class= 'row margin-top-sm margin-bottom-sm'>
+                <div class= "offset-1 col-10">
+                    <strong class="margin-left-md"> Shipping Address </strong>
                 </div>
             </div>
 
+            <div class="offset-1 col-10">
+                <%= collection_select(:order, :shipping_address_id, @addresses.order(:address_line_1), :id, :address_line_1, {}, {class: "form-control"})%>
+                <br>
+                <%= link_to "Add New Address", new_address_path%>
+            </div>
 
             <hr>
+
+            <div class= 'row margin-top-sm margin-bottom-sm'>
+                <div class= "offset-1 col-10">
+                    <strong class="margin-left-md"> Billing Address </strong>
+                </div>
+            </div>
+
+            <div class="offset-1 col-10">
+                <%= collection_select(:order, :billing_address_id, @addresses.order(:address_line_1), :id, :address_line_1, {}, {class: "form-control"})%>
+                <br>
+                <%= link_to "Add New Address", new_address_path%>
+            </div>
             
             <div class= 'row'>
-                <div class= "col-6">
-                    <strong class="move-right"> Payment Method </strong>
+                <div class= "offset-1 col-10">
+                    
                     <br> <br>
                     <div class="padding-sides gray-border"id="card-element">
                         <!-- Elements will create input elements here -->
@@ -72,14 +84,6 @@
                     <!-- We'll put the error messages in this element -->
                     <div id="card-errors" role="alert"></div>
 
-                </div>
-                <div class="col-6">
-                    <strong> Billing Address </strong>
-                    <br> <br>
-                    <%= collection_select(:order, :billing_address_id, @addresses.order(:address_line_1), :id, :address_line_1, {}, {class: "form-control"})%>
-                    <br> <br>
-                    <%= link_to "Add New Address", new_address_path%>
-                    <br> <br>
                 </div>
             </div>
         </div>

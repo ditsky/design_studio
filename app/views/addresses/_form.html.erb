@@ -17,7 +17,7 @@
 
         <div class="field form-group">
           <%= form.label :country %>
-          <%= form.country_select :country, class: "form-control" %>
+          <%= form.country_select :country, {priority_countries: ["US"]}, {class: "form-control"} %>
         </div>
 
         <div class="field form-group">
@@ -42,7 +42,7 @@
 
         <div class="field form-group">
           <%= form.label :state %>
-          <%= collection_select :address, :state, @states, :to_s, :to_s, include_blank: true, class: "form-control" %>
+          <%= collection_select :address, :state, @states, :to_s, :to_s, {selected: "MA"}, {include_blank: true, class: "form-control"} %>
         </div>
 
         <div class="field form-group">
@@ -60,7 +60,7 @@
         </div>
 
         <div class="actions form-group">
-          <%= link_to "Cancel", addresses_path, class: "btn btn btn-outline-secondary"%>
+          <%= link_to "Cancel", request.referrer, class: "btn btn btn-outline-secondary"%>
           <%= form.submit class: "btn btn-primary" %>
         </div>
       <% end %>
