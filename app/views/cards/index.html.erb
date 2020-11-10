@@ -100,7 +100,7 @@
                   <%= link_to card do %>
                     <div class="mobile-img-cont ">
                       <% if card.card_type == "fold over"%>
-                        <img class="responsive-mobile-fold-over" src= <%= rails_blob_path(card.display_s3) %> />
+                        <img class="responsive-mobile-fold-over margin-top-xtrasm" src= <%= rails_blob_path(card.display_s3) %> />
                       <% else %>
                         <img class="responsive-mobile-post-card margin-top-sm" src= <%= rails_blob_path(card.display_s3) %> />
                       <% end %>
