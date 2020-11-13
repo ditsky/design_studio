@@ -1,7 +1,7 @@
 <div class="row no-gutters fill">
   <div class="col-md-6 offset-md-3">
     <div class="translucent jumbotron bg-cream margin-top margin-bottom">
-      <h1 class="center">New Address</h1>
+      <h1 class="center"> <%= title %> Address</h1>
       <%= form_with(model: address, local: true) do |form| %>
         <% if address.errors.any? %>
           <div id="error_explanation">
@@ -61,7 +61,7 @@
 
         <div class="actions form-group">
           <%= link_to "Cancel", request.referrer, class: "btn btn btn-outline-secondary"%>
-          <%= form.submit class: "btn btn-primary" %>
+          <%= form.submit class: "btn btn-magenta" %>
         </div>
       <% end %>
     </div>

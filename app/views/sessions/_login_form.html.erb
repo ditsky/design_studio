@@ -1,4 +1,4 @@
-<div class="translucent jumbotron bg-cream margin-top margin-bottom">
+<div class="translucent jumbotron bg-cream margin-top-sm margin-bottom">
     <h1 class="center">Login</h1>
     <%= form_with(url: login_path, method: "post", scope: :session, local: true) do %>
     
@@ -17,7 +17,7 @@
                 <span>Remember me on this computer</span>
             <% end %>
         </div>
-        <%= submit_tag("Login", class: "btn btn-primary") %>
+        <%= submit_tag("Login", class: "btn btn-magenta") %>
     <% end %>
     <p>New user? <%= link_to "Sign up now!", new_user_path %></p>
 </div>

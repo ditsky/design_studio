@@ -8,6 +8,9 @@ class SelectionsController < ApplicationController
 
         respond_to do |format|
             if @selection.save
+                if params["flash"] && params["flash"] == "1"
+                  flash[:success] = "Item added to your cart"
+                end
                 format.html { redirect_back fallback_location: cards_path }
                 format.json { head :no_content }
             else

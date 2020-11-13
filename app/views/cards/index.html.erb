@@ -5,20 +5,9 @@
     <div class="col-3 jumbotron bg-cream">
       <h3 class=""> Refine Search </h3>
       <hr>
-      <%= form_with(url: cards_path, method: "get", local: true) do %>
-        <% @columns.each do |column| %>
-          <strong> <%= column %> </strong>
-          <br> <br>
-          <% all_column_filters(column).each do |filter| %>
-            <div class= "form-group row">
-              <%= check_box_tag(filter.parameterize.underscore.to_sym, "1", false, {class:"lg-checkbox"}) %> &nbsp; &nbsp;
-              <%= label_tag(filter, filter.capitalize, class:"label-bold") %> 
-            </div>
-          <% end %>
-          <hr>
-        <% end %>
-        <%= submit_tag("Save", class: "btn btn-magenta") %>
-      <% end %>
+      <%= render 'cards/filter_box'%>
+      <br>
+      <%= render 'cards/filter_form', columns: @columns, last_mobile_column: false%>
     </div>
 
     <div class="col-1"> </div>
@@ -68,27 +57,15 @@
       </nav>
       <div class="collapse navbar-collapse bg-normal with-gutters" id="navbarTogglerDemo01">
           <ul class="navbar-nav mt-2 mt-lg-0">
-            <% i = 0%>
-            <%= form_with(url: cards_path, method: "get", local: true) do %>
-              <% @columns_l.each do |column| %>
-                <strong class> <%= column %> </strong>
-                <br> <br>
-                <% all_column_filters(column).each do |filter| %>
-                  <div class= "form-group row">
-                    <%= check_box_tag(filter.parameterize.underscore.to_sym, "1", false, {class:"lg-checkbox"}) %> &nbsp; &nbsp;
-                    <%= label_tag(filter, filter.capitalize, class:"label-bold") %> 
-                  </div>
-                <% end %>
-                <% if column != @columns_l.last %>
-                  <hr>
-                <% end %>
-              <% end %>
-              <%= submit_tag("Save", class: "btn btn-magenta") %>
-              <hr>
-            <% end %>
+            <%= render 'cards/filter_form', columns: @columns_l, last_mobile_column: @columns_l.last %>
           </ul>
+          <hr>
         </div>
     </div>
+
+    <%= render 'cards/filter_box'%>
+    <br>
+
     <div class="row">
       <div class="col">
         <div class="container">

@@ -129,6 +129,12 @@
     margin-left: 13px;
 }
 
+@media (max-width: 800px) {
+    .margin-left-filter {
+        margin-left: 20px;
+    }
+}
+
 .move-right {
     margin-left: 30px;
 }

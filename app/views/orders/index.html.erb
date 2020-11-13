@@ -26,6 +26,12 @@
             <div class="card margin-top-sm">
                 <div class="hide-lg-more card-header bg-maroon">
                     <div class="row">
+                        <% if @admin %>
+                            <div class="col-2">
+                                <strong> <span> Order No. </span> </strong> <br> 
+                                <%= order.id %>
+                            </div>
+                        <% end %>
                         <div class="col-2">
                             <strong> <span> Date </span> </strong> <br> 
                             <%= order.created_at.to_date %>
@@ -107,7 +113,7 @@
                                 <%= form_with model: order do |f| %>
                                     <%= f.select :status, @options, {}, { :class => 'form-control' } %>
                                     <br> <br>
-                                    <%= f.submit class: "btn btn-magenta center"%>
+                                    <%= f.submit "Update Order", data: { confirm: 'Hi Mom. Do you want to save changes to Order ' + order.id.to_s + "?"}, class: "btn btn-magenta center"%>
                                 <% end %>
                             <% else %>
                                 <% if order.status == "pending"%>  
@@ -149,7 +155,7 @@
                             <%= form_with model: order do |f| %>
                                 <%= f.select :status, @options, {}, { :class => 'form-control' } %>
                                 <br> <br>
-                                <%= f.submit class: "btn btn-magenta center"%>
+                                <%= f.submit "Update Order", data: { confirm: 'Are you sure' }, class: "btn btn-magenta center"%>
                             <% end %>
                         <% else %>
                             <% if order.status == "pending"%>  

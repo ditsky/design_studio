@@ -1,4 +1,4 @@
-<div class="translucent jumbotron bg-cream margin-top margin-bottom">
+<div class="translucent jumbotron bg-cream margin-top-md margin-bottom">
   <h1>Account Information</h1>
   <%= form_with(model: user, local: true) do |form| %>
     <% if user.errors.any? %>
@@ -34,7 +34,7 @@
     </div>
 
     <div class="actions center-w">
-      <%= form.submit class: "btn btn-primary"%>
+      <%= form.submit class: "btn btn-magenta"%>
     </div>
   <% end %>
 </div>

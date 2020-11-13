@@ -51,12 +51,25 @@
         <p> $<%= price_to_string(@card.price)%> </p>
         <hr>
         <p> <%= @card.long_description%> </p>
-        <% if user_admin? %>
-          <%= link_to 'Edit Card', edit_card_path(@card), class: "btn btn-magenta" %>
-          <%= link_to 'Delete Card', card_path(@card), method: :delete, class: "btn btn-danger"%>
-        <% else %>
-          <%= button_to 'Add to cart', selections_path(selection: {shopping_cart_id: current_cart.id, card_id: @card.id}), class: "btn btn-magenta" %>
-        <% end %>
+        <div class="row">
+          <% if user_admin? %>
+          
+            <div class="col">
+                <%= link_to 'Edit Card', edit_card_path(@card), class: "btn btn-magenta" %>
+                <%= link_to 'Delete Card', card_path(@card), method: :delete, class: "btn btn-danger"%>
+                <%= link_to "Back", cards_path, class: "btn btn btn-outline-secondary"%>
+            </div>
+          
+          <% else %>
+
+              <div class="col-4">
+                <%= button_to 'Add to cart', selections_path(flash: "1", selection: {shopping_cart_id: current_cart.id, card_id: @card.id}), class: "btn btn-magenta" %>
+              </div>
+              <div class="col-3">
+                <%= link_to "Back", cards_path, class: "btn btn btn-outline-secondary margin-left-sm"%>
+              </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

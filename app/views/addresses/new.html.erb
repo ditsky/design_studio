@@ -1,1 +1,9 @@
-<%= render 'form', address: @address %>
+<div class="hide-lg-more row bg-studio fill no-gutters">
+    <%= render 'form', address: @address, title: "New" %>
+</div>
+
+<div class="hide-sm-more row">
+    <div class="offset-1 col-10">
+        <%= render 'form', address: @address, title: "New" %>
+    </div>
+</div>

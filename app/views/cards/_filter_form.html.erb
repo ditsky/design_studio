@@ -1,0 +1,16 @@
+<%= form_with(url: cards_path, method: "get", local: true) do |f| %>
+    <% columns.each do |column| %>
+        <strong class> <%= column %> </strong>
+        <br> <br>
+        <% all_column_filters(column).each do |filter| %>
+            <div class= "form-group row">
+                <%= f.check_box("filters[]", {class:"lg-checkbox"}, filter.parameterize.underscore.to_sym, nil) %> &nbsp; &nbsp;
+                <%= f.label(:filters, filter.capitalize, class:"label-bold") %> 
+            </div>
+        <% end %>
+        <% if column != last_mobile_column %>
+            <hr>
+        <% end %>
+    <% end %>
+    <%= f.submit("Save", class: "btn btn-magenta") %>
+<% end %>

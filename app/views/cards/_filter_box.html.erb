@@ -1,0 +1,18 @@
+<% if @current_filters.size > 0%>
+
+    <div class="margin-left-filter">
+
+        <div class="row">
+            <% @current_filters.each do |filter| %>
+                
+                <div class="margins">
+                    <%= link_to remove_filter(request, filter)  do %>
+                        <i class="fas fa-times-circle"></i>
+                    <% end %>
+                    <%= design_to_string(filter) %>
+                </div>
+
+            <% end %>
+        </div>
+    </div>
+<% end %>

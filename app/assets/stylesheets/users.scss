@@ -11,11 +11,23 @@
     color: white;
 }
 
+.blue:visited{
+    color: rgb(73, 130, 252);
+}
+
+.blue {
+    color: rgb(36, 103, 247);
+}
+
 .txt-lg {
     font-size: medium;
 }
 
 .white:hover{
+    color: rgb(0, 174, 255);
+}
+
+.blue:hover{
     color: rgb(0, 174, 255);
 }
 

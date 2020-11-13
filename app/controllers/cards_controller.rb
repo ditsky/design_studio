@@ -1,13 +1,37 @@
 class CardsController < ApplicationController
+  include CardsHelper
   before_action :set_card, only: [:show, :edit, :update, :destroy, :delete_image]
   before_action :check_admin, only: [:new, :edit, :create, :update, :destroy]
+  # before_action :remove_filter, only: [:index]
 
   # GET /cards
   # GET /cards.json
   def index
+    @params = request.original_fullpath()
+    
+
+    # filter_params = {}
+    # if params["filters"]
+    #   filter_params = params["filters"]
+    # end
+
+    # puts filter_params.to_unsafe_h.first
+    # remove_filter(@params, filter_params.to_unsafe_h.first[0])
+    
     card_filter = FilterManager::CardFilter.new
     valid_filter_columns = [:content, :painted, :hand_cut, :size]
-    @cards = card_filter.filter(params, valid_filter_columns)
+
+    @cards = Card.all
+    @current_filters = {}
+    if filter_params
+      @current_filters = filter_params[:filters]
+      @cards = card_filter.filter(@current_filters, valid_filter_columns)
+    end
+
+    puts "\n\n"
+    puts filter_params
+    puts "\n\n"
+
     @card_groups = @cards.each_slice(3).to_a
     @card_groups_mobile = @cards.each_slice(2).to_a
     @columns = ["DESIGN", "STYLE", "SHAPE/SIZE"]
@@ -111,10 +135,15 @@ class CardsController < ApplicationController
       params.require(:card).permit(:content, :size, :card_type, :price, :painted, :hand_cut, :filter, :short_description, :long_description)
     end
 
-    #Allows the filter paramter namespace to be optional in the URL
-    #Should change this to just content, card type, etc later.
-    def filter_params(params)
-      params.slice(:filters)
-      # params.slice(:sympathy, :love, :blank, :birthday, :thank_you, :painted, :hand_cut, :fold_over, :post_card)
+    def filter_params
+      params.permit(filters: [])
+      if !params["filters"].nil?
+        h = params.to_unsafe_h
+        params = h.symbolize_keys
+        return params.slice(:filters)
+      end
+
+      return nil
     end
+
 end

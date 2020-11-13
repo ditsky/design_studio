@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
         if user_admin?
           @orders = Order.all
           @admin = true
-          @options = ["pending", "in process", "shipping"]
+          @options = ["pending", "in process", "shipping", "DELETE"]
         else
           @orders = current_user.orders
           @admin = false
@@ -131,6 +131,10 @@ class OrdersController < ApplicationController
         if updated
           if @order.status = "shipping" && previous_status != "shipping"
             @order.send_shipping_email
+          end
+
+          if @order.status = "DELETE"
+            @order.delete
           end
           
           flash[:success] = "Order Successfully Updated"

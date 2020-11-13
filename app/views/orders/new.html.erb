@@ -1,7 +1,11 @@
 <div class="container sr-root">
     <p id="error" class="hidden alert alert-danger"> </p>
-    <p id="success" class="hidden alert alert-success">  </p>
-    <%= link_to "View Your Orders", orders_path(@order.id), :id => "order", class: "hidden"%>
+    <div class="hidden alert alert-success" id="success">
+        
+            Payment Succeeded! Your Order is Now Being Proccessed!
+            <%= link_to "View Your Orders", orders_path(@order.id), class: "blue", :id => "order"%> 
+        
+    </div>
     <form id="payment-form">
 
         <%= hidden_field_tag :amount, @total*100%>
@@ -136,7 +140,7 @@
                     <div class="row">
                         <div class="col-3 offset-1 my-auto">
 
-                            <%= button_tag(type: "submit", class: "btn btn-primary", id: "submit") do %>
+                            <%= button_tag(type: "submit", class: "btn btn-magenta", id: "submit") do %>
                                 <span id="button-text"> Checkout </span>
                                 <div class="spinner hidden" id="spinner"></div>
                             <% end %>
@@ -184,13 +188,17 @@
         }
     };
 
+    var paymentSuccess = function() {
+        
+    }
+
     document.getElementById("error").style.display = "none";
     document.getElementById("success").style.display = "none";
     document.getElementById("order").style.display = "none";
     // Set your publishable key: remember to change this to your live publishable key in production
     // See your keys here: https://dashboard.stripe.com/account/apikeys
     //Test Key
-    // var stripe = Stripe("pk_test_51GroxnGYhSS9s9rvN6vCJC23mTemFWoKTIXA0ztQ1QJswzi29Qf95PFb9nG6AKjwijEKb4fqvL2MkPeOoCn2s5zY00RAV6TboP");
+    //var stripe = Stripe("pk_test_51GroxnGYhSS9s9rvN6vCJC23mTemFWoKTIXA0ztQ1QJswzi29Qf95PFb9nG6AKjwijEKb4fqvL2MkPeOoCn2s5zY00RAV6TboP");
     
     
     //Production Key
@@ -261,24 +269,26 @@
                         document.getElementById("success").style.display = "none";
                         document.getElementById("error").style.display = "block";
                         changeLoadingState(false);
+                        window.scrollTo(0, 0);
                     } else {
                         if (result.paymentIntent.status === 'succeeded') {
                             console.log('payment succeeded!')
-                            setTimeout(() => {  document.getElementById("success").innerText = "Payment Succeeded! Your Order is Now Being Proccessed";
-                            document.getElementById("error").style.display = "none";
-                            document.getElementById("success").style.display = "block";
-                            document.getElementById("order").style.display = "block";
-                            changeLoadingState(false); }, 4000);
+                            setTimeout(() => {  
+                                document.getElementById("error").style.display = "none";
+                                document.getElementById("success").style.display = "block";
+                                document.getElementById("order").style.display = "inline-block";
+                                paymentSuccess();
+                                window.scrollTo(0, 0);
+                            }, 500);
                             
                         } else {
                             document.getElementById("error").innerText = "An Unknown Error Has Occured";
                             document.getElementById("error").style.display = "block";
                             document.getElementById("success").style.display = "none";
                             changeLoadingState(false);
+                            window.scrollTo(0, 0);
                         }
                     }
-
-                    window.scrollTo(0, 0);
                     
                 });
             }

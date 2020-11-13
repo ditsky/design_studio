@@ -14,6 +14,24 @@ module CardsHelper
         end
     end
 
+    def design_to_string(design)
+        return design.split('_').map(&:capitalize).join(' ')
+    end
+
+    def remove_filter(request, filter)
+        url = URI request.original_url()
+        params = Rack::Utils.parse_query(url.query)
+        if params["filters[]"].class == String
+            params["filters[]"] = [params["filters[]"]]
+        end
+        params[:filters] = params["filters[]"]
+        params.delete("filters[]")
+        params[:filters].delete(filter)
+
+        url.query = params.to_param
+        return url.to_s
+    end
+
     #Converts int prices into proper dollar string amount
     def price_to_string(price)
         if (!price)
