@@ -128,11 +128,11 @@ class OrdersController < ApplicationController
         end
         
         if updated
-          if @order.status = "shipping" && previous_status != "shipping"
+          if @order.status == "shipping" && previous_status != "shipping"
             @order.send_shipping_email
           end
 
-          if @order.status = "DELETE"
+          if @order.status == "DELETE"
             @order.delete
           end
           
