@@ -13,7 +13,6 @@ We have recieved your card order and have begun to process it. Below are your or
         <th scope="col">Description</th>
         <th scope="col">Quantity</th>
         <th scope="col">Price</th>
-        <th scope="col">Total</th>
     </tr>
     </thead>
     <tbody>
@@ -26,9 +25,9 @@ We have recieved your card order and have begun to process it. Below are your or
                 </div>
             </td>
             <td class="no-wrap"> $<%= price_to_string(@sizes[card.id] * card.price) %> </td>
-            <td> $<%= @total %> </td>
         </tr>
     <% end %>
+    <td> $<%= @total %> </td>
     </tbody>
 </table>
 
