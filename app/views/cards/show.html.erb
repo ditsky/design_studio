@@ -62,10 +62,10 @@
           
           <% else %>
 
-              <div class="col-3">
+              <div class="margin-left-md">
                 <%= button_to 'Add to cart', selections_path(flash: "1", selection: {shopping_cart_id: current_cart.id, card_id: @card.id}), class: "btn btn-magenta" %>
               </div>
-              <div class="col-3">
+              <div class="">
                 <%= link_to "Back", cards_path, class: "btn btn btn-outline-secondary margin-left-sm"%>
               </div>
           <% end %>
