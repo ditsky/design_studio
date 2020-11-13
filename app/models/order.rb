@@ -1,4 +1,5 @@
 class Order < ApplicationRecord
+    include CardsHelper
     has_many :selections
     belongs_to :user
     belongs_to :shipping_address, :class_name => "Address"
@@ -32,6 +33,29 @@ class Order < ApplicationRecord
         end
         total
     end
+
+    def string_total
+        price_to_string(total)
+    end
+
+    #Converts int prices into proper dollar string amount
+    # def price_to_string(price)
+    #     if (!price)
+    #         return "0"
+    #     end
+    #     price = price.round(2)
+    #     price_string = price.to_s
+    #     first_cent_index = price_string.index(".") + 1
+    #     cent_len = price_string.length - first_cent_index
+    #     if cent_len < 2
+    #         price_string += "0"
+    #     elsif cent_len > 2
+    #         price_string = price_string[0,first_cent_index + 2]
+
+    #     end
+
+    #     return price_string
+    # end
 
     def usd
         return currency == "usd"

@@ -57,7 +57,6 @@ class OrdersController < ApplicationController
         amount: current_cart.total * 100,
         currency: 'usd',
         payment_method_types: ['card'],
-        receipt_email: current_user.email,
         metadata: {integration_check: 'accept_a_payment',
                   user_id: params[:order][:user_id],
                   shopping_cart_id: current_cart.id,

@@ -7,6 +7,6 @@ Jennifer's Design Studio
     <% @cards.each do |card| %>
         Description: <%= card.short_description %> Quantity: <%= @sizes[card.id] %> Price: $<%= price_to_string(@sizes[card.id] * card.price) %>
     <% end %>
-
+        Total: $<%= @total%>
 
 Thanks for your purchase! If you have concerns or questions email me at: <%= ENV["ADMIN_EMAIL"] %>.
