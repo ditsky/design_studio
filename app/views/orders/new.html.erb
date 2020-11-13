@@ -145,7 +145,7 @@
                                 <div class="spinner hidden" id="spinner"></div>
                             <% end %>
 
-                            
+                            <i id="check" class="hidden green fas fa-check-circle fa-4x" style="color:green;", ></i>
                         </div>
                         <div class="hide-lg-more col-md-4 offset-md-3 my-auto">
                             <h4> <strong class="move-right center-absolute"> Total: $<%= @total%> </strong> </h4>
@@ -191,7 +191,8 @@
     };
 
     var paymentSuccess = function() {
-        
+        document.getElementById("submit").style.display = "none";
+        document.getElementById("check").style.display = "block";
     }
 
     document.getElementById("error").style.display = "none";
@@ -200,11 +201,11 @@
     // Set your publishable key: remember to change this to your live publishable key in production
     // See your keys here: https://dashboard.stripe.com/account/apikeys
     //Test Key
-    // var stripe = Stripe("pk_test_51GroxnGYhSS9s9rvN6vCJC23mTemFWoKTIXA0ztQ1QJswzi29Qf95PFb9nG6AKjwijEKb4fqvL2MkPeOoCn2s5zY00RAV6TboP");
+    var stripe = Stripe("pk_test_51GroxnGYhSS9s9rvN6vCJC23mTemFWoKTIXA0ztQ1QJswzi29Qf95PFb9nG6AKjwijEKb4fqvL2MkPeOoCn2s5zY00RAV6TboP");
     
     
     //Production Key
-    var stripe = Stripe("pk_live_An2lYRL5Bo4aXbcfUl5yK5G000MWuRBNZ7");
+    //var stripe = Stripe("pk_live_An2lYRL5Bo4aXbcfUl5yK5G000MWuRBNZ7");
     
     var elements = stripe.elements();
 

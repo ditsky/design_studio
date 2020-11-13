@@ -27,7 +27,7 @@ We have recieved your card order and have begun to process it. Below are your or
             <td class="no-wrap"> $<%= price_to_string(@sizes[card.id] * card.price) %> </td>
         </tr>
     <% end %>
-    <td> $<%= @total %> </td>
+    <td> <strong> Total: </strong> $<%= @total %> </td>
     </tbody>
 </table>
 
