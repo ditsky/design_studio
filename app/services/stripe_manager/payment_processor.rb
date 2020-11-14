@@ -3,10 +3,16 @@ module StripeManager
     class PaymentProcessor
 
         def valid?(intent)
-            shopping_cart = ShoppingCart.find(intent.metadata.shopping_cart_id.to_i)
-            cart_empty = shopping_cart.empty?
-            duplicate_order = Order.where(payment_intent: intent.id).size != 0
-            return !cart_empty && !duplicate_order
+            puts "CHECKING VALIDITY"
+            if ShoppingCart.exists?(intent.metadata.shopping_cart_id.to_i)
+                shopping_cart = ShoppingCart.find(intent.metadata.shopping_cart_id.to_i)
+                cart_empty = shopping_cart.empty?
+                valid_price = shopping_cart.total == intent.amount/100
+                duplicate_order = Order.where(payment_intent: intent.id).size != 0
+                return !cart_empty && !duplicate_order && valid_price
+            end
+
+            return false
         end
 
         def process(intent)
