@@ -32,8 +32,8 @@ class UserMailer < ApplicationMailer
 
   def order_created(order)
     @total = price_to_string(order.total)
-    @cards = @order.cards
-    @sizes = @order.card_totals
+    @cards = order.cards
+    @sizes = order.card_totals
     mail to: ENV['ADMIN_EMAIL'], subject: "You Have Recieved an Order!"
   end
 
