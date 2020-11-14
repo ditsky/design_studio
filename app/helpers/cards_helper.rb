@@ -37,8 +37,13 @@ module CardsHelper
         if (!price)
             return "0"
         end
+        if !price_string.include? "."
+            return price_string
+        end
+
         price = price.round(2)
         price_string = price.to_s
+
         first_cent_index = price_string.index(".") + 1
         cent_len = price_string.length - first_cent_index
         if cent_len < 2
