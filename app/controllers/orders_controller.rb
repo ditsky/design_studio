@@ -95,7 +95,9 @@ class OrdersController < ApplicationController
         when 'payment_intent.succeeded' 
           payment_intent = event.data.object # contains a Stripe::PaymentIntent
           puts "Payment Processed!: " + payment_intent.inspect 
-          payment_processor.process(payment_intent)
+          if payment_processor.valid?(payment_intent)
+            payment_processor.process(payment_intent)
+          end
         when 'payment_intent.created'
           payment_intent = event.data.object # contains a Stripe::PaymentIntent
           puts "Intent Created!: " + payment_intent.inspect

@@ -2,6 +2,10 @@ module StripeManager
 
     class PaymentProcessor
 
+        def valid?(intent)
+            return Order.where(payment_intent: intent.id).size == 0
+        end
+
         def process(intent)
             order = create_order(intent)
             order_id = order.id
