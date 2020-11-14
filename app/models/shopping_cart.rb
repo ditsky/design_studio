@@ -3,6 +3,10 @@ class ShoppingCart < ApplicationRecord
     has_many :selections
     has_many :cards, through: :selections
 
+    def empty?
+        self.selections.size == 0
+    end
+
     def order_selections(order)
         self.selections.update_all(order_id: order.id)
     end

@@ -40,6 +40,8 @@ class OrdersController < ApplicationController
         current_cart.cards.each do |card|
           @sizes[card.id] = current_cart.cards.where(id: card.id).count
         end
+
+        @publishable_key = ENV['STRIPE_PUBLISHABLE_KEY']
       end
     end
 

@@ -1,4 +1,4 @@
-<div class="container sr-root">
+<div id="env" data-public_key=<%= @publishable_key%> class="container sr-root">
     <p id="error" class="hidden alert alert-danger"> </p>
     <div class="hidden alert alert-success" id="success">
         
@@ -96,9 +96,7 @@
         <hr>
 
         <div class= 'row'>
-            <div class= "col-md-7 offset-md-3">
-                <strong> Review your order </strong>
-                <br> <br>
+            <div class= "col-md-7 offset-md-3"> <data public_key=<%= @publishable_key%>> </data>
                 <div class="gray-border">
                     <br>
                     <div class="container">
@@ -198,14 +196,11 @@
     document.getElementById("error").style.display = "none";
     document.getElementById("success").style.display = "none";
     document.getElementById("order").style.display = "none";
-    // Set your publishable key: remember to change this to your live publishable key in production
-    // See your keys here: https://dashboard.stripe.com/account/apikeys
-    //Test Key
-    //var stripe = Stripe("pk_test_51GroxnGYhSS9s9rvN6vCJC23mTemFWoKTIXA0ztQ1QJswzi29Qf95PFb9nG6AKjwijEKb4fqvL2MkPeOoCn2s5zY00RAV6TboP");
-    
-    
-    //Production Key
-    var stripe = Stripe("pk_live_An2lYRL5Bo4aXbcfUl5yK5G000MWuRBNZ7");
+
+
+    var env = document.getElementById("env")
+    var stripe = Stripe(env.getAttribute("data-public_key"))
+    console.log(env.getAttribute("data-public_key"))
     
     var elements = stripe.elements();
 
