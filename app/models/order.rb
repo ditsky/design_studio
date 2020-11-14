@@ -8,6 +8,7 @@ class Order < ApplicationRecord
     validate :correct_amount
     validate :usd
     validates :user_id, :presence => true
+    validates :payment_intent, uniqueness: true
 
     def shipping_address
         if (Address.exists?(shipping_address_id))
