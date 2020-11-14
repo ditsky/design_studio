@@ -1,6 +1,12 @@
 class OrdersController < ApplicationController
     before_action :set_order, only: [:show, :destroy, :update]
     skip_before_action :verify_authenticity_token, only: :webhook
+
+    if Rails.env.production?
+      Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+    else
+      Stripe.api_key = ENV['STRIPE_SECRET_KEY_DEV']
+    end
   
     # GET /orders
     # GET /orders.json
@@ -46,11 +52,6 @@ class OrdersController < ApplicationController
     end
 
     def secret
-      if Rails.env.production?
-        Stripe.api_key = ENV['STRIPE_SECRET_KEY']
-      else
-        Stripe.api_key = ENV['STRIPE_SECRET_KEY_DEV']
-      end
 
       #shipping address
       sa = Address.find(params[:order][:shipping_address_id])
@@ -154,12 +155,6 @@ class OrdersController < ApplicationController
     # DELETE /orders/1
     # DELETE /orders/1.json
     def destroy
-
-      if Rails.env.production?
-        Stripe.api_key = ENV['STRIPE_SECRET_KEY']
-      else
-        Stripe.api_key = ENV['STRIPE_SECRET_KEY_DEV']
-      end
 
       refund = Stripe::Refund.create({
         payment_intent: @order.payment_intent,
