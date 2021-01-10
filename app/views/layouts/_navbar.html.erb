@@ -19,7 +19,7 @@
           <% else %>
             <li> <%= link_to "Profile", login_path, class: "nav-link large-nav-text"%></li>
           <% end %>
-          <li> <%= link_to "Cart", shopping_cart_path(current_cart), class: "nav-link large-nav-text"%></li>
+          <li> <%= link_to "Cart", shopping_cart_path(current_cart_path), class: "nav-link large-nav-text"%></li>
         </div>
         <% if logged_in? %>
           <li><%= link_to "Logout", logout_path, method: :delete, class: "nav-link large-nav-text" %></li>
@@ -41,10 +41,10 @@
         <% end %>
       </li>    
       <li>
-        <%= link_to shopping_cart_path(current_cart), class: "nav-link" do %>
+        <%= link_to shopping_cart_path(current_cart_path), class: "nav-link" do %>
           <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
-          <% if current_cart.selections.size > 0 %>
-              <span class="pad-top-less"> x <%= current_cart.selections.size %> </span>
+          <% if selections_size(current_cart) > 0 %>
+              <span class="pad-top-less"> x <%= selections_size(current_cart) %> </span>
           <% end %> 
         <% end %>
       </li>

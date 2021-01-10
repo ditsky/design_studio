@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
     before_action :set_order, only: [:show, :destroy, :update]
+    before_action :set_cart_size, only: [:new]
+    before_action :set_states, only: [:new]
     skip_before_action :verify_authenticity_token, only: :webhook
 
     if Rails.env.production?
@@ -31,20 +33,25 @@ class OrdersController < ApplicationController
   
     # GET /orders/new
     def new
-      if (!logged_in? || current_cart.card_count == 0)
-        flash[:danger] = "Can not proceed to checkout until you are logged in with items in your cart"
+      if (@cart_size < 1)
+        flash[:danger] = "Can not proceed to checkout until you have items in your cart"
         redirect_back fallback_location: shopping_cart_path(current_cart)
       else
         @order = Order.new
-        @addresses = {}
+        @sizes = {}
         if logged_in?
           @addresses = current_user.addresses
-        end
-        @total = current_cart.total
-        @cards = current_cart.cards.group(:id)
-        @sizes = {}
-        current_cart.cards.each do |card|
-          @sizes[card.id] = current_cart.cards.where(id: card.id).count
+          @total = current_cart.total
+          @cards = current_cart.cards.group(:id)
+          current_cart.cards.each do |card|
+            @sizes[card.id] = current_cart.cards.where(id: card.id).count
+          end
+        else
+          @address = Address.new
+          @total = @guest_helper.total(current_cart)
+          @cards = @guest_helper.cards(current_cart)
+          @sizes = @guest_helper.sizes(current_cart)
+          render 'guest_new'
         end
 
         @publishable_key = ENV['STRIPE_PUBLISHABLE_KEY']
@@ -179,6 +186,15 @@ class OrdersController < ApplicationController
       def set_order
         @order = Order.find(params[:id])
       end
+
+      def set_cart_size
+        if logged_in?
+          @cart_size = current_cart.card_count
+        else
+          @cart_size = session[:cart].size
+          @guest_helper = GuestManager::GuestCart.new
+        end
+      end
   
       # Only allow a list of trusted parameters through.
       def order_params
@@ -187,5 +203,64 @@ class OrdersController < ApplicationController
 
       def order_params_admin
         params.require(:order).permit(:status)
+      end
+
+      def set_states
+        if !logged_in?
+          @states=
+          [
+            'AK',
+            'AL',
+            'AR',
+            'AZ',
+            'CA',
+            'CO',
+            'CT',
+            'DC',
+            'DE',
+            'FL',
+            'GA',
+            'HI',
+            'IA',
+            'ID',
+            'IL',
+            'IN',
+            'KS',
+            'KY',
+            'LA',
+            'MA',
+            'MD',
+            'ME',
+            'MI',
+            'MN',
+            'MO',
+            'MS',
+            'MT',
+            'NC',
+            'ND',
+            'NE',
+            'NH',
+            'NJ',
+            'NM',
+            'NV',
+            'NY',
+            'OH',
+            'OK',
+            'OR',
+            'PA',
+            'RI',
+            'SC',
+            'SD',
+            'TN',
+            'TX',
+            'UT',
+            'VA',
+            'VT',
+            'WA',
+            'WI',
+            'WV',
+            'WY'
+          ]
+        end
       end
   end

@@ -13,13 +13,13 @@
             &nbsp;
             <%= @sizes[card.id] %> 
             &nbsp;
-            <%= link_to selections_path(selection: {shopping_cart_id: @id, card_id: card.id}), method: :post do %> 
+            <%= link_to selections_path(selection: {shopping_cart_id: @cart.id, card_id: card.id}), method: :post do %> 
                 <i class="fas fa-plus"></i>
             <% end %>
         </div>
         </td>
         <td class=""> $<%= price_to_string(@sizes[card.id] * card.price) %> </td>
-        <td class="no-wrap margin-right-sm"> <%= link_to "Remove", remove_card_selections_path(selection: {shopping_cart_id: @id, card_id: card.id}), method: :delete%> </td>
+        <td class="no-wrap margin-right-sm"> <%= link_to "Remove", remove_card_selections_path(selection: {shopping_cart_id: @cart.id, card_id: card.id}), method: :delete%> </td>
     </tr>
     <% end %>
 </tbody>

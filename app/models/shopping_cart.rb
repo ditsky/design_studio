@@ -13,6 +13,9 @@ class ShoppingCart < ApplicationRecord
 
     def clear
         self.selections.delete_all
+        if self.user_id.nil?
+            self.destroy
+        end
     end
 
     def total

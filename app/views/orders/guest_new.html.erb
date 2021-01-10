@@ -1,0 +1,291 @@
+<div id="env" data-public_key=<%= @publishable_key%> class="container sr-root">
+    <p id="error" class="hidden alert alert-danger"> </p>
+    <div class="hidden alert alert-success" id="success">
+        
+            Payment Succeeded! Your Order is Now Being Proccessed!
+            <%= link_to "View Your Orders", orders_path(@order.id), class: "blue", :id => "order"%> 
+        
+    </div>
+    <form id="payment-form">
+
+        <%= hidden_field_tag :amount, @total*100%>
+        <%= hidden_field_tag :currency, "usd"%>
+        <%= hidden_field_tag :user_id, current_user.id%>
+
+        <div class="hide-lg-more" id ="lg">
+            <div class= 'row margin-top'>
+                <div class="col-10 offset-1 center gray-border">
+                    <div class="padding-sides">
+                        <p class="margin-top-sm"> <strong> Shipping Address </strong> </p>
+                        <%= render 'form', address: @address %>
+                    </div>
+                </div>
+            </div>
+
+
+            <hr>
+            <div class="col-4">
+                <strong> Billing Address </strong>
+                <p> address fields </p>
+            </div>
+            
+            <div class= 'row'>
+                <div class= "col-3 offset-3">
+                    <strong> Payment Method </strong>
+                    <br> <br>
+                    <div class="padding-sides gray-border"id="card-element">
+                        <!-- Elements will create input elements here -->
+                    </div>
+
+                    <!-- We'll put the error messages in this element -->
+                    <div id="card-errors" role="alert"></div>
+
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="hide-sm-more" id ="sm">
+            <div class= 'row margin-top-sm margin-bottom-sm'>
+                <div class= "offset-1 col-10">
+                    <strong class="margin-left-md"> Shipping Address </strong>
+                </div>
+            </div>
+
+            <div class="offset-1 col-10">
+                
+                <br>
+                <%= link_to "Add New Address", new_address_path%>
+            </div>
+
+            <hr>
+
+            <div class= 'row margin-top-sm margin-bottom-sm'>
+                <div class= "offset-1 col-10">
+                    <strong class="margin-left-md"> Billing Address </strong>
+                </div>
+            </div>
+
+            <div class="offset-1 col-10">
+                
+                <br>
+                <%= link_to "Add New Address", new_address_path%>
+            </div>
+            
+            <div class= 'row'>
+                <div class= "offset-1 col-10">
+                    
+                    <br> <br>
+                    <div class="padding-sides gray-border"id="card-element">
+                        <!-- Elements will create input elements here -->
+                    </div>
+
+                    <!-- We'll put the error messages in this element -->
+                    <div id="card-errors" role="alert"></div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <hr>
+
+        <div class= 'row'>
+            <div class= "col-md-7 offset-md-3"> <data public_key=<%= @publishable_key%>> </data>
+                <div class="gray-border">
+                    <br>
+                    <div class="container">
+                        <% @cards.each do |card| %>
+                            <div class="row h-100 ">
+                                <div class="col-3">
+                                    <img class="responsive" src= <%= rails_blob_path(card.display_s3) %> height=250px width=150px/>
+                                </div>
+                                <div class="col-3 my-auto">
+                                    <%= card.short_description %>
+                                </div>
+                                <div class="col-3 my-auto">
+                                    <%= link_to get_selection(current_cart, card), method: :delete do %>
+                                        <i class="fas fa-minus"></i>
+                                    <% end %>
+                                    &nbsp;
+                                    <%= @sizes[card.id] %> 
+                                    &nbsp;
+                                    <%= link_to selections_path(selection: {shopping_cart_id: "guest", card_id: card.id}), method: :post, params: {selection: {shopping_cart_id: "guest", card_id: card.id}} do %> 
+                                        <i class="fas fa-plus"></i>
+                                    <% end %>
+                                </div>
+                                <div class="col-3 my-auto">
+                                    $<%= price_to_string(@sizes[card.id] * card.price) %>
+                                </div>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br> <br>
+
+        <div class="row margin-bottom">
+            <div class="col-md-7 offset-md-3">
+
+                <div class="container gray-border padding-sides">
+                    <div class="row">
+                        <div class="col-3 offset-1 my-auto">
+
+                            <%= button_tag(type: "submit", class: "btn btn-magenta", id: "submit") do %>
+                                <span id="button-text"> Checkout </span>
+                                <div class="spinner hidden" id="spinner"></div>
+                            <% end %>
+
+                            <i id="check" class="hidden green fas fa-check-circle fa-4x" style="color:green;", ></i>
+                        </div>
+                        <div class="hide-lg-more col-md-4 offset-md-3 my-auto">
+                            <h4> <strong class="move-right center-absolute"> Total: $<%= @total%> </strong> </h4>
+                        </div>
+                        <div class="hide-sm-more col-6 offset-2 my-auto">
+                            <h4> <strong class=""> Total: $<%= @total%> </strong> </h4>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    width = $(window).width();
+    if (width <= 750) {
+        document.getElementById("lg").remove();
+    } else {
+        document.getElementById("sm").remove();
+    }
+</script>
+<script>
+   
+    console.log('big')
+    // Show a spinner on payment submission
+    var changeLoadingState = function(isLoading) {
+        if (isLoading) {
+            console.log('spinner time')
+            
+            document.getElementById("submit").disabled = true;
+            document.querySelector("#spinner").classList.remove("hidden");
+            document.querySelector("#button-text").classList.add("hidden");
+        } else {
+            document.getElementById("submit").disabled = false;
+            document.querySelector("#spinner").classList.add("hidden");
+            document.querySelector("#button-text").classList.remove("hidden");
+        }
+    };
+
+    var paymentSuccess = function() {
+        document.getElementById("submit").style.display = "none";
+        document.getElementById("check").style.display = "block";
+    }
+
+    document.getElementById("error").style.display = "none";
+    document.getElementById("success").style.display = "none";
+    document.getElementById("order").style.display = "none";
+
+
+    var env = document.getElementById("env")
+    var stripe = Stripe(env.getAttribute("data-public_key"))
+    console.log(env.getAttribute("data-public_key"))
+    
+    var elements = stripe.elements();
+
+    // Set up Stripe.js and Elements to use in checkout form
+    var style = {
+        base: {
+            color: "#32325d",
+        }
+    };
+
+    var card = elements.create("card", { style: style });
+    console.dir(card)
+    card.mount("#card-element");
+
+
+    card.on('change', ({error}) => {
+    const displayError = document.getElementById('card-errors');
+        if (error) {
+            displayError.textContent = error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    });
+
+
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(ev) {
+        ev.preventDefault()
+        changeLoadingState(true);
+        console.log("submitted")
+        data = new FormData
+        data.append("order[amount]", $("#amount").val())
+        data.append("order[currency]", $("#currency").val())
+        data.append("order[user_id]", $("#user_id").val())
+        data.append("order[shipping_address_id]", $("#order_shipping_address_id").val())
+        data.append("order[billing_address_id]", $("#order_billing_address_id").val())
+
+        Rails.ajax({
+            url: "/secret",
+            type: 'POST',
+            data: data,
+            success: function(responseJson) {
+
+                var clientSecret = responseJson.client_secret;
+                stripe.confirmCardPayment(clientSecret, {
+                        payment_method: {
+                        card: card,
+                        billing_details: {
+                            name: responseJson.name,
+                            email: responseJson.email,
+                            address: {city: responseJson.billing_address.city,
+                                    country: responseJson.billing_address.country,
+                                    line1: responseJson.billing_address.line1,
+                                    line2: responseJson.billing_address.line2,
+                                    postal_code: responseJson.billing_address.postal_code,
+                                    state: responseJson.billing_address.state}
+                        }
+                    }
+                }).then(function(result) {
+                    if (result.error) {
+                        // Show error to your customer (e.g., insufficient funds)
+                        console.log(result.error.message);
+                        document.getElementById("error").innerText = result.error.message;
+                        document.getElementById("success").style.display = "none";
+                        document.getElementById("error").style.display = "block";
+                        changeLoadingState(false);
+                        window.scrollTo(0, 0);
+                    } else {
+                        if (result.paymentIntent.status === 'succeeded') {
+                            console.log('payment succeeded!')
+                            setTimeout(() => {  
+                                document.getElementById("error").style.display = "none";
+                                document.getElementById("success").style.display = "block";
+                                document.getElementById("order").style.display = "inline-block";
+                                paymentSuccess();
+                                window.scrollTo(0, 0);
+                            }, 500);
+                            
+                        } else {
+                            document.getElementById("error").innerText = "An Unknown Error Has Occured";
+                            document.getElementById("error").style.display = "block";
+                            document.getElementById("success").style.display = "none";
+                            changeLoadingState(false);
+                            window.scrollTo(0, 0);
+                        }
+                    }
+                    
+                });
+            }
+        })
+    });
+    
+</script>

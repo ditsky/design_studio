@@ -4,7 +4,10 @@ module SessionsHelper
         session[:user_id] = user.id
         if (current_user.shopping_cart.nil? || current_user.shopping_cart.card_count == 0) && session[:cart]
             ShoppingCart.where(user_id: user.id).delete_all
-            ShoppingCart.find(session[:cart]["id"]).update(user_id: user.id)
+            new_cart = ShoppingCart.create(user_id: user.id)
+            session[:cart].each do |card_id|
+                Selection.create(shopping_cart_id: new_cart.id, card_id: card_id)
+            end
         end
         session.delete(:cart)
     end
@@ -37,12 +40,14 @@ module SessionsHelper
                 log_in user
                 @current_user = user
             end
+        elsif !logged_in?
+            @current_user = GuestManager::GuestCart.new
         end
     end
 
     #Need to implement this later
     def user_admin?
-        if (current_user && current_user.admin)
+        if (logged_in? && current_user.admin)
             return true
         end
         return false
@@ -50,14 +55,29 @@ module SessionsHelper
 
     #Returns the current shopping cart for the user
     def current_cart
+        # Logged in user with a cart
         if logged_in? && current_user.shopping_cart
             return current_user.shopping_cart
-        elsif session[:cart].nil? || session[:cart]["id"].nil? || !ShoppingCart.exists?(session[:cart]["id"])
-            session[:cart] = ShoppingCart.create
+        # Logged in user without a cart
+        elsif logged_in?
+            return ShoppingCart.create(user_id: current_user.id)
+        # Guest without a cart
+        elsif !session[:cart]
+            session[:cart] = []
         end
+            
+        # Returns guest's cart
+        return session[:cart]
         
-        return ShoppingCart.find(session[:cart]["id"])
     end
+
+    def current_cart_path
+        if logged_in?
+            return current_cart.id
+        end
+        return "guest"
+    end
+        
 
 
     def log_out
