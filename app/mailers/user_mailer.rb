@@ -8,6 +8,7 @@ class UserMailer < ApplicationMailer
   #
   def account_activation(user)
     @user = user
+    headers['X-Entity-Ref-ID'] = "1"
     mail to: user.email, subject: "Account activation"
   end
 
@@ -18,6 +19,7 @@ class UserMailer < ApplicationMailer
   #
   def password_reset(user)
     @user = user
+    headers['X-Entity-Ref-ID'] = "2"
     mail to: user.email, subject: "Password reset"
   end
 
@@ -27,6 +29,7 @@ class UserMailer < ApplicationMailer
     @name = name
     @cards = order.cards
     @sizes = order.card_totals
+    headers['X-Entity-Ref-ID'] = "3"
     mail to: email, subject: "Order Receipt"
   end
 
@@ -35,6 +38,7 @@ class UserMailer < ApplicationMailer
     @total = price_to_string(order.total)
     @cards = order.cards
     @sizes = order.card_totals
+    headers['X-Entity-Ref-ID'] = "4"
     mail to: ENV['ADMIN_EMAIL'], subject: "You Have Recieved an Order!"
   end
 
@@ -49,6 +53,7 @@ class UserMailer < ApplicationMailer
     if (@address == "ERROR NO SHIPPING ADDRESS")
       @valid = false
     end
+    headers['X-Entity-Ref-ID'] = "5"
     mail to: email, subject: "Order Shipped!"
   end
 
