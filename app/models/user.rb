@@ -16,10 +16,16 @@ class User < ApplicationRecord
     validates :email, presence: true, length: { maximum: 255 }, 
             format: { with: VALID_EMAIL_REGEX }, 
             uniqueness: { case_sensitive: false }
+    validate :valid_email
     validates :email, uniqueness: true
 
     has_secure_password
     validates :password, presence: true, length: { minimum: 6 }
+
+    # Truemail gem to determine if email is valid
+    def valid_email
+        Truemail.valid?(email, with: :regex)
+    end
 
     # Returns the hash digest of the given string.
     def User.digest(string)
@@ -41,16 +47,6 @@ class User < ApplicationRecord
     # Sends activation email.
     def send_activation_email
         UserMailer.account_activation(self).deliver_now
-    end
-
-    #Sends order receipt email
-    def send_order_receipt_email(order)
-        UserMailer.order_receipt(self, order).deliver_now
-    end
-
-    # Sends shipping email.
-    def send_shipping_email(order)
-        UserMailer.order_shipped(self, order).deliver_now
     end
 
      # Sets the password reset attributes.

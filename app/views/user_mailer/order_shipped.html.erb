@@ -1,12 +1,14 @@
 <h1> Jennifer's Design Studio </h1>
 
-<p> Hi <%= @user.name %>, </p>
+<p> Hi <%= @name %>, </p>
 
 <% if @valid %>
 
     <p>
     Your order of <%= @cards.size %> items has been shipped to <%= @order.shipping_address.city + ", " + @order.shipping_address.state%>!
-    <%= link_to "View your orders", login_url(redirect: true) %>
+    <% if @has_account %>
+        <%= link_to "View your orders", login_url(redirect: true) %>
+    <% end %>
     </p>
 
     <p> Thanks for your purchase! If you have concerns or questions email me at: <a href="mailto:<%=ENV['ADMIN_EMAIL']%>"><%=ENV['ADMIN_EMAIL']%></a></p>

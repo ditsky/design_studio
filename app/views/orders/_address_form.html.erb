@@ -1,0 +1,76 @@
+<% if address.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(address.errors.count, "error") %> prohibited this address from being saved:</h2>
+
+    <ul>
+      <% address.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col field form-group">
+    <%= label_tag :full_name %>
+    <%= text_field_tag :full_name, nil, {class: "form-control", :required => title == "Shipping" } %>
+  </div>
+
+  <div class="col field form-group">
+    <%= label_tag :phone_number %>
+    <%= text_field_tag :phone_number, '', class: "form-control" %>
+  </div>
+
+</div>
+
+<% if !logged_in? && title =="Shipping"%>
+
+  <div class="row">
+    <div class="col field form-group">
+      <%= label_tag :email %>
+      <%= email_field_tag :email, nil, {class: "form-control", :required => true, placeholder: "to keep you informed on your delivery" } %>
+    </div>
+  </div>
+
+<% end %>
+
+<div class="row">
+  <div class="col field form-group">
+    <%= label_tag :address_line_1 %>
+    <%= text_field_tag :address_line_1, '', :required => title == "Shipping", class: "form-control" %>
+  </div>
+
+  <div class="col field form-group">
+    <%= label_tag :address_line_2 %>
+    <%= text_field_tag :address_line_2, '', class: "form-control" %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col field form-group">
+    <%= label_tag :city %>
+    <%= text_field_tag :city, '', :required => title == "Shipping", class: "form-control" %>
+  </div>
+
+  <div class="col field form-group">
+    <%= label_tag :state %>
+    <%= collection_select :state, :code, @states, :to_s, :to_s, {selected: "MA"}, {include_blank: true, class: "form-control"} %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col field form-group">
+    <%= label_tag :zip %>
+    <%= text_field_tag :zip, '', :required => title == "Shipping", class: "form-control" %>
+  </div>
+
+  <div class="col field form-group">
+    <%= label_tag :country %>
+    <%= country_select :country, :code, {priority_countries: ["US"]}, {class: "form-control", :required => title == "Shipping"}%>
+  </div>
+
+</div>
+
+<div class="field">
+  <%= hidden_field_tag :user_id, :value => current_user_id, class: "form-control" %>
+</div>

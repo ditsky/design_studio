@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
     include CardsHelper
     has_many :selections
-    belongs_to :user
+    belongs_to :user, optional: true
     belongs_to :shipping_address, :class_name => "Address"
     belongs_to :billing_address, :class_name => "Address"
 
@@ -18,9 +18,23 @@ class Order < ApplicationRecord
         end
     end
 
-    def send_shipping_email
-        user.send_shipping_email(self)
+    def name
+        if user.nil?
+            return shipping_address.full_name
+        end
+        return user.name
     end
+
+    #Sends order receipt email
+    def send_receipt(email, name, order)
+        UserMailer.order_receipt(email, name, order).deliver_now
+    end
+
+    # Sends shipping email.
+    def send_shipping_email(user_id = self.user_id, email = self.email, name = self.name, order = self)
+        UserMailer.order_shipped(user_id, email, name, order).deliver_now
+    end
+
 
     #Need to update this after
     def correct_amount

@@ -40,6 +40,13 @@ module SessionsHelper
         end
     end
 
+    def current_user_id
+        if logged_in?
+            return current_user.id
+        end
+        return -1
+    end
+
     #Need to implement this later
     def user_admin?
         if (current_user && current_user.admin)

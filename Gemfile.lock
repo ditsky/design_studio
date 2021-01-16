@@ -186,6 +186,8 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    simpleidn (0.1.1)
+      unf (~> 0.1.4)
     sixarm_ruby_unaccent (1.2.0)
     sort_alphabetical (1.1.0)
       unicode_utils (>= 1.2.2)
@@ -204,11 +206,16 @@ GEM
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
+    truemail (2.2.3)
+      simpleidn (~> 0.1.1)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.7)
     unicode_utils (1.4.0)
     web-console (4.0.2)
       actionview (>= 6.0.0)
@@ -252,6 +259,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   stripe
+  truemail
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 3.3.0)

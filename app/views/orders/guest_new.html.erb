@@ -2,83 +2,72 @@
     <p id="error" class="hidden alert alert-danger"> </p>
     <div class="hidden alert alert-success" id="success">
         
-            Payment Succeeded! Your Order is Now Being Proccessed!
-            <%= link_to "View Your Orders", orders_path(@order.id), class: "blue", :id => "order"%> 
+            Payment Succeeded! A confirmation will be sent to your email.
         
     </div>
     <form id="payment-form">
 
-        
-
         <%= hidden_field_tag :amount, @total*100%>
         <%= hidden_field_tag :currency, "usd"%>
-        <%= hidden_field_tag :user_id, current_user.id%>
-        <%= hidden_field_tag :email, current_user.email%>
+        <%= hidden_field_tag :user_id, @user_id%>
 
         <div class="hide-lg-more" id ="lg">
-
-
-            <div class= 'row margin-top'>
-                <%= render 'address_block', address: Address.new, id: :shipping_address_id, title: "Shipping Address" %>
+            <div id="shipping" class= 'row margin-top'>
+                <div class="col-8 offset-2">
+                <%= render 'address_block', address: Address.new, id: :shipping_address_id, title: "Shipping" %>
+                </div>
             </div>
 
 
             <hr>
             
-            <div class= 'row margin-breaks'>
-                <%= render 'address_block', address: Address.new, id: :billing_address_id, title: "Billing Address" %>
-            </div>
-
-        
-
-            <div class="row margin-breaks">
-                <div class= "col-2 offset-3">              
-                    <strong> Payment Method </strong>
+            <div>
+                <div id="billing">
+                    <br> <br>
+                    <div class="col-8 offset-2">
+                    <%= render 'address_block', address: Address.new, id: :billing_address_id, title: "Billing" %>
+                    <br> <br>
+                    </div>
                 </div>
-                <div class="col-4">
+
+                <div class="col-8 offset-2">
+                    <strong> Payment Method </strong>
+                    <br> <br>
                     <%= render 'payment_method' %>
                 </div>
+
             </div>
         </div>
 
         <div class="hide-sm-more" id ="sm">
-            <div class= 'row margin-top-sm margin-bottom-sm'>
-                <div class= "offset-1 col-10">
-                    <strong class="margin-left-md"> Shipping Address </strong>
+            <div id="shipping" class= 'row margin-top-md'>
+                <div class="offset-1 col-10">
+                    <%= render 'mobile_address_block', address: Address.new, id: :shipping_address_id, title: "Shipping" %>
                 </div>
-            </div>
-
-            <div class="offset-1 col-10">
-                <%= collection_select(:order, :shipping_address_id, @addresses.order(:address_line_1), :id, :address_line_1, {}, {class: "form-control"})%>
-                <br>
-                <%= link_to "Add New Address", new_address_path%>
             </div>
 
             <hr>
 
-            <div class= 'row margin-top-sm margin-bottom-sm'>
-                <div class= "offset-1 col-10">
-                    <strong class="margin-left-md"> Billing Address </strong>
+            <div id="billing">
+                <div class="offset-1 col-10">
+                    <%= render 'mobile_address_block', address: Address.new, id: :billing_address_id, title: "Billing" %>
+                    <hr>
                 </div>
             </div>
-
-            <div class="offset-1 col-10">
-                <%= collection_select(:order, :billing_address_id, @addresses.order(:address_line_1), :id, :address_line_1, {}, {class: "form-control"})%>
-                <br>
-                <%= link_to "Add New Address", new_address_path%>
-            </div>
             
+            
+
             <div class= 'row'>
                 <div class= "offset-1 col-10">
-                    
+                    <strong> Payment Method </strong>
                     <br> <br>
-                    <div class="padding-sides gray-border"id="card-element">
+                    <div class="bg-white padding-sides gray-border"id="card-element">
                         <!-- Elements will create input elements here -->
                     </div>
 
                     <!-- We'll put the error messages in this element -->
-                    <div id="card-errors" role="alert"></div>
-
+                    <div id="card-errors" role="alert">
+                    </div>
                 </div>
             </div>
         </div>
@@ -87,7 +76,7 @@
         <hr>
 
         <div class= 'row'>
-            <div class= "col-md-8 offset-md-2"> <data public_key=<%= @publishable_key%>> </data>
+            <div class= "col-lg-8 offset-lg-2"> <data public_key=<%= @publishable_key%>> </data>
                 <div class="gray-border">
                     <br>
                     <div class="container">
@@ -162,8 +151,25 @@
     }
 </script>
 <script>
+
+    var same_address = document.getElementById("same");
+    var billing_form = document.getElementById("Billing");
+    var shipping_form = document.getElementById("Shipping")
+
+    same_address.onclick = function() {
+        
+        if (same_address.checked) {            
+            billing_form.style.display = "none";
+        } else {
+            billing_form.style.display = "block";
+        }
+    }
+
+</script>
+<script>
    
     console.log('big')
+
     // Show a spinner on payment submission
     var changeLoadingState = function(isLoading) {
         if (isLoading) {
@@ -174,19 +180,21 @@
             document.querySelector("#button-text").classList.add("hidden");
         } else {
             document.getElementById("submit").disabled = false;
-            document.querySelector("#spinner").classList.add("hidden");
             document.querySelector("#button-text").classList.remove("hidden");
+            document.querySelector("#spinner").classList.add("hidden");
         }
     };
 
     var paymentSuccess = function() {
+        document.getElementById("error").style.display = "none";
+        document.getElementById("success").style.display = "block";
         document.getElementById("submit").style.display = "none";
         document.getElementById("check").style.display = "block";
+        window.scrollTo(0, 0);
     }
 
     document.getElementById("error").style.display = "none";
     document.getElementById("success").style.display = "none";
-    document.getElementById("order").style.display = "none";
 
 
     var env = document.getElementById("env")
@@ -216,25 +224,62 @@
         }
     });
 
+    function errorMessage (error = "An Unknown Error Has Occured") {
+        document.getElementById("error").innerText = error;
+        document.getElementById("error").style.display = "block";
+        document.getElementById("success").style.display = "none";
+        changeLoadingState(false);
+        window.scrollTo(0, 0);
+    }
+
 
     var form = document.getElementById('payment-form');
     form.addEventListener('submit', function(ev) {
-        ev.preventDefault()
+        ev.preventDefault();
         changeLoadingState(true);
         console.log("submitted")
         data = new FormData
         data.append("order[amount]", $("#amount").val())
         data.append("order[currency]", $("#currency").val())
         data.append("order[user_id]", $("#user_id").val())
-        data.append("order[shipping_address_id]", $("#order_shipping_address_id").val())
-        data.append("order[billing_address_id]", $("#order_billing_address_id").val())
+        data.append("order[email]", $("#shipping #email").val())
+
+        // Shipping
+        data.append("order[shipping_address_id]", -1)
+        data.append("order[shipping][full_name]", $("#shipping #full_name").val())
+        
+        data.append("order[shipping][phone_number]", $("#shipping #phone_number").val())
+        data.append("order[shipping][address_line_1]", $("#shipping #address_line_1").val())
+        data.append("order[shipping][address_line_2]", $("#shipping #address_line_2").val())
+        data.append("order[shipping][city]", $("#shipping #city").val())
+        data.append("order[shipping][state]", $("#shipping #state_code").val())
+        data.append("order[shipping][zip]", $("#shipping #zip").val())
+        data.append("order[shipping][country]", $("#shipping #country_code").val())
+
+
+        // Billing
+        data.append("order[billing_address_id]", -1)
+        data.append("order[same_address]", $("#billing #same").is(':checked'))
+        data.append("order[billing][full_name]", $("#billing #full_name").val())
+        data.append("order[billing][phone_number]", $("#billing #phone_number").val())
+        data.append("order[billing][address_line_1]", $("#billing #address_line_1").val())
+        data.append("order[billing][address_line_2]", $("#billing #address_line_2").val())
+        data.append("order[billing][city]", $("#billing #city").val())
+        data.append("order[billing][state]", $("#billing #state_code").val())
+        data.append("order[billing][zip]", $("#billing #zip").val())
+        data.append("order[billing][country]", $("#billing #country_code").val())
 
         Rails.ajax({
             url: "/secret",
             type: 'POST',
             data: data,
+            error: function(responseJson) {
+                console.dir(responseJson)
+                console.log('error')
+                errorMessage("Invalid Address Info");
+            },
+            
             success: function(responseJson) {
-
                 var clientSecret = responseJson.client_secret;
                 stripe.confirmCardPayment(clientSecret, {
                         payment_method: {
@@ -253,29 +298,16 @@
                 }).then(function(result) {
                     if (result.error) {
                         // Show error to your customer (e.g., insufficient funds)
-                        console.log(result.error.message);
-                        document.getElementById("error").innerText = result.error.message;
-                        document.getElementById("success").style.display = "none";
-                        document.getElementById("error").style.display = "block";
-                        changeLoadingState(false);
-                        window.scrollTo(0, 0);
+                        errorMessage(result.error.message);
                     } else {
                         if (result.paymentIntent.status === 'succeeded') {
                             console.log('payment succeeded!')
-                            setTimeout(() => {  
-                                document.getElementById("error").style.display = "none";
-                                document.getElementById("success").style.display = "block";
-                                document.getElementById("order").style.display = "inline-block";
+                            setTimeout(() => {                                 
                                 paymentSuccess();
-                                window.scrollTo(0, 0);
                             }, 500);
                             
                         } else {
-                            document.getElementById("error").innerText = "An Unknown Error Has Occured";
-                            document.getElementById("error").style.display = "block";
-                            document.getElementById("success").style.display = "none";
-                            changeLoadingState(false);
-                            window.scrollTo(0, 0);
+                            errorMessage()
                         }
                     }
                     

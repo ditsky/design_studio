@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
     if params[:redirect] && params[:redirect] == "true"
       session[:email_link] = true
     end
+    session[:return_to] = request.referer
   end
 
   def create
@@ -14,6 +15,8 @@ class SessionsController < ApplicationController
         if session[:email_link] == true 
           session.delete(:email_link)
           redirect_to orders_path
+        elsif session[:return_to]
+          redirect_to session.delete(:return_to)
         else
           redirect_to user
         end

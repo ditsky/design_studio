@@ -6,11 +6,14 @@
         <hr>
         <h4 class="card-title">Total <span style="float:right;"> $<%= @total %> </span> </h4>
         <br>
-        <% if logged_in? %>
-        <%= button_to "Checkout", new_order_path, method: :get, class: "btn btn-sm btn-magenta center"%>
-        <% else %>
-        <p> You Must Be Logged in and have items in your cart to checkout </p>
-        <%= button_to "Checkout", new_order_path, :disabled => true, method: :get, class: "btn btn-sm btn-magenta center"%>
+
+        <% if !logged_in? %>
+            <%= link_to "Login", login_path, method: :get, class: "btn btn-sm btn-primary center margin-bottom-sm"%>
         <% end %>
+        <% if @empty %>
+            <p> You must have items in your cart to checkout </p>
+        <% end %>
+
+        <%= button_to @checkout_text, new_order_path, :disabled => @empty, method: :get, class: "btn btn-sm btn-magenta center"%>
     </div>
 </div>

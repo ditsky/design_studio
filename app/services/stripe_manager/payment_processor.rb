@@ -18,10 +18,8 @@ module StripeManager
         def process(intent)
             order = create_order(intent)
             order_id = order.id
-            puts "\n\n\n\n\nBefore Cart: " + order.cards.size.to_s + "\n\n\n"
             handle_cart(intent, order)
             order = Order.find(order_id)
-            puts "After Cart: " + order.cards.size.to_s
             send_receipts(intent, order)
         end
 
@@ -29,6 +27,7 @@ module StripeManager
             order = Order.create(amount: intent.amount, 
                                 currency: intent.currency,
                                 user_id: intent.metadata.user_id, 
+                                email: intent.receipt_email,
                                 shipping_address_id: intent.metadata.shipping_address_id,
                                 billing_address_id: intent.metadata.billing_address_id,
                                 payment_intent: intent.id
@@ -43,9 +42,8 @@ module StripeManager
         end
 
         def send_receipts(intent, order)
-            user = User.find(intent.metadata.user_id)
-            puts "Sending Receipt: " + order.cards.size.to_s
-            user.send_order_receipt_email(order)
+            puts "Sending Receipts for a $: " + (order.amount / 100).to_s + " order "
+            order.send_receipt(intent.receipt_email, intent.shipping.name, order)
             UserMailer.order_created(order).deliver_now
         end
 

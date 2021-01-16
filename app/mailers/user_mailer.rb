@@ -21,12 +21,13 @@ class UserMailer < ApplicationMailer
     mail to: user.email, subject: "Password reset"
   end
 
-  def order_receipt(user, order)
+  def order_receipt(email, name, order)
     @total = order.string_total
-    @user = user
+    @email = email
+    @name = name
     @cards = order.cards
     @sizes = order.card_totals
-    mail to: user.email, subject: "Order Receipt"
+    mail to: email, subject: "Order Receipt"
   end
 
 
@@ -37,8 +38,10 @@ class UserMailer < ApplicationMailer
     mail to: ENV['ADMIN_EMAIL'], subject: "You Have Recieved an Order!"
   end
 
-  def order_shipped(user, order)
-    @user = user
+  def order_shipped(user_id, email, name, order)
+    @has_account = user_id != -1
+    @email = email
+    @name = name
     @order = order
     @cards = order.cards
     @address = order.shipping_address
@@ -46,7 +49,7 @@ class UserMailer < ApplicationMailer
     if (@address == "ERROR NO SHIPPING ADDRESS")
       @valid = false
     end
-    mail to: user.email, subject: "Order Shipped!"
+    mail to: email, subject: "Order Shipped!"
   end
 
 end
