@@ -1,0 +1,25 @@
+<div class="row margin-bottom">
+    <div class="col-lg-8 offset-lg-2">
+
+        <div class="container gray-border padding-sides">
+            <div class="row">
+                <div class="col-lg-3 col-5 offset-1">
+
+                    <%= button_tag(type: "submit", class: "btn btn-magenta", id: "submit") do %>
+                        <span id="button-text"> Place Order </span>
+                        <div class="spinner hidden" id="spinner"></div>
+                    <% end %>
+
+                    <i id="check" class="hidden green fas fa-check-circle fa-4x" style="color:green;", ></i>
+                </div>
+                <div class="hide-lg-more col-md-4 offset-md-3 margin-top-xxtrasm">
+                    <h4> <strong class="move-right center-absolute"> Total: $<%= @total%> </strong> </h4>
+                </div>
+                <div class="hide-sm-more col-6 margin-top-xxtrasm">
+                    <h4> <strong class=""> Total: $<%= @total%> </strong> </h4>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
