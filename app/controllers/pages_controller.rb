@@ -1,26 +1,15 @@
 class PagesController < ApplicationController
   
   
-  def contact
-    @developers = [{:name => "Sam", :email => "sruditsky12@gmail.com"}, 
-                    {:name => "Serge", :email => "blahblah@egg.edge"}]
-
-  end
 
   def home
-    @birthday_cards = Card.where(content: "birthday", card_type: "post card").first(2)
-    # HACKY hack hack, fix this later
-    if Card.where(content: "love", card_type: "post card").first(2).size == 2
-      @sympathy_cards = Card.where(content: "love", card_type: "post card").first(2)
-    elsif Card.where(content: "love", card_type: "fold over").first(2).size == 2
-      @sympathy_cards = Card.where(content: "love", card_type: "fold over").first(2)
-    else
-      @sympathy_cards = Card.where(content: "love").first(2)
-    end
-
-    @thank_you_cards = Card.where(content: "thank you", card_type: "post card").first(2)
-    @any_occasion_cards = Card.where(content: "any occasion", card_type: "post card").first(2)
-    @cards = [@birthday_cards, @thank_you_cards, @any_occasion_cards, @sympathy_cards]
+    # Show cards based on mom's preference
+    @preference = AdminPreference.first
+    @homeDesign1 = Card.where(content: @preference.homeDesign1).first(2)
+    @homeDesign2 = Card.where(content: @preference.homeDesign2).first(2)
+    @homeDesign3 = Card.where(content: @preference.homeDesign3).first(2)
+    @homeDesign4 = Card.where(content: @preference.homeDesign4).first(2)
+    @cards = [@homeDesign1, @homeDesign2, @homeDesign3, @homeDesign4]
   end
 
 

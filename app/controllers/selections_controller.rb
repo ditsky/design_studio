@@ -9,6 +9,7 @@ class SelectionsController < ApplicationController
         respond_to do |format|
             if @selection.save
                 if params["flash"] && params["flash"] == "1"
+                  # Want to make this a link to cart later
                   flash[:success] = "Item added to your cart"
                 end
                 format.html { redirect_back fallback_location: cards_path }

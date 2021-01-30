@@ -38,5 +38,5 @@ Rails.application.routes.draw do
     end
   end
   resources :orders, only: [:index, :new, :destroy, :update]
-
+  resources :admin_preferences
 end
