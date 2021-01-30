@@ -124,6 +124,6 @@
 #                                                                                 Size is 5x7 and is perfect for framing.")
                         
 AdminPreference.delete_all
-AdminPreference.create(homeDesign1: "birthday", homeDesign2: "test",
-    homeDesign3: "love", homeDesign4: "thank you",
+AdminPreference.create(homeDesign1: "valentines", homeDesign2: "birthday",
+    homeDesign3: "thank you", homeDesign4: "any occasion",
     greeting_message: "I'm Jennifer and I am a self taught watercolor artist. All of my design's are handpainted original artwork, nothing is printed.")
