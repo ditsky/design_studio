@@ -49,8 +49,8 @@ module SessionsHelper
 
     #Need to implement this later
     def user_admin?
-        puts "current_user?: " + current_user
-        puts "admin?: " + current_user.admin
+        puts "current_user?: " + (!current_user.nil?).to_s
+        puts "admin?: " + (!current_user.nil? && current_user.admin).to_s
         if (current_user && current_user.admin)
             return true
         end

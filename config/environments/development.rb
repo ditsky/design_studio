@@ -37,6 +37,15 @@ Rails.application.configure do
   host = 'localhost:3000'                     # Local server
   config.action_mailer.default_url_options = { host: host, protocol: 'http' }
 
+  class ::Rails::MailersController
+    include SessionsHelper
+    def local_request?
+      user_admin?
+    end
+    def show_previews?
+      user_admin?
+    end
+  end
 
   config.action_mailer.perform_caching = false
 

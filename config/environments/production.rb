@@ -64,16 +64,13 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "design_studio_production"
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.show_previews = true
 
   class ::Rails::MailersController
     include SessionsHelper
-    before_action:authenticate_admin!
     def local_request?
-      true
+      user_admin?
     end
-    private
-    def authenticate_admin!
+    def show_previews?
       user_admin?
     end
   end
