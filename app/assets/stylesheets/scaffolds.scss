@@ -125,6 +125,10 @@ button:disabled {
   overflow: hidden;
 }
 
+.wrap-words {
+  word-wrap: break-word
+}
+
 .navbar-pad {
   padding-top: 80px;
 }
@@ -166,6 +170,10 @@ button:disabled {
 
 .margins {
   margin: 5px;
+}
+
+.margins-big {
+  margin: 40px;
 }
 
 .margin-breaks {

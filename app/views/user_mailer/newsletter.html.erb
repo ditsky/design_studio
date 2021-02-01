@@ -1,3 +1,11 @@
-<h1> Jennifer's Design Studio </h1>
 
-<%= simple_format(@body)%>
+<h4 class="label-bold"> Seasonal Newsletter </h4>
+<img class="margin-top-sm margin-bottom-md responsive-email" src=<%= asset_path "newsletter-bg.jpg"%>>
+
+<div class="container wrap-words">
+    <div class="row">
+        <div class="col-10 offset-1 border-pink">
+            <%= simple_format(@body)%>
+        </div>
+    </div>
+</div>

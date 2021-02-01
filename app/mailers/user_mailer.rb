@@ -20,7 +20,7 @@ class UserMailer < ApplicationMailer
   def password_reset(user)
     @user = user
     headers['X-Entity-Ref-ID'] = "2"
-    mail to: user.email, subject: "Password reset"
+    mail to: user.email, subject: "Password reset", template_id: d-2eeb9c9ab0234695908aacdee26708cf
   end
 
 
@@ -62,7 +62,7 @@ class UserMailer < ApplicationMailer
     @users = users
     @body = email
     headers['X-Entity-Ref-ID'] = "6"
-    mail to: users.map(&:email).uniq, subject: "Jennifer's Design Newsletter"
+    mail to: users.map(&:email).uniq, subject: "Jennifer's Design Newsletter", template_id: d-2eeb9c9ab0234695908aacdee26708cf
   end
 
 end
