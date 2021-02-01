@@ -64,6 +64,7 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "design_studio_production"
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.show_previews = true
 
   class ::Rails::MailersController
     include SessionsHelper
