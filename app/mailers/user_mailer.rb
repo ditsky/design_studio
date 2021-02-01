@@ -31,8 +31,8 @@ class UserMailer < ApplicationMailer
             template_id: 'd-2eeb9c9ab0234695908aacdee26708cf'
           }
         }
-      }}
-      }.to_json
+      }
+    }.to_json
     mail to: user.email, subject: "Password reset", template_id: "d-2eeb9c9ab0234695908aacdee26708cf"
   end
 
