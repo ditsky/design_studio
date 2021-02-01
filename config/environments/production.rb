@@ -67,6 +67,7 @@ Rails.application.configure do
   config.action_mailer.show_previews = true
 
   class ::Rails::MailersController
+    include SessionsHelper
     before_action:authenticate_admin!
     def local_request?
       true
