@@ -21,7 +21,7 @@ class UserMailer < ApplicationMailer
     @user = user
     headers['X-Entity-Ref-ID'] = "2"
     headers "X-SMTPAPI" => {
-      {sub: {
+      sub: {
         '%name' => [user.email]
       },
       filters: {
