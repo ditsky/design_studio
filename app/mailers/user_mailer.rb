@@ -23,6 +23,7 @@ class UserMailer < ApplicationMailer
     mail to: user.email, subject: "Password reset"
   end
 
+
   def order_receipt(email, name, order)
     @total = order.string_total
     @email = email
@@ -55,6 +56,13 @@ class UserMailer < ApplicationMailer
     end
     headers['X-Entity-Ref-ID'] = "5"
     mail to: email, subject: "Order Shipped!"
+  end
+
+  def newsletter(users = User.all, email)
+    @users = users
+    @body = email
+    headers['X-Entity-Ref-ID'] = "6"
+    mail to: users.map(&:email).uniq, subject: "Jennifer's Design Newsletter"
   end
 
 end

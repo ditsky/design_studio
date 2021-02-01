@@ -12,6 +12,8 @@
             <p class="card-text">
             <% if @user == current_user %>
               <% if user_admin? %>
+                <a href="#newsletter" id="newsletter_button" data-toggle="modal" data-target="#newsletter_form" class=""> Send a newsletter </a>
+                <%= render 'newsletter_form'%>
                 <p> <%= link_to "Create a card", new_card_path %> </p>
               <% else %>
                 <p> 

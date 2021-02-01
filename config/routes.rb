@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   post 'secret', to: 'orders#secret'
   post 'webhook', to: 'orders#webhook'
 
+  #Newsletter Delivery
+  post 'mail', to: 'users#mail_newsletter'
 
   #Resources:
   resources :users

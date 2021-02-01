@@ -22,4 +22,11 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.order_receipt(user, order)
   end
 
+  def newsletter()
+    users = User.all
+    body = "this is a test email"
+    UserMailer.newsletter(users, body)
+  end
+
+
 end

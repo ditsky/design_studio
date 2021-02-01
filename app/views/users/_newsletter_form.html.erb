@@ -1,0 +1,29 @@
+<div class="modal fade" id="newsletter_form" tabindex="-1" role="dialog" aria-labelledby="approvalModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Send Newsletter to adoring fans:</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            
+            <%= form_with(url: mail_path, local: true) do |form| %>
+                <div class="modal-body">
+
+                    <div class="row margin-top-md">
+                        <div class="field offset-1 col-10">
+                            <%= form.label :email_body %>
+                            <%= form.text_area :email_body, {rows: 10, class: "form-control"} %>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="center-w margin-top-md actions">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <%= form.submit "Send Newsletter", class: "btn btn-success" %>
+                    </div>
+                </div>
+            <% end %>    
+        </div><!-- /.modal-content -->
+   </div><!-- /.modal-dialog -->
+</div>

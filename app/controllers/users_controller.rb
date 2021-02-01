@@ -78,6 +78,16 @@ class UsersController < ApplicationController
     end
   end
 
+  # POST /mail
+  def mail_newsletter
+    if user_admin?
+      UserMailer.newsletter(params[:email_body]).deliver_now
+      redirect_to current_user
+    else
+      flash[:danger] = "Go away hackermen"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
