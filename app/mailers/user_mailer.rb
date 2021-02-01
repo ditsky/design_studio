@@ -20,7 +20,7 @@ class UserMailer < ApplicationMailer
   def password_reset(user)
     @user = user
     headers['X-Entity-Ref-ID'] = "2"
-    headers["X-SMTPAPI"] JSON.generate({
+    headers["X-SMTPAPI"] = JSON.generate({
       :sub => {
         '%name' => [user.email]
       },
