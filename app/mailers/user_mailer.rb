@@ -20,6 +20,19 @@ class UserMailer < ApplicationMailer
   def password_reset(user)
     @user = user
     headers['X-Entity-Ref-ID'] = "2"
+    headers "X-SMTPAPI" => {
+      {sub: {
+        '%name' => [user.email]
+      },
+      filters: {
+        templates: {
+          settings: {
+            enable: 1,
+            template_id: 'd-2eeb9c9ab0234695908aacdee26708cf'
+          }
+        }
+      }}
+      }.to_json
     mail to: user.email, subject: "Password reset", template_id: "d-2eeb9c9ab0234695908aacdee26708cf"
   end
 
