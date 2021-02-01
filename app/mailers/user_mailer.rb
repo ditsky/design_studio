@@ -20,20 +20,20 @@ class UserMailer < ApplicationMailer
   def password_reset(user)
     @user = user
     headers['X-Entity-Ref-ID'] = "2"
-    headers "X-SMTPAPI" => {
-      sub: {
+    headers["X-SMTPAPI"] JSON.generate({
+      :sub => {
         '%name' => [user.email]
       },
-      filters: {
-        templates: {
-          settings: {
-            enable: 1,
-            template_id: 'd-2eeb9c9ab0234695908aacdee26708cf'
+      :filters => {
+        :templates => {
+          :settings => {
+            :enable => 1,
+            :template_id => 'd-2eeb9c9ab0234695908aacdee26708cf'
           }
         }
       }
-    }.to_json
-    mail to: user.email, subject: "Password reset", template_id: "d-2eeb9c9ab0234695908aacdee26708cf"
+    })
+    mail to: user.email, subject: "Password reset"
   end
 
 
@@ -75,7 +75,7 @@ class UserMailer < ApplicationMailer
     @users = users
     @body = email
     headers['X-Entity-Ref-ID'] = "6"
-    mail to: users.map(&:email).uniq, subject: "Jennifer's Design Newsletter", template_id: "d-2eeb9c9ab0234695908aacdee26708cf"
+    mail to: users.map(&:email).uniq, subject: "Jennifer's Design Newsletter"
   end
 
 end
