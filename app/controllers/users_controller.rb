@@ -81,10 +81,11 @@ class UsersController < ApplicationController
   # POST /mail
   def mail_newsletter
     if user_admin?
-      UserMailer.newsletter(params[:email_body]).deliver_now
+      UserMailer.newsletter(User.all, params[:email_body]).deliver_now
+      flash[:success] = "Emails Sent!"
       redirect_to current_user
     else
-      flash[:danger] = "Go away hackermen"
+      flash[:danger] = "Go away hackerman"
     end
   end
 

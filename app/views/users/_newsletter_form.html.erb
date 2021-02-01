@@ -1,4 +1,4 @@
-<div class="modal fade" id="newsletter_form" tabindex="-1" role="dialog" aria-labelledby="approvalModalLabel" aria-hidden="true">
+<div class="modal fade" id="newsletter_form" data-backdrop="static" data-keyboard="false" ,tabindex="-1" role="dialog" aria-labelledby="approvalModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -20,6 +20,7 @@
                 <div class="modal-footer">
                     <div class="center-w margin-top-md actions">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button id="preview" class="btn btn-secondary"> View Preview </button>
                         <%= form.submit "Send Newsletter", class: "btn btn-success" %>
                     </div>
                 </div>
@@ -27,3 +28,5 @@
         </div><!-- /.modal-content -->
    </div><!-- /.modal-dialog -->
 </div>
+
+<%= javascript_pack_tag 'newsletter'%>

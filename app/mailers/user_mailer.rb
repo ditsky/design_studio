@@ -58,7 +58,7 @@ class UserMailer < ApplicationMailer
     mail to: email, subject: "Order Shipped!"
   end
 
-  def newsletter(users = User.all, email)
+  def newsletter(users = User.all, email = "testing preview")
     @users = users
     @body = email
     headers['X-Entity-Ref-ID'] = "6"
