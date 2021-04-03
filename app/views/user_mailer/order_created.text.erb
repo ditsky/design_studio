@@ -5,10 +5,25 @@ Hi Mom!
 
 You have recieved an order! Below are the details:
 
+Customer: 
 
-<% @cards.each do |card| %>
-    Description: <%= card.short_description %> Quantity: <%= @sizes[card.id] %> Price: $<%= price_to_string(@sizes[card.id] * card.price) %>
-<% end %>
+    Name: <%= @name %>
+    Email: <%= @email %>
+    Phone Number: <%= @address.phone_number %>
+
+Address:
+
+    Address Line 1: <%= @address.address_line_1 %>
+    Address Line 2: <%= @address.address_line_2 %>
+    City: <%= @address.city %>
+    State: <%= @address.state %>
+    Zip: <%= @address.zip %>
+
+Cards:
+
+    <% @cards.each do |card| %>
+        Description: <%= card.short_description %> Quantity: <%= @sizes[card.id] %> Price: $<%= price_to_string(@sizes[card.id] * card.price) %>
+    <% end %>
 
 
 Visit this link to view all the orders on the site: https://jennifersdesignstudio.org/orders.

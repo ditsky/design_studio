@@ -35,10 +35,14 @@ class UserMailer < ApplicationMailer
   end
 
 
-  def order_created(order)
+  def order_created(email, name, order)
+    @email = email
+    @name = name
+    @address = order.shipping_address
     @total = price_to_string(order.total)
     @cards = order.cards
     @sizes = order.card_totals
+    
     headers['X-Entity-Ref-ID'] = "4"
     mail to: ENV['ADMIN_EMAIL'], subject: "You Have Recieved an Order!"
   end

@@ -44,7 +44,7 @@ module StripeManager
         def send_receipts(intent, order)
             puts "Sending Receipts for a $: " + (order.amount / 100).to_s + " order "
             order.send_receipt(intent.receipt_email, intent.shipping.name, order)
-            UserMailer.order_created(order).deliver_now
+            UserMailer.order_created(intent.receipt_email, intent.shipping.name, order).deliver_now
         end
 
     end

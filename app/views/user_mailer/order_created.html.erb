@@ -9,6 +9,39 @@ You have recieved an order! Below are the details:
 
 <table class="table table-striped">
     <thead >
+        <h3 class="center pad-top pad-bottom">Customer Info:</h3>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="no-wrap"> <%= @name %> </td>
+            <td class="no-wrap"> <%= @email %> </td>
+            <td class="no-wrap container"> <%= @address.phone_number%> </td>
+        </tr>
+    </tbody>
+    <thead>
+        <h3 class="center pad-top pad-bottom">Address:</h3>
+        <tr>
+            <th scope="col">Address Line 1</th>
+            <th scope="col">Address Line 2</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
+            <th scope="col">Zip</th>
+    </thead>
+        <tbody>
+            <tr>
+                <td class="no-wrap container"> <%= @address.address_line_1%> </td>
+                <td class="no-wrap container"> <%= @address.address_line_2%> </td>
+                <td class="no-wrap container"> <%= @address.city%> </td>
+                <td class="no-wrap container"> <%= @address.state%> </td>
+                <td class="no-wrap container"> <%= @address.zip%> </td>
+            </tr>
+        </tbody>
+    <thead >
         <h3 class="center pad-top pad-bottom">Purchased Items</h3>
         <tr>
             <th scope="col">Description</th>
